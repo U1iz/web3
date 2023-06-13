@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Katex Example</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.11.1/katex.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.11.1/katex.min.js"></script>
+	<script src="https://cdn.staticfile.org/jquery/3.6.0/jquery.min.js"></script>
+	<style>
+		.formula {
+			font: 800 2rem auto;
+			margin: 1rem;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="formula"></div>
+	<div class="formula"></div>
+	<div class="formula"></div>
+
+
+	<script>
+		const left = '\\frac{\\delta E}{\\delta W_{j,k}} = '
+
+		const formula_list = [
+			left + `\\frac{\\delta}{\\delta W_{j,k}}(t_{k} - o_{k})^{2}`,
+			left + `\\frac{\\delta E}{\\delta O_{k}} · \\frac{\\delta O_{k}}{\\delta W_{j,k}}`,
+			left + "-2(t_{k} - o_{k}) · \\frac{\\delta O_{k}}{\\delta W_{j,k}}",
+		]
+		document.addEventListener("DOMContentLoaded", () => {
+			$('.formula').get().forEach((e, i) => {
+				katex.render(formula_list[i] ?? '', e);
+				// drawSvg(e)
+				// let _r = getSvgCode(e)
+				// console.log(_r);
+				
+			})
+		})
+
+		function getSvgCode(element) {
+			// 获取元素中所有的标签
+			var elements = element.querySelectorAll('*');
+
+			// 定义点、线、面数组
+			var points = [];
+			var lines = [];
+			var polygons = [];
+
+			// 遍历所有标签，并将它们转换为点线面信息
+			for (var i = 0; i < elements.length; i++) {
+				var tag = elements[i].tagName.toLowerCase();
+				var attributes = elements[i].attributes;
+
+				// 将所有点转换为点数组
+				if (tag === 'circle' || tag === 'rect' || tag === 'polygon') {
+					var cx, cy;
+					if (tag === 'circle') {
+						cx = +attributes.cx.value;
+						cy = +attributes.cy.value;
+					} else if (tag === 'rect') {
+						cx = +attributes.x.value + (+attributes.width.value / 2);
+						cy = +attributes.y.value + (+attributes.height.value / 2);
+					} else {
+						var pointsAttr = attributes.points.value.split(" ");
+						cx = +pointsAttr[0];
+						cy = +pointsAttr[1];
+					}
+					points.push({
+						x: cx,
+						y: cy
+					});
+				}
+
+				// 将所有线条转换为线数组
+				if (tag === 'line' || tag === 'polyline' || tag === 'path') {
+					var x1, y1, x2, y2;
+					if (tag === 'line') {
+						x1 = +attributes.x1.value;
+						y1 = +attributes.y1.value;
+						x2 = +attributes.x2.value;
+						y2 = +attributes.y2.value;
+						lines.push({
+							x1: x1,
+							y1: y1,
+							x2: x2,
+							y2: y2
+						});
+					} else if (tag === 'polyline') {
+						var pointsAttr = attributes.points.value.split(" ");
+						for (var j = 0; j < pointsAttr.length - 1; j++) {
+							var pointsAttrValues = pointsAttr[j].split(",");
+							var point1 = {
+								x: +pointsAttrValues[0],
+								y: +pointsAttrValues[1]
+							};
+							var point2 = {
+								x: +pointsAttr[j + 1].split(",")[0],
+								y: +pointsAttr[j + 1].split(",")[1]
+							};
+							lines.push({
+								x1: point1.x,
+								y1: point1.y,
+								x2: point2.x,
+								y2: point2.y
+							});
+						}
+					} else {
+						var path = attributes.d.value.split(" ");
+						for (var j = 0; j < path.length; j++) {
+							var pathValue = path[j];
+							if (pathValue === 'M') {
+								x1 = +path[j + 1];
+								y1 = +path[j + 2];
+							} else if (pathValue === 'L') {
+								x2 = +path[j + 1];
+								y2 = +path[j + 2];
+								lines.push({
+									x1: x1,
+									y1: y1,
+									x2: x2,
+									y2: y2
+								});
+								x1 = x2;
+								y1 = y2;
+							} else if (pathValue === 'Z') {
+								x2 = +path[1];
+								y2 = +path[2];
+								lines.push({
+									x1: x1,
+									y1: y1,
+									x2: x2,
+									y2: y2
+								});
+								x1 = x2;
+								y1 = y2;
+							}
+						}
+					}
+				}
+
+				// 将所有多边形转换为面数组
+				if (tag === 'polygon') {
+					var pointsAttr = attributes.points.value.split(" ");
+					var vertices = [];
+					for (var j = 0; j < pointsAttr.length; j++) {
+						vertices.push(points[+pointsAttr[j]]);
+					}
+					polygons.push(vertices);
+				}
+			}
+
+			// 将点、线、面数组转换为SVG代码
+			var svgCode = '';
+			svgCode += '<svg>';
+			for (var i = 0; i < points.length; i++) {
+				svgCode += '<circle cx="' + points[i].x + '" cy="' + points[i].y + '" r="' + 2 + '"/>';
+			}
+			for (var i = 0; i < lines.length; i++) {
+				svgCode += '<line x1="' + lines[i].x1 + '" y1="' + lines[i].y1 + '" x2="' + lines[i].x2 + '" y2="' + lines[i]
+					.y2 + '" />';
+			}
+			for (var i = 0; i < polygons.length; i++) {
+				var polygonStr = '';
+				for (var j = 0; j < polygons[i].length; j++) {
+					var vertex = polygons[i][j];
+					polygonStr += ' ' + vertex.x + ',' + vertex.y;
+				}
+				svgCode += '<polygon points="' + polygonStr + '"/>';
+			}
+			svgCode += '</svg>';
+			console.log(getSvgCode);
+			return svgCode;
+		}
+
+		function drawSvg(element) {
+			// 获取元素的宽度和高度
+			const width = element.offsetWidth;
+			const height = element.offsetHeight;
+
+			// 创建一个空的SVG元素
+			const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+			svg.setAttribute("width", width);
+			svg.setAttribute("height", height);
+
+			// 将SVG元素添加到页面中
+			element.appendChild(svg);
+
+			// 获取元素的HTML内容，并将其添加到SVG元素中
+			const html = element.innerHTML;
+			const foreignObject = document.createElementNS("http://www.w3.org/2000/svg", "foreignObject");
+			foreignObject.setAttribute("x", 0);
+			foreignObject.setAttribute("y", 0);
+			foreignObject.setAttribute("width", width);
+			foreignObject.setAttribute("height", height);
+			foreignObject.innerHTML = html;
+			svg.appendChild(foreignObject);
+
+			// 返回SVG元素
+			return svg;
+		}
+	</script>
+</body>
+
+</html>

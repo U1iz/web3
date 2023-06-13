@@ -1,0 +1,31 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+[RequireComponent(typeof(Event))]
+public class Event_other : MonoBehaviour
+{
+    Event game_event;
+
+    void Start()
+    {
+        game_event = transform.GetComponent<Event>();
+        game_event.e += on_game_event;
+        Invoke("on_event_trigger", 6f);
+    }
+
+    void on_event_trigger()
+    {
+        // 事件委托也可以在外部触发
+        game_event.e("第（2）次触发", 10);
+    }
+
+    // 需要与事件委托参数一直
+    void on_game_event(string str, int num)
+    {
+        Debug.Log("on_game_event" + num + str);
+    }
+
+    // Update is called once per frame
+    void Update() { }
+}

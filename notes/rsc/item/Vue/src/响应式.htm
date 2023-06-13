@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test_01</title>
+    <!-- <script src="node_modules/vue/dist/vue.browser.js"></script> -->
+    <script type="importmap">
+        {
+          "imports": {
+            "vue": "/node_modules/vue/dist/vue.esm-browser.js"
+          }
+        }
+      </script>
+</head>
+
+<body>
+    <p>使用普通插入 ——innerText: {{ rawHtml }}</p>
+    <p>使用 v-html ——innerHTML: <span v-html="rawHtml"></span></p>
+    <div v-bind:id="vid"></div>
+    <div :class="vid"></div>
+    <button :disabled="buttonDisabled">disable</button>
+    <button :disabled="buttonenabled">enbale</button>
+
+    <script type="module">
+        import { createApp } from 'vue'
+
+        export default {
+            data() {
+                return {
+                    count: 1
+                }
+            },
+
+            // `mounted` is a lifecycle hook which we will explain later
+            mounted() {
+                // `this` refers to the component instance.
+                console.log(this.count) // => 1
+
+                // data can be mutated as well
+                this.count = 2
+            }
+        }
+    </script>
+    <template>
+        Count is: {{ count }}
+    </template>
+</body>
+
+</html>

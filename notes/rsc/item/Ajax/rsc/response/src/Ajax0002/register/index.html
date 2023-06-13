@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>注册页面</title>
+</head>
+
+<body>
+    <h1>注册验证</h1>
+    <form action="./checkUsername.php" method="get">
+
+        用户名：<input type="text" name="username" id="ipt" onkeyup="getMsg(this.value);">
+        <span id="msg"></span>
+        <br>
+
+        <input type="submit" value="提交">
+
+    </form>
+    <script>
+        // 封装 Ajax 功能
+        function getMsg(value) {
+            // xhr，全称为XMLHttpRequest，用于与服务器交互数据，是ajax功能实现所依赖的对象，jquery中的ajax就是对 xhr的封装。
+            let xhr = new XMLHttpRequest();
+            xhr.open('get', 'checkUsername.php?username=' + value, true);
+            xhr.send(null);
+            xhr.onreadystatechange = function () {
+                let result = xhr.responseText;
+                msg.innerHTML = result;
+            }
+        }
+    </script>
+</body>
+
+</html>

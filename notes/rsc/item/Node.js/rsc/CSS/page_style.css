@@ -1,0 +1,30 @@
+@font-face {
+    font-family: '杨任东竹石体';
+    src: url(../../font/0/杨任东竹石体-Regular.ttf);
+}
+
+@font-face {
+    font-family: '新蒂小丸子小学版';
+    src: url(../../font/0/新蒂小丸子小学版.TTF);
+}
+
+@font-face {
+    font-family: '站酷快乐体';
+    src: url(../../font/0/站酷快乐体.TTF);
+}
+
+@font-face {
+    font-family: "KimsGirlType";
+    src: url(../../font/1/KimsGirlType.ttf);
+}
+
+@font-face {
+    font-family: '爱心流星体';
+    src: url(../../font/1/爱心流星体.ttf);
+    color: rgb(15, 36, 82);
+}
+
+.absolutePar span {
+    color: inherit !important;
+    box-sizing: border-box;
+}

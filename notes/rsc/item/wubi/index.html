@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>普通话测试</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            padding: 0 10%;
+        }
+
+        img {
+            filter: brightness(200%) saturate(200%) contrast(100%);
+            width: 100%;
+            vertical-align: bottom;
+        }
+    </style>
+</head>
+
+<body>
+    亮度<input type="number" id="brightness_ctrl" value="200">
+    饱和度<input type="number" id="saturate_ctrl" value="200">
+    对比度<input type="number" id="contrast_ctrl" value="100">
+    <button id="submit">应用</button>
+    <script>
+        let arr = [01, 02, 03, 04, 05, 06, 07, 08, 09, 10, 11, 12];
+        for (let i in arr) {
+            let img = document.createElement('img');
+            arr[i] = arr[i] <= 9 ? '0' + arr[i] : arr[i];
+            img.src = 'img/' + arr[i] + '.jpg';
+            document.body.appendChild(img)
+        }
+
+        let brightness_ctrl = document.querySelector('#brightness_ctrl');
+        let saturate_ctrl = document.querySelector('#saturate_ctrl');
+        let contrast_ctrl = document.querySelector('#contrast_ctrl');
+
+        let val_arr = [brightness_ctrl, saturate_ctrl, contrast_ctrl]
+        let submit = document.querySelector('#submit');
+        submit.onclick = () => {
+            let filter =
+                `brightness(${brightness_ctrl.value}%) saturate(${saturate_ctrl.value}%) contrast(${contrast_ctrl.value}%)`;
+            document.querySelectorAll('img').forEach(e => {
+                e.style.filter = filter;
+                console.log(filter);
+            });
+        }
+    </script>
+</body>
+
+</html>

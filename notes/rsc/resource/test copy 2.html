@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            font-size: 24px;
+        }
+
+        body {
+            background: #fff;
+        }
+
+        #d {
+            position: relative;
+            width: 90%;
+            height: 1rem;
+            margin: 6rem auto;
+            background: #ddd;
+
+            border-radius: 1rem;
+        }
+
+        .close {
+            overflow: hidden;
+        }
+
+        .open-toggle {
+            overflow: visible;
+        }
+
+        li {
+            display: block;
+        }
+
+        .c {
+            margin: 0;
+        }
+    </style>
+
+    <style>
+        #u {
+            position: relative;
+            transition: all 0.3s;
+        }
+
+        .up {
+            top: -100%;
+        }
+
+        .down {
+            top: 0%;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="d" class="close" data-name="点击显示代码">
+        <ul id="u" class="up"></ul>
+    </div>
+    <script>
+        window.addEventListener('load', () => {
+            code_toggle(d, u)
+        })
+
+        function code_toggle(par_node, son_node) {
+            let t = par_node.dataset["name"];
+            let g_div_tit_background = '#ddd'; {
+                let s = document.createElement('style');
+                s.innerHTML =
+                    '.div_tit-toggle { position: absolute; top: 100%; left: 1rem; transition: all 0.3s; opacity: 1; background: ' +
+                    g_div_tit_background + ' }'
+                document.head.appendChild(s)
+            }
+
+            son_node.style.opacity = 0;
+            son_node.style.zIndex = -1;
+
+            window.addEventListener('load', () => {
+                son_node.style.top = -son_node.clientHeight + 'px';
+            })
+            add_div_tit(par_node)
+
+            function add_div_tit(e, type) {
+                if (type == 'down') {
+                    let elem = e.querySelector('.div_tit-toggle');
+                    elem.style.top = '100%';
+                    elem.style.opacity = 0;
+                    son_node.style.opacity = 1;
+
+                } else {
+                    if (!e.querySelector('.div_tit-toggle')) {
+                        let div = document.createElement('div');
+
+                        div.className += ' div_tit-toggle';
+                        div.innerHTML = par_node.dataset["name"];
+                        par_node.style.padding = '0.2rem 1rem'
+                        par_node.appendChild(div)
+                    }
+                    al_exist(true)
+                }
+
+                function al_exist(toggle) {
+                    let p = 6;
+                    let elem = e.querySelector('.div_tit-toggle');
+                    if (toggle) {
+                        e.style.height = elem.clientHeight + p * 2 + 'px';
+                        elem.style.top = p + 'px';
+                        elem.style.opacity = 1;
+                        son_node.style.opacity = 0;
+                        elem.style.background = g_div_tit_background;
+                    } else {
+                        e.style.height = elem.clientHeight + p * 2 + 'px';
+                        elem.style.top = '100%';
+                        son_node.style.opacity = 1;
+                    }
+                }
+            }
+
+            {
+                let flag = 0;
+
+                let u = son_node;
+                par_node.addEventListener('click', (e) => {
+                    console.log(e.target);
+                    console.log(par_node);
+                    // if (e.target == par_node || e.target.className == 'div_tit-toggle') {
+                    if (true) {
+                        switch (flag) {
+                            case 0:
+                                par_node.className = 'open-toggle';
+                                u.style.top = 0;
+                                add_div_tit(d, 'down')
+                                flag = 1;
+                                break;
+                            case 1:
+                                par_node.className = 'close';
+                                u.style.top = -u.clientHeight + 'px';
+                                add_div_tit(d)
+                                flag = 0;
+                                break;
+                        }
+                    }
+                })
+            }
+            for (let i = 0; i < 30; i++) {
+                let li = document.createElement('li');
+                li.innerHTML = 1233 + i * 1024;
+                son_node.appendChild(li)
+            }
+        }
+    </script>
+</body>
+
+</html>

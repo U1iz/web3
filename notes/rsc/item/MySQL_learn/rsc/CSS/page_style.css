@@ -1,0 +1,47 @@
+.absolutePar span {
+    color: inherit !important;
+    box-sizing: border-box;
+}
+
+.code_copy_wrap {
+    position: relative !important;
+    display: inline-block !important;
+    /* overflow: hidden; */
+    left: 5%;
+    padding: 0.1rem;
+}
+
+.code_source {
+    position: absolute !important;
+    left: 0 !important;
+    top: 0 !important;
+    resize: none !important;
+    outline: none !important;
+    border: none !important;
+    pointer-events: none !important;
+    background: transparent !important;
+    color: transparent !important;
+    /* width: 0 !important;
+    height: 0 !important; */
+    overflow: hidden;
+}
+
+.code_source::-webkit-scrollbar,
+.code_copy_wrap::selection,
+.code_copy_wrap *::selection {
+    background: transparent !important;
+    color: transparent !important;
+}
+
+body .code_copy_wrap .copy_btn::selection {
+    text-shadow: 0.02rem 0.02rem 0.06rem red;
+    color: #fff !important;
+}
+
+.copy_btn {
+    cursor: default;
+    padding: 0.2rem 0.6rem;
+    font: 400 0.72rem auto;
+    border-radius: 1rem;
+    background-color: rgba(100, 100, 100, .2);
+}

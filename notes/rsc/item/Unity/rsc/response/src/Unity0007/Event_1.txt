@@ -1,0 +1,58 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Event : MonoBehaviour
+{
+    // 定义一个 委托类型
+    // 该委托的回调函数 参数类型为 (string, int)
+    public delegate void EventHandler(string str, int num);
+
+    // 创建一个委托实例的引用
+    EventHandler __event = null;
+
+    // public 后可被外部脚本引用
+    // public EventHandler e = null;
+    // 如果允许委托在外部访问或修改，但不希望事件在外部触发，可以使用 event修饰
+    public event EventHandler e = null;
+
+    void Start()
+    {
+        // 事件监听可以增加或减少
+        __event = new EventHandler(on_event);
+        EventHandler __event1 = new EventHandler(on_event_1);
+        EventHandler __event2 = new EventHandler(on_event_2);
+
+        __event += (__event1 + __event2);
+
+        // 隐式地创建了一个委托对象
+        e += on_event;
+        e += on_event_1;
+        e += on_event_2;
+        e -= on_event_2;
+
+        // 3秒后触发事件委托
+        Invoke("cancel_timer", 3f);
+    }
+
+    void on_event(string str, int num)
+    {
+        Debug.Log("on_event: " + num + str);
+    }
+
+    void on_event_1(string str, int num)
+    {
+        Debug.Log("on_event_1: " + num + str);
+    }
+
+    void on_event_2(string str, int num)
+    {
+        Debug.Log("on_event_2: " + num + str);
+    }
+
+    void cancel_timer()
+    {
+        __event("传入的字符串", 000);
+        e("第（1）次触发", 001);
+    }
+}

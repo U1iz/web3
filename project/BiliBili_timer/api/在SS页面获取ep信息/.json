@@ -1,0 +1,348 @@
+{
+    "code": 0,
+    "message": "success",
+    "result": {
+        "activity": {
+            "head_bg_url": "",
+            "id": 0,
+            "title": ""
+        },
+        "actors": "",
+        "alias": "",
+        "areas": [{
+            "id": 2,
+            "name": "日本"
+        }],
+        "bkg_cover": "",
+        "cover": "http://i0.hdslb.com/bfs/bangumi/image/598dc24c8510aa8befedb60036fe3f0b492e74e7.png",
+        "episodes": [
+            {
+                "aid": 205603594,
+                "badge": "会员",
+                "badge_info": {
+                    "bg_color": "#FB7299",
+                    "bg_color_night": "#BB5B76",
+                    "text": "会员"
+                },
+                "badge_type": 0,
+                "bvid": "BV1Mh411v7o3",
+                "cid": 337472146,
+                "cover": "http://i0.hdslb.com/bfs/archive/9d7c5581f94c883afff61e5026774ff0d0f1a28b.jpg",
+                "dimension": {
+                    "height": 1080,
+                    "rotate": 0,
+                    "width": 1440
+                },
+                "duration": 1434000,
+                "enable_vt": false,
+                "from": "bangumi",
+                "id": 403107,
+                "is_view_hide": false,
+                "link": "https://www.bilibili.com/bangumi/play/ep403107",
+                "1": "遥远的故乡乌克巴尔",
+                "pub_time": 1621612801,
+                "pv": 0,
+                "release_date": "",
+                "rights": {
+                    "allow_demand": 0,
+                    "allow_dm": 1,
+                    "allow_download": 0,
+                    "area_limit": 0
+                },
+                "share_copy": "《盖亚奥特曼》第29话 遥远的故乡乌克巴尔",
+                "share_url": "https://www.bilibili.com/bangumi/play/ep403107",
+                "short_link": "https://b23.tv/ep403107",
+                "skip": {
+                    "ed": {
+                        "end": 1433,
+                        "start": 1344
+                    },
+                    "op": {
+                        "end": 85,
+                        "start": 0
+                    }
+                },
+                "status": 13,
+                "subtitle": "已观看2244.7万次",
+                "title": "29",
+                "vid": ""
+            }
+        ],
+        "evaluate": "1997年，超级电脑炼金之星预测到地球将会破坏招来体所消灭。得知此事后人类用炼金之星的研究技术组成一个全球防御组织GUARD，而XIG则是GUARD的战斗力量。\n2000年，天才少年·高山我梦在一次试验中见到神秘的红色光之巨人。当破坏招来体第一次进攻的时侯，XIG起不到作用。此时，我梦坠入光之隧道，并再次看见巨人，他希望巨人能赐予力量保卫地球。于是，巨人与我梦合二为一，并与破坏招来体展开了战斗。\n在战胜破坏招来体之后，我梦加入了XIG，而巨人则被命名为“盖亚”。但此时，另一名青年·藤宫博也亦拥有着变身成巨人“阿古茹”的力量。两个巨人与破坏招来体将会展开一连串的战斗。",
+        "freya": {
+            "bubble_desc": "",
+            "bubble_show_cnt": 0,
+            "icon_show": 1
+        },
+        "jp_title": "",
+        "link": "http://www.bilibili.com/bangumi/media/md28234382/",
+        "media_id": 28234382,
+        "mode": 2,
+        "new_ep": {
+            "desc": "已完结, 全51话",
+            "id": 403129,
+            "is_new": 0,
+            "title": "51"
+        },
+        "payment": {
+            "discount": 100,
+            "pay_type": {
+                "allow_discount": 0,
+                "allow_pack": 0,
+                "allow_ticket": 0,
+                "allow_time_limit": 0,
+                "allow_vip_discount": 0,
+                "forbid_bb": 0
+            },
+            "price": "0.0",
+            "promotion": "",
+            "tip": "大会员专享观看特权哦~",
+            "view_start_time": 0,
+            "vip_discount": 100,
+            "vip_first_promotion": "",
+            "vip_price": "0",
+            "vip_promotion": "开通大会员观看"
+        },
+        "positive": {
+            "id": 59985,
+            "title": "正片"
+        },
+        "publish": {
+            "is_finish": 1,
+            "is_started": 1,
+            "pub_time": "2021-05-22 00:00:00",
+            "pub_time_show": "2021年05月22日00:00",
+            "unknow_pub_date": 0,
+            "weekday": 0
+        },
+        "rating": {
+            "count": 8928,
+            "score": 9.8
+        },
+        "record": "登记号：10417060169212403",
+        "rights": {
+            "allow_bp": 0,
+            "allow_bp_rank": 0,
+            "allow_download": 0,
+            "allow_review": 1,
+            "area_limit": 328,
+            "ban_area_show": 1,
+            "can_watch": 1,
+            "copyright": "bilibili",
+            "forbid_pre": 0,
+            "freya_white": 0,
+            "is_cover_show": 0,
+            "is_preview": 0,
+            "only_vip_download": 0,
+            "resource": "",
+            "watch_platform": 0
+        },
+        "season_id": 38693,
+        "season_title": "盖亚奥特曼",
+        "section": [{
+            "attr": 0,
+            "episode_id": 0,
+            "episode_ids": [],
+            "episodes": [{
+                    "aid": 760684394,
+                    "badge": "",
+                    "badge_info": {
+                        "bg_color": "#FB7299",
+                        "bg_color_night": "#BB5B76",
+                        "text": ""
+                    },
+                    "badge_type": 0,
+                    "bvid": "BV1n64y1y7Yx",
+                    "cid": 340969192,
+                    "cover": "http://i0.hdslb.com/bfs/archive/79570e1a20b6b1e3dad5f25236d6721c29643abb.jpg",
+                    "dimension": {
+                        "height": 1080,
+                        "rotate": 0,
+                        "width": 1440
+                    },
+                    "duration": 86000,
+                    "enable_vt": false,
+                    "from": "bangumi",
+                    "icon_font": {
+                        "name": "playdata-square-line@500",
+                        "text": "35.9万"
+                    },
+                    "id": 403759,
+                    "is_view_hide": false,
+                    "link": "https://www.bilibili.com/bangumi/play/ep403759",
+                    "long_title": "",
+                    "pub_time": 1621591200,
+                    "pv": 0,
+                    "release_date": "",
+                    "rights": {
+                        "allow_demand": 0,
+                        "allow_dm": 1,
+                        "allow_download": 0,
+                        "area_limit": 0
+                    },
+                    "share_copy": "《盖亚奥特曼》OP 数码修复版 ",
+                    "share_url": "https://www.bilibili.com/bangumi/play/ep403759",
+                    "short_link": "https://b23.tv/ep403759",
+                    "skip": {
+                        "ed": {
+                            "end": 0,
+                            "start": 0
+                        },
+                        "op": {
+                            "end": 0,
+                            "start": 0
+                        }
+                    },
+                    "stat": {
+                        "coin": 828,
+                        "danmakus": 245,
+                        "likes": 7760,
+                        "play": 359028,
+                        "reply": 757,
+                        "vt": 0
+                    },
+                    "status": 2,
+                    "subtitle": "已观看2244.7万次",
+                    "title": "OP 数码修复版",
+                    "vid": ""
+                },
+                {
+                    "aid": 760656018,
+                    "badge": "",
+                    "badge_info": {
+                        "bg_color": "#FB7299",
+                        "bg_color_night": "#BB5B76",
+                        "text": ""
+                    },
+                    "badge_type": 0,
+                    "bvid": "BV1V64y1y79B",
+                    "cid": 340969744,
+                    "cover": "http://i0.hdslb.com/bfs/archive/d87a638cf4ed21541c4cece66f864aa5bf1fa9e1.jpg",
+                    "dimension": {
+                        "height": 1080,
+                        "rotate": 0,
+                        "width": 1440
+                    },
+                    "duration": 75000,
+                    "enable_vt": false,
+                    "from": "bangumi",
+                    "icon_font": {
+                        "name": "playdata-square-line@500",
+                        "text": "29.7万"
+                    },
+                    "id": 403760,
+                    "is_view_hide": false,
+                    "link": "https://www.bilibili.com/bangumi/play/ep403760",
+                    "long_title": "",
+                    "pub_time": 1621591200,
+                    "pv": 0,
+                    "release_date": "",
+                    "rights": {
+                        "allow_demand": 0,
+                        "allow_dm": 1,
+                        "allow_download": 0,
+                        "area_limit": 0
+                    },
+                    "share_copy": "《盖亚奥特曼》ED 数码修复版 ",
+                    "share_url": "https://www.bilibili.com/bangumi/play/ep403760",
+                    "short_link": "https://b23.tv/ep403760",
+                    "skip": {
+                        "ed": {
+                            "end": 0,
+                            "start": 0
+                        },
+                        "op": {
+                            "end": 0,
+                            "start": 0
+                        }
+                    },
+                    "stat": {
+                        "coin": 419,
+                        "danmakus": 45,
+                        "likes": 2160,
+                        "play": 296624,
+                        "reply": 137,
+                        "vt": 0
+                    },
+                    "status": 2,
+                    "subtitle": "已观看2244.7万次",
+                    "title": "ED 数码修复版",
+                    "vid": ""
+                }
+            ],
+            "id": 60073,
+            "title": "经典回顾",
+            "type": 2
+        }],
+        "series": {
+            "display_type": 0,
+            "series_id": 6156,
+            "series_title": "平成奥特曼"
+        },
+        "share_copy": "《盖亚奥特曼》来自地球的巨人",
+        "share_sub_title": "来自地球的巨人",
+        "share_url": "https://www.bilibili.com/bangumi/play/ss38693",
+        "show": {
+            "wide_screen": 0
+        },
+        "show_season_type": 1,
+        "square_cover": "http://i0.hdslb.com/bfs/bangumi/image/9e5e5581cac621f4a60de694ad702a85feafd80f.png",
+        "staff": "导演：村石宏实 / 高野敏幸 / 原田昌树 / 児玉高志 / 根本実樹 / 北浦嗣巳 / 石川整 / 八木毅\n编剧：小中千昭 / 長谷川圭一 / 川上英幸 / 吉田伸 / 武上純希 / 太田愛 / 古怒田健志 / 右田昌万 / 大西信介 / 増田貴彦\n主演：吉冈毅志 / 高野八诚 / 渡边裕之",
+        "stat": {
+            "coins": 62068,
+            "danmakus": 165550,
+            "favorite": 14894,
+            "favorites": 809101,
+            "likes": 258855,
+            "reply": 16248,
+            "share": 8969,
+            "views": 22446534
+        },
+        "status": 13,
+        "styles": [
+            "特摄",
+            "热血",
+            "战斗",
+            "科幻"
+        ],
+        "subtitle": "已观看2244.7万次",
+        "title": "盖亚奥特曼",
+        "total": 51,
+        "type": 1,
+        "up_info": {
+            "avatar": "https://i1.hdslb.com/bfs/face/040528a1ec634b9907ba3a9ba957819bb07def06.jpg",
+            "avatar_subscript_url": "",
+            "follower": 6043861,
+            "is_follow": 0,
+            "mid": 928123,
+            "nickname_color": "#FB7299",
+            "pendant": {
+                "image": "",
+                "name": "",
+                "pid": 0
+            },
+            "theme_type": 0,
+            "uname": "哔哩哔哩番剧",
+            "verify_type": 3,
+            "vip_label": {
+                "bg_color": "#FB7299",
+                "bg_style": 1,
+                "border_color": "",
+                "text": "十年大会员",
+                "text_color": "#FFFFFF"
+            },
+            "vip_status": 1,
+            "vip_type": 2
+        },
+        "user_status": {
+            "area_limit": 0,
+            "ban_area_show": 0,
+            "follow": 0,
+            "follow_status": 0,
+            "login": 0,
+            "pay": 0,
+            "pay_pack_paid": 0,
+            "sponsor": 0
+        }
+    }
+}

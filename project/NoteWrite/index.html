@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NoteWrite</title>
+    <script src="../../lib/jQuery.min.js"></script>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        body {
+            height: 1920px;
+        }
+
+        input {
+            border: none;
+            outline: none;
+            background: transparent;
+            padding: 0;
+        }
+
+        .absoluteInput,
+        .imgSet {
+            position: absolute;
+        }
+    </style>
+</head>
+
+<body>
+    <button id="btn_save">保存</button>
+    <button id="btn_clear">清空</button>
+    <div id="byteMsg"></div>
+    <div id="input_set"></div>
+    <script>
+        function readByte() {
+            let c = typeof localStorage.getItem('NoteWriteValue') == "number" ?
+                localStorage.getItem("NoteWriteValue") : '';
+            c = $('#input_set').html();
+            let len = 0;
+            for (let ch of c) {
+                if (ch.codePointAt(0) > 0xFFFF) {
+                    len += 4;
+                } else {
+                    len += 2;
+                }
+            }
+            $('#byteMsg').text('localStorage已占用: ' + len + '字节\nchrome内核上限10000000字节')
+        }
+
+        let globalStep = {
+            img: false,
+            input: false
+        }; {
+            if (localStorage.getItem('NoteWriteValue')) {
+                readByte();
+                $('#input_set').append(localStorage.getItem('NoteWriteValue'))
+                globalStep.img = ($('.imgSet')[$('.imgSet').length - 1].id).split('_')[1]
+                globalStep.input = ($('.absoluteInput')[$('.absoluteInput').length - 1].id).split('_')[1]
+            }else {
+                $('#input_set').append('<img class="imgSet" id="imgSet_0" src="data:image/png;base64,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" style="top: 187px; left: 208px;"><img class="imgSet" id="imgSet_1" style="top: 204px; left: 250px;"><img class="imgSet" id="imgSet_2" style="top: 196px; left: 380px;"><input class="absoluteInput" id="inputSet_0" value="灵感来源于 OneNote" style="top: 196px; left: 380px;"><img class="imgSet" id="imgSet_3" style="top: 233px; left: 372px;"><input class="absoluteInput" id="inputSet_1" value="目前这里仅仅是个测试页面" style="top: 233px; left: 372px;"><img class="imgSet" id="imgSet_4" style="top: 270px; left: 380px;"><input class="absoluteInput" id="inputSet_2" value="如果有精力能力的话" style="top: 270px; left: 380px;"><img class="imgSet" id="imgSet_5" style="top: 310px; left: 380px;"><input class="absoluteInput" id="inputSet_3" value="我可能会继续完善下去" style="top: 310px; left: 380px;">');
+            }
+            $('#btn_save').click(function () {
+                localStorage.setItem('NoteWriteValue', $('#input_set').html())
+                readByte();
+            });
+            $('#btn_clear').click(function () {
+                localStorage.removeItem('NoteWriteValue')
+                $('#input_set').html('');
+                readByte();
+                $('#input_set').html('');
+            });
+
+
+        } {
+            let img_idSet_step = 0;
+            let input_idSet_step = 0;
+            if (globalStep.img) {
+                img_idSet_step = globalStep.img;
+            }
+            if (globalStep.input) {
+                input_idSet_step = globalStep.input;
+
+            }
+
+            function handlePaste(e) {
+                // 粘贴对象
+                if (e.clipboardData || e.originalEvent) {
+                    const clipboardData = (event.clipboardData || event.originalEvent.clipboardData);
+                    if (clipboardData.items) {
+                        let blob;
+                        for (let i = 0; i < clipboardData.items.length; i++) {
+                            if (clipboardData.items[i].type.indexOf('image') !== -1) {
+                                blob = clipboardData.items[i].getAsFile();
+                            }
+                        }
+
+                        // 粘贴数据
+                        console.log(blob, 'blob')
+
+                        // 生成文件对象
+                        const filer = new FileReader()
+
+                        // 将获取的粘贴数据转成 URL格式的字符串（base64编码）
+                        filer.readAsDataURL(blob)
+
+                        // 这个回调在 filer.readAsDataURL(blob) 的时候触发
+                        filer.onload = (e) => {
+                            console.log(e, 'FileReader')
+                            // 获取URL格式的字符串 Base64编码
+                            const base64 = e.target.result;
+                            console.log(base64, 'base64')
+                            // 通过img输出
+                            $('#imgSet_' + (img_idSet_step - 1)).attr('src', base64)
+                        };
+
+                    }
+                }
+            }
+            /* 在点击的位置添加 input 标签 */
+            $(document).bind({
+                'click': function (e) {
+                    /* 如果上次点击的没有写入内容，则删除并 step-- */
+                    {
+                        let last_inputObj = $('#' + 'inputSet_' + (input_idSet_step - 1));
+                        let last_val = last_inputObj.val();
+                        if (last_val == undefined || last_val == '') {
+                            last_inputObj.remove();
+                            last_val == '' ?
+                                input_idSet_step-- : null;
+                        }
+                    }
+                    if (e.target.tagName == 'INPUT') {
+                        e.target.focus();
+                        console.log(e.target);
+                    } else {
+                        $('#input_set').append('<img class="imgSet" id="imgSet_' + img_idSet_step +
+                            '"></img>').append(
+                            '<input class="absoluteInput" id="inputSet_' +
+                            input_idSet_step + '">');
+                        $('#' + 'inputSet_' + input_idSet_step).css({
+                            top: e.clientY,
+                            left: e.clientX
+                        }).focus().keyup(function (e) {
+                            $(this).attr('value', $(this).val());
+                        });
+                        /*  */
+                        $('#imgSet_' + img_idSet_step).css({
+                            top: e.clientY,
+                            left: e.clientX
+                        });
+                        input_idSet_step++;
+                        img_idSet_step++;
+                    }
+                },
+                'paste': function (e) {
+                    handlePaste(e);
+                }
+            });
+        } {
+            $('.absoluteInput').click()
+        }
+    </script>
+</body>
+
+</html>

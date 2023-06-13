@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>播放视频</title>
+    <script src="../../../../lib/lib.min.js"></script>
+    <script src="../../../../lib/local_lib.min.js"></script>
+    <script src="basic.js"></script>
+    <link rel="stylesheet" href="main_style.css">
+    <style>
+        video,
+        #shelter,
+        #bilicav {
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        video {
+            pointer-events: none;
+            z-index: -2;
+        }
+
+        #shelter {
+            z-index: -1;
+            width: 100%;
+            height: 100%;
+        }
+
+        .canvas_wrap {
+            z-index: 1;
+        }
+
+        #bilicav {
+            position: absolute;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="video_wrap"></div>
+    <div id="shelter"></div>
+    <div class="canvas_wrap" id="bilicav"></div>
+    <script>
+        sessionStorage.setItem('sp', 'true');
+        /*  */
+        add_normalNode('', ['p', 'normal', '16rem 0']);
+        topic('BiliBili Banner', '#4e9fd7');
+        addCav();
+        var videoSrc_step = 1;
+        sessionStorage.setItem('sp', 'true');
+        addVideo('./media/bili/33_main.webm');
+        addVideo('./media/bili/33_game.webm');
+
+        addVideo('./media/bili/22_eyemove_normal.webm');
+        addVideo('./media/bili/22_book.webm');
+        addVideo('./media/bili/22_phone.webm');
+        addVideo('./media/bili/22_putphone.webm');
+
+        addVideo('./media/bili/rainfall.webm');
+
+        function addVideo(path) {
+            var idIndex;
+            videoSrc_step <= 9 ? idIndex = 'v_0' + videoSrc_step : idIndex = 'v_' + videoSrc_step;
+            video_wrap.innerHTML +=
+                `<video src=${path} id=${idIndex} autoplay loop muted></video>`;
+            videoSrc_step++;
+        }
+    </script>
+    <script>
+        /* 随机更换状态 */
+        v_03.addEventListener('playing', () => {
+            let vdt = v_03.duration * 1000;
+            if (v_03.getAttribute('src') == './media/bili/22_phone.webm') {
+                setTimeout(() => {
+                    v_03.pause();
+                    setTimeout(() => {
+                        v_03.src = './media/bili/22_putphone.webm';
+                        setTimeout(() => {
+                            switch_22_video(vdt);
+                        }, vdt);
+                    }, 1000);
+                }, vdt - 10);
+            } else {
+                switch_22_video(vdt);
+            }
+        });
+
+        function switch_22_video(vdt) {
+            var rn = Math.random();
+            switch (v_03.getAttribute('src')) {
+                case './media/bili/22_eyemove_normal.webm':
+                    console.log(1);
+                    change_22_video(rn, vdt);
+                    break;
+                case './media/bili/22_book.webm':
+                    console.log(2);
+                    change_22_video(rn, vdt);
+                    break;
+                case './media/bili/22_phone.webm':
+                    console.log(3);
+                    change_22_video(rn, vdt);
+                    break;
+            }
+        }
+
+        function change_22_video(rn, vdt) {
+            setTimeout(() => {
+                if (rn < 0.3) {
+                    setSrc('./media/bili/22_eyemove_normal.webm');
+                } else if (rn < 0.6) {
+                    setSrc('./media/bili/22_book.webm');
+                } else {
+                    setSrc('./media/bili/22_phone.webm');
+                }
+            }, vdt);
+            console.log(rn);
+        }
+
+        function setSrc(path) {
+            if (v_03.getAttribute('src') != path) {
+                v_03.src = path;
+            }
+        }
+
+        function randomNum(min, max) {
+            let rn = Math.random();
+        }
+
+        window.addEventListener('load', () => {
+            /*  */
+            v_07.playbackRate = 0.5;
+
+            /* 设置 cav 长宽为 1920*320 */
+            cav.setAttribute('width', '1920');
+            cav.setAttribute('height', '360');
+            document.body.style.padding = 0;
+            cav.style.marginLeft = 0;
+            /* img */
+            let bg = new Image();
+            let win_bg = new Image();
+            bg.src = './media/bili/background.png';
+            win_bg.src = './media/bili/background_d.png'
+            if (cav.getContext) {
+                var ctx = cav.getContext('2d');
+                for (let i = 0; i < 6; i++) {
+                    /* max 256, 360 */
+                    /* max 890 1390 */
+
+                    setTimeout(() => {}, Math.random() * 1000);
+                }
+                setInterval(() => {
+                    ctx.clearRect(0, 0, cav.width, cav.height);
+
+                    /* 静态 */
+                    ctx.drawImage(win_bg, 0, 0, 1920, 360);
+                    for (let i = 0; i < 64; i++) {
+                        setTimeout(() => {
+                            ctx.drawImage(v_07,
+                                890 + Math.random() * 500,
+                                Math.random() * 360,
+                                20 + Math.random() * 10,
+                                190 + Math.random() * 40);
+                        }, Math.random() * 20);
+                    }
+
+                    ctx.drawImage(v_07,
+                        Math.random() * 256,
+                        Math.random() * 360,
+                        20 + Math.random() * 10,
+                        190 + Math.random() * 40);
+                    setTimeout(() => {
+
+                        ctx.drawImage(bg, 0, 0);
+
+
+                        /* 动态 */
+                        /* 33 */
+                        ctx.drawImage(v_01, 1410, 50);
+                        ctx.drawImage(v_02, 1646, 96, 94, 47);
+
+                        /* 22 */
+
+                        ctx.drawImage(v_03, 560, 0);
+
+                    }, 0);
+
+                    /* 22 */
+                    /* 秩序更改状态 */
+                    /* ctx.drawImage(v_03, 560, 0);
+                    if (currentPlay == 'book') {
+                        ctx.drawImage(v_04, 560, 0);
+                    } else if (currentPlay == 'phone') {
+                        ctx.drawImage(v_05, 560, 0);
+                    } */
+                    /* 随机更换 22 状态 */
+                    /* switch (currentPlay) {
+                        case 'default':
+                            judge_change(v_03);
+                            break;
+                        case 'book':
+                            judge_change(v_04);
+                            break;
+                        case 'phone':
+                            judge_change(v_05);
+                            break;
+                    } */
+                    /* function change_22_video() {
+                        let rn = Math.pow((Math.random() + 1) * (Math.random() + 1), 6);
+                        if (rn < 10) {
+                            ctx.drawImage(v_03, 560, 0);
+                            currentPlay = 'default';
+                        } else if (rn < 512) {
+                            ctx.drawImage(v_04, 560, 0);
+                            currentPlay = 'book';
+                        } else if (rn < 3072) {
+                            ctx.drawImage(v_05, 560, 0);
+                            currentPlay = 'phone';
+                        } else {
+                            ctx.drawImage(v_03, 560, 0);
+                        }
+                    }
+
+                    function judge_change(e) {
+                        e.addEventListener('loadedmetadata', () => {
+                            console.log("视频的总长度: " + e.duration);
+                        });
+                        e.addEventListener('playing', () => {
+                            change_22_video();
+                        });
+                    } */
+                }, 24);
+            }
+        });
+    </script>
+    <script src="../../../../lib/CodeRenderer.js"></script>
+</body>
+
+</html>

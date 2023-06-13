@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>MDN系列</h1>
+    <ol>
+        <li><a href="./src/1.basic.html"></a></li>
+        <li><a href="./src/2.path.html"></a></li>
+        <li><a href="./src/3.style.html"></a></li>
+        <li><a href="./src/4.font.html"></a></li>
+        <li><a href="./src/5.img.html"></a></li>
+        <li><a href="./src/6.animation.html"></a></li>
+        <li><a href="./src/7.video.html">video 实例（练习）</a></li>
+    </ol>
+    <script>
+        window.onload = () => {
+            let ls = document.querySelector('ol').querySelectorAll('a');
+            for (i in ls) {
+                if (ls[i].innerHTML == '') {
+                    ls[i].innerHTML = ls[i].getAttribute('href').split('/')[2].split('.')[1];
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>

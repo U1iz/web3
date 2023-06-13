@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>代码无高亮</title>
+    <script src="../../..//lib/lib.min.js"></script>
+    <script src="../../../lib/local_lib.min.js"></script>
+    <style>
+        #temp,
+        #t {
+            width: 90%;
+            height: 6rem;
+            background-color: #ddd;
+            margin: 0 auto;
+        }
+
+        .haveNo_sonNode {
+            width: 90%;
+            padding: 2rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="temp">
+        <div id="t"></div>
+    </div>
+    <script>
+        let ffCode;
+
+        function ajax_getFile(path, call) {
+            let xhr = null;
+            if (window.XMLHttpRequest) {
+                xhr = new XMLHttpRequest();
+            } else {
+                xhr = new ActiveXObject('Microsoft.XMLHTTP');
+            }
+
+            if (xhr) {
+                xhr.open("GET", path, true);
+                xhr.send();
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState == 4) {
+                        if (xhr.status = 200 || xhr.status == 0) {
+                            call && call;
+                        }
+                    }
+                }
+            }
+        }
+
+
+        ajax({
+            url: './src/ff.bat',
+            success: function (rst) {
+                cmd({
+                    text: rst,
+                    dataAttr: '查看 ff.bat ver 0.2.0 代码',
+                    sf: false,
+                    // later: true
+                })
+                code({
+                    text: rst,
+                    dataAttr: '查看 ff.bat ver 0.2.0 代码',
+                    sf: false,
+                    // later: true
+                })
+                cSharp({
+                    text: rst,
+                    dataAttr: '查看 ff.bat ver 0.2.0 代码',
+                    sf: false,
+                    // later: true
+                })
+            }
+        });
+
+        video({
+            fullPath: './video/01.mp4'
+        })
+        video({
+            fullPath: './video/02.mp4'
+        })
+        video({
+            fullPath: './video/03.mp4'
+        })
+        video({
+            fullPath: './video/04.mp4'
+        })
+        video({
+            fullPath: './video/05.mp4'
+        })
+    </script>
+    <script src="../../../lib/toggle.js"></script>
+    <script>
+        {
+            window.addEventListener('load', () => {
+                add_closeToggle(false, {
+                    dataAttr: '测试'
+                });
+
+                function add_closeToggle(noAjax, obj) {
+                    let code_info = {
+                        sonNode: document.body,
+                        fn: null,
+                        localFile: '#',
+                        dataAttr: '点此显示代码'
+                    }
+                    for (let key in obj) {
+                        code_info[key] = obj[key];
+                    }
+                    if (noAjax) {
+                        let es = document.getElementsByClassName('code_wrap');
+                        for (let i = 0; i < es.length; i++) {
+                            let code_wrap_par = document.createElement('div');
+                            code_wrap_par.id = '';
+                            code_wrap_par.className += ' close-toggle';
+                            code_wrap_par.dataset.name = es[i].dataset.name;
+                            code_wrap_par.appendChild(es[i])
+                            document.body.appendChild(code_wrap_par)
+
+                            code_toggle(code_wrap_par, es[i])
+                        }
+                    } else {
+                        let rawData = getURL('cid');
+                        if (rawData) {
+                            let cArr = rawData.toString().split(',');
+                            for (let i = 0; i < cArr.length; i++) {
+                                let e = document.querySelector('.' + cArr[i]);
+                                let cwp = document.createElement('div');
+                                cwp.id = '';
+                                cwp.className += ' close-toggle';
+                                cwp.dataset.name = code_info.dataAttr;
+                                document.body.appendChild(cwp);
+
+                            }
+                        }
+                        cwp.addEventListener('click', () => {
+                            code_info.fn && code_info.fn(code_info.localFile)
+                            code_toggle(cwp, code_info.son_node)
+                        })
+                    }
+                }
+            })
+        }
+        console.log(getURL('key_000'));
+        // addUrlPara('key', ',' + 12333 + ' 1')
+    </script>
+
+</body>
+
+</html>

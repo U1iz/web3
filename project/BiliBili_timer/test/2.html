@@ -1,0 +1,31 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>使用substring()实现字符串的收缩和展开</title>
+<script>
+     window.onload = function(){
+         var oP = document.getElementsByTagName('p')[0];
+         var oSpan = document.getElementsByTagName('span')[0];
+         var oA = document.getElementsByTagName('a')[0];
+         var str = oSpan.innerHTML;
+         var onOff = true;
+         oA.onclick = function(){
+         if(onOff){
+             oSpan.innerHTML = str.substring(0,27);
+             oA.innerHTML = '>>展开';
+             }else{
+             oSpan.innerHTML = str;
+             oA.innerHTML = '>>收缩';
+             }
+             onOff = !onOff;
+         };
+     };
+</script>
+</head>
+<body>
+   <p><span>DJI 大疆创新今日发布“御”Mavic 2 系列无人机，包括“御”Mavic 2 专业版及“御”Mavic 2 变
+焦版两款。大疆官方将“御”Mavic 2 系列定位为“便携航拍旗舰”，其延续了“御”Mavic Pro的折叠式机身设计，
+并将哈苏影像与光学变焦技术融入其中。</span>…<a href="javascript:;">>>收缩</a></p>  
+</body>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<script src="jquery.js"></script>
+
+	<script>
+		function tip(obj) {
+			/* obj.iptElem;
+			obj.wrapElem;
+			obj.url,
+			obj.get
+			obj.dataName
+				obj.rstName */
+
+			(obj.iptElem).keyup(function () {
+				let keywordValue = (obj.iptElem).val();
+				/* 使用jQuery来获取跨域的数据 */
+				/* dataType:"jsonp" */
+				/* key默认就是callback */
+				/* value的值以jQuery开头的字符串，这个字符串就是函数调用的名称 */
+				console.log(obj.value);
+				$.ajax({
+					url: obj.url,
+					data: obj.value,
+					success: obj.callback,
+					dataType: "jsonp",
+					jsonp: obj.get,
+					jsonpCallback: "returnRST"
+				});
+			});
+		}
+
+		$(function () {
+			/* tip({
+				url: 'https://suggest.taobao.com/sug',
+				get: 'callback',
+				value: {
+					q: $('#keyword').val()
+				},
+				iptElem: $('#keyword'),
+				wrapElem: $('#d1'),
+				callback: function (data) {
+					let liNode = '';
+					let liTag = "";
+					console.log(data);
+					for (i in data.result) {
+						liNode += "<li>" + data.result[i][0] + "</li>";
+						$('ul').html(liNode);
+					}
+				}
+			}); */
+			tip({
+				url: 'https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su',
+				get: 'cb',
+				value: {
+					wd: $('#keyword').val()
+				},
+				iptElem: $('#keyword'),
+				wrapElem: $('#d2'),
+				callback: function (data) {
+					let liNode = '';
+					let liTag = "";
+					console.log(data);
+					for (i in data.s) {
+						liNode += "<li>" + data.s[i][0] + "</li>";
+						$('ul').html(liNode);
+					}
+				}
+			});
+		})
+	</script>
+	<style>
+		div {
+			display: flex;
+			justify-content: space-around;
+			width: 100%;
+		}
+	</style>
+</head>
+
+<body>
+
+	<input type="text" id="keyword" placeholder="请输入相关的关键字">
+	<input type="button" id="btn" value="查询">
+
+	<div>
+		<ul id="d1"></ul>
+		<ul id="d2"></ul>
+	</div>
+
+</body>
+
+</html>

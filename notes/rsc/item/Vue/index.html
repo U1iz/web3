@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue.js</title>
+    <script src="/notes/rsc/lib/lib.min.js"></script>
+    <script src="/notes/rsc/lib/local_lib.min.js"></script>
+    <script src="/node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="/node_modules/highlight.js/highlight.min.js"></script>
+    <link rel="stylesheet" href="/node_modules/highlight.js/styles/base16/onedark.css">
+    <script type="importmap">
+        {
+          "imports": {
+            "vue": "/node_modules/vue/dist/vue.esm-browser.js"
+          }
+        }
+      </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            font-size: 24px;
+        }
+
+        iframe {
+            outline: none;
+            border: none;
+            box-shadow: 0.1rem 0.1rem 0.3rem 0.1rem #efefef;
+            height: 16rem;
+            transition: all 0.2s;
+        }
+
+        iframe:hover {
+            box-shadow: 0.1rem 0.1rem 0.3rem 0.1rem #ddd;
+        }
+
+        #wrap {
+            width: 90%;
+            margin: 1rem auto;
+        }
+
+        #list {
+            position: fixed;
+            left: 2.4rem;
+            top: 10%;
+            width: 20%;
+            min-width: 14rem;
+            background: rgba(234, 78, 11, 0.192);
+            z-index: 10;
+        }
+
+        #list li {
+            position: relative;
+            cursor: pointer;
+            list-style-type: cjk-ideographic;
+            margin-left: 20%;
+            padding: 0.6rem 1rem;
+            padding-left: 0;
+        }
+
+        .current::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 3px;
+            width: 100%;
+            height: 1px;
+            background: #000;
+        }
+
+        #list li:hover {
+            background: #e56a3a;
+        }
+
+        #preview {
+            position: relative;
+            margin: 0.6rem auto;
+        }
+
+        #flush {
+            display: none;
+        }
+
+        #hide,
+        #show {
+            cursor: pointer;
+            position: absolute;
+            left: -1.6rem;
+            width: 1.6rem;
+            height: 100%;
+            text-align: center;
+            background: rgba(240, 46, 62, 0.192);
+        }
+
+        #show {
+            left: 0;
+            background: rgba(191, 225, 227, 0.192);
+        }
+
+        #hide:hover {
+            background: #e84f5c;
+        }
+
+        #show:hover {
+            background: rgba(79, 196, 232, 0.445);
+        }
+
+        #drag {
+            cursor: n-resize;
+            position: absolute;
+            top: -2rem;
+            left: 0;
+            width: 100%;
+            height: 2rem;
+            background: rgba(221, 221, 221, 0.175);
+        }
+
+        #drag:hover {
+            background: rgba(197, 197, 197, 0.493);
+        }
+    </style>
+    <script>
+        window.addEventListener('load', () => {
+            document.body.innerHTML =
+                '<div id="wrap"> <div id="list"> <span id="hide">&lt;</span> <span id="show">&gt;</span> <div id="drag"></div> </div> <h2>效果</h2> <div id="preview"> </div> <h2>渲染前</h2> <pre id="rawcode"> <code></code> </pre> <h2>渲染后</h2> <button id="flush">刷新</button> <pre id="newcode"> <code></code> </pre> </div>';
+            _vuePjt();
+        })
+
+        function _vuePjt() {
+            // let addrs = getFIlesName("./src", 'htm'); 无权访问
+            let addrs = [
+                "字符插入.htm",
+                "数值增加.htm",
+                "自定属性.htm"
+            ];
+            // addrs = getFIlesName('./src/', 'htm');
+            addrs = getFIlesName('./src', 'htm');
+
+            let ul = document.createElement('ul');
+            $('#list')[0].appendChild(ul);
+            let iframe = document.createElement('iframe');
+            iframe.width = '100%';
+            $('#preview')[0].appendChild(iframe);
+            addrs.forEach(e => {
+                let li = document.createElement('li');
+                li.innerHTML = '案例: ' + e;
+                $('#list ul')[0].appendChild(li);
+
+                // add_ajaxReq({
+                //     '判断_全部': `src/${e}`,
+                //     '判断_全对': `src/${e}`,
+                //     '判断_全错': `src/${e}`
+                // });
+
+
+                li.addEventListener('click', _ => {
+                    let path = `src/${e}`;
+                    iframe.src = path;
+
+                    /* let ifr = document.getElementsByTagName("iframe")[0].contentDocument;
+                    let style_node = document.createElement('style');
+                    style_node.innerText = 'html{font-size: 24px;}body {padding: 1rem 2rem;width: 80%;margin: 0 auto;background: #ccc;}'
+                    ifr.head.appendChild(style_node);
+                    let i_body = ifr.body; */
+                    ajax({
+                        url: `src/${e}`,
+                        success: rst => {
+                            $('#list li').removeClass('current');
+                            li.className = 'current';
+                            let reg = /<body>([\s\S]*?)<\/body>/;
+                            let fin = reg.exec(rst)[0];
+                            $('#rawcode code').text(fin);
+                            /* $('#clickEvent')[0].addEventListener('click', e => {
+                                let crt = $('#preview')[0];
+                                // 点击指定坐标
+                                let x = e.pageX - crt.offsetLeft;
+                                x = e.pageX;
+                                let y = e.pageY - crt.offsetTop;
+                                document.elementFromPoint(x, y).click();
+                            }) */
+                            setTimeout(() => {
+                                newCode_ins();
+                            }, 1000)
+                            $('#flush').show().click(() => {
+                                newCode_ins();
+                            });
+                        }
+                    });
+                });
+            });
+            $('#show').hide();
+            $('#hide').click(() => {
+                $('#list').animate({
+                    left: -$('#list').width() + 'px'
+                }, 600, 0, _ => {
+                    $('#show').show();
+                    $('#show').animate({
+                        left: $('#list').width() + 'px'
+                    });
+                });
+            });
+            $('#show').click(() => {
+                $('#list').animate({
+                    left: '2.4rem'
+                }, 600);
+                $('#show').fadeOut().animate({
+                    left: 0
+                });
+            });
+
+            $('#drag')[0].onmousedown = () => {
+                $('#list')[0].onmousemove = e => {
+                    let y = e.pageY - scrollY;
+                    $('body').css('userSelect', 'none');
+                    $('#list').css('top', y + 'px');
+                };
+            }
+            document.addEventListener('mouseup', () => {
+                $('body').css('userSelect', 'auto');
+                $('#list')[0].onmousemove = null;
+            })
+
+            function newCode_ins() {
+                $('#newcode code').text($('body', iframe.contentDocument).html());
+                hljs.initHighlighting();
+            }
+        }
+    </script>
+</head>
+
+<body>
+</body>
+
+</html>

@@ -1,0 +1,389 @@
+请根据以下json数据的格式打印出以下json内提供的其它哔哩哔哩所有可供用户使用的api。
+要求打印出的是json格式，请不要包含：视频相关、用户相关、搜索相关、排行榜相关、直播相关
+{
+  "视频相关": [{
+      "url": "https://api.bilibili.com/x/web-interface/view",
+      "name": "视频详情",
+      "method": "GET",
+      "params": {
+        "aid": {
+          "type": "int",
+          "required": true,
+          "description": "视频av号"
+        }
+      }
+    },
+    {
+      "url": "https://api.bilibili.com/x/web-interface/archive/stat",
+      "name": "视频播放数、弹幕数、评论数等统计数据",
+      "method": "GET",
+      "params": {
+        "aid": {
+          "type": "int",
+          "required": true,
+          "description": "视频av号"
+        }
+      }
+    },
+    {
+      "url": "https://api.bilibili.com/x/web-interface/archive/desc",
+      "name": "视频简介",
+      "method": "GET",
+      "params": {
+        "aid": {
+          "type": "int",
+          "required": true,
+          "description": "视频av号"
+        }
+      }
+    },
+    {
+      "url": "https://api.bilibili.com/x/web-interface/view/related",
+      "name": "相关视频推荐",
+      "method": "GET",
+      "params": {
+        "aid": {
+          "type": "int",
+          "required": true,
+          "description": "视频av号"
+        }
+      }
+    },
+    {
+      "url": "https://api.bilibili.com/x/player/playurl",
+      "name": "视频播放地址",
+      "method": "GET",
+      "params": {
+        "cid": {
+          "type": "int",
+          "required": true,
+          "description": "视频cid号"
+        },
+        "qn": {
+          "type": "int",
+          "required": false,
+          "description": "视频清晰度，1-1080P，2-720P，3-480P，4-360P。默认值为4"
+        }
+      }
+    },
+    {
+      "url": "https://api.bilibili.com/x/player/playurl/token",
+      "name": "视频播放地址（需要登录后才能使用）",
+      "method": "GET",
+      "params": {
+        "cid": {
+          "type": "int",
+          "required": true,
+          "description": "视频cid号"
+        },
+        "qn": {
+          "type": "int",
+          "required": false,
+          "description": "视频清晰度，1-1080P，2-720P，3-480P，4-360P。默认值为4"
+        },
+        "otype": {
+          "type": "json",
+          "required": false,
+          "description": "返回结果类型，json或xml。默认值为json"
+        }
+      }
+    },
+    {
+      "url": "https://api.bilibili.com/x/web-interface/archive/coins",
+      "name": "获取视频硬币数",
+      "method": "POST",
+      "params": {
+        "aid": {
+          "type": "int",
+          "required": true,
+          "description": "视频av号"
+        },
+        "num": {
+          "type": "int",
+          "required": true,
+          "description": "投币数量，1-2枚"
+        },
+        "csrf": {
+          "type": "string",
+          "required": true,
+          "description": "CSRF Token，需要从cookie中获取"
+        }
+      }
+    },
+    {
+      "url": "https://api.bilibili.com/x/web-interface/archive/like",
+      "name": "获取视频点赞数",
+      "method": "GET",
+      "params": {
+        "aid": {
+          "type": "int",
+          "required": true,
+          "description": "视频av号"
+        }
+      }
+    },
+    {
+      "url": "https://api.bilibili.com/x/web-interface/archive/dislike",
+      "name": "获取视频踩数",
+      "method": "GET",
+      "params": {
+        "aid": {
+          "type": "int",
+          "required": true,
+          "description": "视频av号"
+        }
+      }
+    }
+  ],
+  "用户相关": [{
+      "url": "https://api.bilibili.com/x/web-interface/card",
+      "name": "获取用户信息",
+      "method": "GET",
+      "params": {
+        "mid": {
+          "type": "int",
+          "required": true,
+          "description": "用户ID"
+        }
+      }
+    },
+    {
+      "url": "https://api.bilibili.com/x/relation/followings",
+      "name": "获取用户关注列表",
+      "method": "get",
+      "params": {
+        "vmid": {
+          "type": "int",
+          "required": true,
+          "description": "用户id"
+        },
+        "pn": {
+          "type": "int",
+          "required": false,
+          "description": "页码，默认值为1"
+        },
+        "ps": {
+          "type": "int",
+          "required": false,
+          "description": "每页数量，默认值为50"
+        }
+      }
+    },
+    {
+      "url": "https://api.bilibili.com/x/relation/followers",
+      "name": "获取用户粉丝列表",
+      "method": "get",
+      "params": {
+        "vmid": {
+          "type": "int",
+          "required": true,
+          "description": "用户id"
+        },
+        "pn": {
+          "type": "int",
+          "required": false,
+          "description": "页码，默认值为1"
+        },
+        "ps": {
+          "type": "int",
+          "required": false,
+          "description": "每页数量，默认值为50"
+        }
+      }
+    },
+    {
+      "url": "https://api.bilibili.com/x/space/navnum",
+      "name": "获取用户主页各项数据（投稿数、获赞数等）",
+      "method": "get",
+      "params": {
+        "mid": {
+          "type": "int",
+          "required": true,
+          "description": "用户id"
+        }
+      }
+    },
+    {
+      "url": "https://api.bilibili.com/x/relation/stat",
+      "name": "获取用户关注和粉丝数量",
+      "method": "get",
+      "params": {
+        "vmid": {
+          "type": "int",
+          "required": true,
+          "description": "用户id"
+        }
+      }
+    },
+    {
+      "url": "https://api.bilibili.com/x/web-interface/archive/like",
+      "name": "获取用户点赞的视频列表",
+      "method": "get",
+      "params": {
+        "uid": {
+          "type": "int",
+          "required": true,
+          "description": "用户id"
+        },
+        "pn": {
+          "type": "int",
+          "required": false,
+          "description": "页码，默认值为1"
+        },
+        "ps": {
+          "type": "int",
+          "required": false,
+          "description": "每页数量，默认值为50"
+        }
+      }
+    },
+    {
+      "url": "https://api.bilibili.com/x/web-interface/history/cursor",
+      "name": "获取用户浏览历史记录",
+      "method": "get",
+      "params": {
+        "max": {
+          "type": "int",
+          "required": false,
+          "description": "最后一条历史记录的时间戳（秒），默认为当前时间"
+        },
+        "view_at": {
+          "type": "int",
+          "required": false,
+          "description": "是否返回视频观看进度，0-不返回，1-返回，默认为1"
+        }
+      }
+    },
+    {
+      "url": "https://api.bilibili.com/x/space/acc/info",
+      "name": "获取用户账号信息（如会员状态）",
+      "method": "get",
+      "params": {
+        "mid": {
+          "type": "int",
+          "required": true,
+          "description": "用户id"
+        }
+      }
+    }
+  ],
+  "搜索相关": [{
+      "url": "https://api.bilibili.com/x/web-interface/search/type",
+      "name": "搜索结果",
+      "method": "GET",
+      "params": {
+        "keyword": {
+          "type": "string",
+          "required": true,
+          "description": "搜索关键词"
+        },
+        "search_type": {
+          "type": "int",
+          "required": true,
+          "description": "搜索类型，1-综合，2-番剧，3-UP主，4-影视，5-专栏，6-直播，7-相簿。"
+        },
+        "order": {
+          "type": "string",
+          "required": false,
+          "description": "排序方式，default-默认，click-最多点击，stow-最多收藏，dm-弹幕数，pubdate-发布时间"
+        },
+        "duration": {
+          "type": "int",
+          "required": false,
+          "description": "视频时长过滤，0-全部，1-10分钟以下，2-10到30分钟，3-30到60分钟，4-60分钟以上"
+        }
+      }
+    },
+    {
+      "url": "https://s.search.bilibili.com/main/suggest",
+      "name": "获取搜索建议",
+      "method": "GET",
+      "params": {
+        "query": {
+          "type": "string",
+          "required": true,
+          "description": "搜索关键词"
+        }
+      }
+    }
+  ],
+  "排行榜相关": [{
+    "url": "https://api.bilibili.com/x/web-interface/ranking/v2",
+    "name": "获取排行榜信息",
+    "method": "GET",
+    "params": {
+      "rid": {
+        "type": "int",
+        "required": true,
+        "description": "排行榜类型，1-全站，2-原创，3-新人，4-新番，5-全站原创，6-全站二次元，7-全站新番。"
+      },
+      "day": {
+        "type": "string",
+        "required": false,
+        "description": "时间范围，三日排行-week，周排行-month，月排行-history。默认值为三日排行"
+      }
+    }
+  }],
+  "直播相关": [{
+      "url": "https://api.live.bilibili.com/room/v1/Room/room_init",
+      "name": "获取直播间信息",
+      "method": "GET",
+      "params": {
+        "id": {
+          "type": "int",
+          "required": true,
+          "description": "直播间ID"
+        }
+      }
+    },
+    {
+      "url": "https://api.live.bilibili.com/room/v1/Room/get_info",
+      "name": "获取直播间信息（包括观众人数）",
+      "method": "GET",
+      "params": {
+        "room_id": {
+          "type": "int",
+          "required": true,
+          "description": "直播间ID"
+        }
+      }
+    },
+    {
+      "url": "https://api.live.bilibili.com/xlive/web-room/v1/dM/gethistory",
+      "name": "获取直播间弹幕历史记录",
+      "method": "GET",
+      "params": {
+        "aid": {
+          "type": "int",
+          "required": true,
+          "description": "直播间ID"
+        },
+        "date": {
+          "type": "string",
+          "required": false,
+          "description": "日期，格式为YYYY-MM-DD，默认为当天"
+        }
+      }
+    },
+    {
+      "url": "https://api.live.bilibili.com/room/v1/Danmu/getConf",
+      "name": "获取直播间弹幕服务器配置信息",
+      "method": "GET",
+      "params": {
+        "room_id": {
+          "type": "int",
+          "required": true,
+          "description": "直播间ID"
+        },
+        "platform": {
+          "type": "string",
+          "required": false,
+          "description": "客户端类型，web、android、ios。默认为web"
+        }
+      }
+    }
+  ]
+}
+
+
+请以json格式提供该api：https://api.bilibili.com/x/web-interface/view 下的返回值释义

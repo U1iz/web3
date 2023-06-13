@@ -1,0 +1,30 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class Radio_fn : MonoBehaviour
+{
+    public Toggle male;
+    public Toggle female;
+    void Start() {
+        female.isOn = true;
+        male.isOn = false;
+    }
+
+    public void on_male_change(bool isOn) {
+        if (isOn) {
+            female.isOn = false;
+        } else {
+            female.isOn = true;
+        }
+    }
+    public void on_female_change(bool isOn) {
+        if (isOn) {
+            male.isOn = false;
+        } else {
+            male.isOn = true;
+        }
+    }
+
+}

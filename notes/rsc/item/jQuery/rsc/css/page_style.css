@@ -1,0 +1,86 @@
+img,
+video {
+    object-fit: cover;
+    -webkit-object-fit: cover;
+}
+
+@font-face {
+    font-family: '杨任东竹石体';
+    src: url(http://res1433223.net3v.net/font/0/杨任东竹石体-Regular.ttf);
+    src: url(http://96yzl.usa3v.vip//font/0/杨任东竹石体-Regular.ttf);
+    src: url(../../font/0/杨任东竹石体-Regular.ttf);
+}
+
+@font-face {
+    font-family: '新蒂小丸子小学版';
+    src: url(http://res1433223.net3v.net/font/0/新蒂小丸子小学版.TTF);
+    src: url(http://96yzl.usa3v.vip/HTML/project/Unity/rsc/font/0/新蒂小丸子小学版.TTF);
+    src: url(../../font/0/新蒂小丸子小学版.TTF);
+}
+
+@font-face {
+    font-family: '站酷快乐体';
+    src: url(http://res1433223.net3v.net/font/0/站酷快乐体.TTF);
+    src: url(http://96yzl.usa3v.vip/HTML/project/Unity/rsc/font/0/站酷快乐体.TTF);
+    src: url(../../font/0/站酷快乐体.TTF);
+}
+
+@font-face {
+    font-family: "KimsGirlType";
+    src: url(http://res1433223.net3v.net/font/1/KimsGirlType.ttf);
+    src: url(http://96yzl.usa3v.vip/HTML/project/Unity/rsc/font/1/KimsGirlType.ttf);
+    src: url(../../font/1/KimsGirlType.ttf);
+}
+
+@font-face {
+    font-family: '爱心流星体';
+    src: url(http://res1433223.net3v.net/font/1/爱心流星体.ttf);
+    src: url(http://96yzl.usa3v.vip/HTML/project/Unity/rsc/font/1/爱心流星体.ttf);
+    src: url(../../font/1/爱心流星体.ttf);
+}
+
+#bannerVideo {
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: -1;
+    /* 透明度 */
+    opacity: 0.6;
+}
+
+#banner {
+    position: absolute;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    z-index: -1;
+}
+
+#shelter {
+    position: relative;
+    top: -4rem;
+    left: 0;
+    width: 100%;
+    height: 4rem;
+    background-image: linear-gradient(to bottom, transparent, rgb(198, 215, 255), rgb(198, 215, 255));
+    z-index: 1;
+}
+
+#b2 {
+    /* position: sticky;
+            -webkit-position: sticky; */
+    /* position: -webkit-sticky; */
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+#bv2 {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}

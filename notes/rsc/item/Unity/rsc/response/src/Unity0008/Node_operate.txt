@@ -1,0 +1,56 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class Node_operate : MonoBehaviour
+{
+    void Start()
+    {
+        // Destroy 属于 MonoBehaviour. 成员，通常会省去
+        // MonoBehaviour.Destroy(this); /* 删除脚本自身 */
+        Destroy(this, 4f); /* 4秒后删除脚本自身 */
+        Destroy(GetComponent<Image>(), 3f); /* 3秒后删除 Image 组件 这个时候如果声明过 [RequireComponent(typeof(Image))] 则会报错 */
+        // 删除一个节点的时候，节点上所有的组件也会被删除
+        Destroy(gameObject, 5f); /* 5秒后删除整个节点 */
+
+        Invoke("disable_currentNode", 1f);
+    }
+
+    /// <summary>
+    /// This function is called when the MonoBehaviour will be destroyed.
+    /// </summary>
+    void OnDestroy()
+    {
+        // 当组件实例被删除时会调用 OnDestroy 函数
+        Debug.Log("刚刚有什么东西被 Destroy 了");
+        Debug.Log("原来是我自己啊，那没事了");
+    }
+
+    /// <summary>
+    /// This function is called when the object becomes enabled and active.
+    /// </summary>
+    private void OnEnable()
+    {
+        Debug.Log("当前节点被激活");
+    }
+
+    /// <summary>
+    /// This function is called when the behaviour becomes disabled or inactive.
+    /// </summary>
+    private void OnDisable()
+    {
+        Debug.Log("当前节点被隐藏");
+    }
+
+    void disable_currentNode()
+    {
+        gameObject.SetActive(false);
+        Invoke("enable_currentNode", 1f);
+    }
+
+    void enable_currentNode()
+    {
+        gameObject.SetActive(true);
+    }
+}

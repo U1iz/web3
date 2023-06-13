@@ -1,0 +1,28 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class InputEvent_part02 : MonoBehaviour
+{
+    void Awake()
+    {
+        // 设置帧率
+        Application.targetFrameRate = 60;
+    }
+
+    void Update()
+    {
+        /* GetAxis 变化的时候是有插值的 */
+        // float value = Input.GetAxis("Horizontal");
+        /* GetAxisRaw 变化的时候没有插值 */
+        float value = Input.GetAxisRaw("Horizontal");
+        if (value != 0f) {
+            Debug.Log(value);
+        }
+
+        float[] mouse = new float[2];
+        mouse[0] = Input.GetAxis("Mouse X");
+        mouse[1] = Input.GetAxis("Mouse Y");
+        Debug.Log("鼠标在X轴距离上一帧的位置偏离了 " + mouse[0] + "\n" + "Y轴偏离了" + mouse[1]);
+    }
+}

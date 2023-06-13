@@ -1,0 +1,10 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class OnChange : MonoBehaviour
+{
+    public void on_toggle_change(bool isOn){
+        Debug.Log(isOn);
+    }
+}

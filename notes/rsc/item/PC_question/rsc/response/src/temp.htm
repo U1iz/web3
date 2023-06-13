@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2022-09-15</title>
+    <link rel="stylesheet" href="../../CSS/page_style.css">
+    <style>
+        br {
+            -moz-user-select: none;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+    </style>
+    <style>
+        * {
+            border: none;
+            outline: none;
+            margin: 0;
+            padding: 0;
+            cursor: default;
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+            -webkit-tap-highlight-color: transparent;
+            -webkit-touch-callout: none;
+        }
+
+        html {
+            font-size: 24px;
+        }
+
+        ::selection {
+            background-color: rgba(189, 198, 198, 0.4);
+            color: #234234;
+        }
+
+        ::-webkit-scrollbar {
+            position: absolute;
+            background-color: rgba(189, 198, 198, 0.4);
+            width: 0.25rem;
+            height: 0.25rem
+        }
+
+        ::-webkit-scrollbar-track {
+            background-color: transparent;
+            -webkit-border-radius: 2em;
+            -moz-border-radius: 2em;
+            border-radius: 2em
+        }
+
+        ::-webkit-scrollbar-thumb {
+            /*background-color:#3549ff3b;*/
+            background-image: linear-gradient(0deg, rgba(134, 84, 226, 0.205), rgba(150, 90, 218, 0.199));
+            -webkit-border-radius: 2em;
+            -moz-border-radius: 2em;
+            border-radius: 2em
+        }
+
+        li {
+            position: relative;
+        }
+
+        li {
+            font-weight: 400;
+            color: #cb724c;
+            text-shadow: 0.06rem 0.06rem 0.12rem #ccc;
+        }
+
+        body {
+            background-color: #fff;
+        }
+
+        * {
+            /* cursor: url(https://files-cdn.cnblogs.com/files/miluluyo/cursor.ico),auto; */
+            /* 指针来源自: https://zhutix.com/ico/simplify-mint-cuu */
+            cursor: url(http://96yzl.vip/img/ico/default.cur), default !important;
+        }
+
+        a {
+            cursor: url(http://96yzl.vip/img/ico/pointer.cur), pointer !important;
+        }
+
+        .selectUnable {
+            moz-user-select: -moz-none;
+            -moz-user-select: none;
+            -o-user-select: none;
+            -khtml-user-select: none;
+            -webkit-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+    </style>
+    <style>
+        img,
+        video {
+            -moz-user-select: none;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+    </style>
+    <style>
+        .correct {
+            color: aqua;
+        }
+
+        .wrong {
+            color: tomato;
+        }
+    </style>
+    <style>
+        html {
+            height: 100%;
+        }
+
+        body {
+            height: 100%;
+        }
+
+        .success_msg_wrap {
+            position: absolute;
+            padding: 0.24rem 0.64rem;
+            background-color: rgba(54, 194, 108, .72);
+            font: 400 0.64rem "Microsoft YaHei";
+            text-shadow: 0.08rem 0.08rem rgba(255, 255, 255, 0.24);
+            border-radius: 1rem;
+            opacity: 0;
+            transition: all 0.64s;
+        }
+    </style>
+    <style class="Q_KVM_style">
+        .answer_ipt {
+            cursor: text ! important;
+            display: inline-block;
+            cursor: text;
+            height: 1.6rem;
+            font-weight: 400;
+            font-size: 0.8rem;
+            background: transparent;
+            color: #223323;
+        }
+
+        .easy_01 {
+            font-weight: 100;
+            color: #666;
+        }
+
+        .normal_01 {
+            font-weight: 400;
+            color: rgb(37, 38, 82);
+        }
+
+        .normal_02 {
+            font-weight: 400;
+            color: rgb(55, 34, 148);
+        }
+
+        .hard_01 {
+            font-weight: 800;
+            color: rgb(148, 34, 133);
+        }
+
+        .hard_02 {
+            font-weight: 800;
+            color: rgb(197, 32, 32);
+        }
+
+        .worn_01 {
+            font-weight: 400;
+            color: rgb(214, 218, 36);
+        }
+
+        .difficult_01 {
+            font-weight: 800;
+            text-shadow: 0.06rem 0.06rem 0.32rem rgba(236, 223, 43, 0.712);
+            color: rgba(247, 0, 255, 0.733);
+        }
+
+        .difficult_02 {
+            font-weight: 800;
+            text-shadow: 0.06rem 0.06rem 0.32rem rgba(0, 255, 242, 0.733);
+            color: rgba(43, 236, 123, 0.712);
+        }
+
+        .btn_showRW {
+            cursor: pointer;
+            font-weight: 400;
+            border-radius: 0.4rem;
+            font-size: 0.3rem;
+            padding: 0.12rem 0.32rem;
+            color: #999;
+        }
+
+        .p_show_RW {
+            display: inline-block;
+            margin-left: 1rem;
+            width: 2rem;
+            font-weight: 400;
+            font-size: 0.8rem;
+        }
+
+        .p_show_answer {
+            font-weight: 400;
+            font-size: 0.8rem;
+            color: #223323;
+            margin-left: 2.4rem;
+            display: none;
+        }
+
+        .btn_showRst {
+            cursor: pointer;
+            font-weight: 400;
+            border-radius: 0.4rem;
+            font-size: 0.3rem;
+            padding: 0.12rem 0.32rem;
+            color: #999;
+        }
+
+        .show_all_answer {
+            position: relative;
+            margin: 1rem 2.4rem;
+            padding: 0.32rem 1.28rem;
+            border-radius: 1rem;
+            cursor: pointer;
+            background: rgba(96, 96, 96, 0.12);
+        }
+
+        .q_unifier {
+            position: relative;
+            margin: 1rem 2.4rem;
+            padding: 0.32rem 1.28rem;
+            border-radius: 1rem;
+            background: rgba(96, 96, 96, 0.12);
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="Q_KVM_wrap0"><button class=" show_all_answer">显示所有答案</button><button class=" q_unifier">统一题目字样</button>
+        <ul id="Q_KVM_list_0" style="margin-left: 2.4rem;">
+            <li type="elem" style="display: block; list-style-type: decimal-leading-zero;" class="question_wrap"
+                id="Q_KVM_list_exe_0_gLoop_0_lLoop_0" gindex="0" lindex="0">
+                <h3 class="questionsPart  elemAddByQ_KVM_normal"
+                    style="font-size: 1.6rem; font-weight: 400; letter-spacing: 0.32rem; color: rgb(34, 34, 34); position: relative; left: 10%; width: 90%; text-shadow: rgba(0, 0, 255, 0.2) 0.1rem 0.1rem 0.24rem, rgba(51, 51, 34, 0.13) 0.16rem 0.16rem 0.32rem;">
+                    <br><br>文字录入 180题 2022.09.15</h3><span
+                    style="display: block; width: 1858px; height: 0.06rem; margin-top: 0.24rem; background-color: rgb(84, 146, 107); margin-left: -58px;"></span>
+            </li>
+            <li type="elem" style="display: block; list-style-type: decimal-leading-zero;" class="question_wrap"
+                id="Q_KVM_list_exe_0_gLoop_1_lLoop_1" gindex="1" lindex="1">
+                <h3 class=" elemAddByQ_KVM_normal"
+                    style="font-size: 0.96rem; font-weight: 800; color: rgb(34, 34, 34); margin-bottom: 0.32rem;">
+                    <br><span style="margin-right: 2em;"></span> 判断题</h3><span
+                    style="display: block; width: 1858px; height: 0.06rem; margin-top: 0.24rem; background-color: rgb(84, 146, 107); margin-left: -58px;"></span>
+            </li>
+            <li type="JQ" class="question_wrap" id="Q_KVM_list_exe_0_gLoop_2_lLoop_2" gindex="2" lindex="2"
+                style="list-style-type: decimal-leading-zero;">
+                <div>
+                    <p class=" normal_01 judgeQuestionAddByQ_KVM questions" style="font-size: 1rem;">
+                        上下型汉字最多，左右型号次之，杂合型的最少。 ( )</p>
+                </div>
+                <div class=" operate_answer_wrap"><button class=" btn_showRst">显示答案</button>
+                    <span></span>
+                    <p class=" questionAnswerAddByQ_KVM p_show_answer answers"><span class="wrong">×</span></p>
+                </div><span
+                    style="display: block; width: 1858px; height: 0.06rem; margin-top: 0.24rem; background-color: rgb(84, 146, 107); margin-left: -58px;"></span>
+            </li>
+            <li type="JQ" class="question_wrap" id="Q_KVM_list_exe_0_gLoop_3_lLoop_3" gindex="3" lindex="3"
+                style="list-style-type: decimal-leading-zero;">
+                <div>
+                    <p class=" hard_02 judgeQuestionAddByQ_KVM questions" style="font-size: 1rem;">
+                        普通字根的输入方法：字根键+第一笔笔画+第二笔笔画+第三笔笔画，不足三笔的最后加空格键。( )</p>
+                </div>
+                <div class=" operate_answer_wrap"><button class=" btn_showRst">显示答案</button>
+                    <p class=" questionAnswerAddByQ_KVM p_show_answer answers"><span class="correct">√</span></p>
+                </div><span
+                    style="display: block; width: 1858px; height: 0.06rem; margin-top: 0.24rem; background-color: rgb(84, 146, 107); margin-left: -58px;"></span>
+            </li>
+            <li type="elem" style="display: block; list-style-type: decimal-leading-zero;" class="question_wrap"
+                id="Q_KVM_list_exe_0_gLoop_4_lLoop_4" gindex="4" lindex="4">
+                <h3 class=" elemAddByQ_KVM_normal"
+                    style="font-size: 0.96rem; font-weight: 800; color: rgb(34, 34, 34); margin-bottom: 0.32rem;">
+                    <br><span style="margin-right: 2em;"></span> 填空题 使用 空格 区分多个答案</h3><span
+                    style="display: block; width: 1858px; height: 0.06rem; margin-top: 0.24rem; background-color: rgb(84, 146, 107); margin-left: -58px;"></span>
+            </li>
+            <li type="fill" class="question_wrap" id="Q_KVM_list_exe_0_gLoop_5_lLoop_5" gindex="5" lindex="5"
+                style="list-style-type: decimal-leading-zero;">
+                <div>
+                    <p class=" fillTypeQuestionAddByQ_KVM normal_01 questions" style="font-size: 1rem;">
+                        ___键和___键上各有一条凸起的来的小横杠。</p>
+                </div>
+                <div class=" operate_answer_wrap">
+                    <ul class=" operate_answer_wrap" style="margin-left: 1rem;">
+                        <li
+                            style="list-style-type: decimal-leading-zero; font-size: 0.72rem; color: rgb(66, 190, 228);">
+                            <input answer="f" class=" answer_ipt" type="text" placeholder="输入你认为的答案"><button
+                                class=" btn_showRW">显示对错</button>
+                            <p class=" p_show_RW"></p><button class=" btn_showRst">显示答案</button>
+                            <p class=" questionAnswerAddByQ_KVM p_show_answer answers">f</p>
+                        </li>
+                        <li
+                            style="list-style-type: decimal-leading-zero; font-size: 0.72rem; color: rgb(66, 190, 228);">
+                            <input answer="j" class=" answer_ipt" type="text" placeholder="输入你认为的答案"><button
+                                class=" btn_showRW">显示对错</button>
+                            <p class=" p_show_RW"></p><button class=" btn_showRst">显示答案</button>
+                            <p class=" questionAnswerAddByQ_KVM p_show_answer answers">j</p>
+                        </li>
+                    </ul>
+                </div><span
+                    style="display: block; width: 1858px; height: 0.06rem; margin-top: 0.24rem; background-color: rgb(84, 146, 107); margin-left: -58px;"></span>
+            </li>
+            <li type="elem" class="question_wrap" id="Q_KVM_list_exe_0_gLoop_6_lLoop_6" gindex="6" lindex="6"
+                style="display: block; list-style-type: decimal-leading-zero;">
+                <h3 class=" elemAddByQ_KVM_normal"
+                    style="font-size: 0.96rem; font-weight: 400; color: rgb(34, 34, 34);"><br><br><br><br></h3><span
+                    style="display: block; width: 1858px; height: 0.06rem; margin-top: 0.24rem; background-color: rgb(84, 146, 107); margin-left: -58px;"></span>
+            </li>
+        </ul>
+    </div>
+</body>
+
+</html>

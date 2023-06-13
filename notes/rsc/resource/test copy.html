@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            font-size: 24px;
+        }
+
+        body {
+            background: #fff;
+        }
+
+        #d {
+            position: relative;
+            width: 90%;
+            height: 1rem;
+            margin: 6rem auto;
+            background: #ddd;
+
+            border-radius: 1rem;
+        }
+
+        .close {
+            overflow: hidden;
+        }
+
+        .open {
+            overflow: visible;
+        }
+
+        li {
+            display: block;
+        }
+
+        .c {
+            margin: 0;
+        }
+    </style>
+
+    <style>
+        #u {
+            position: relative;
+            transition: all 0.3s;
+        }
+
+        .up {
+            top: -100%;
+        }
+
+        .down {
+            top: 0%;
+        }
+
+        .div_tit {
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="d" class="close" data-name="点击显示代码">
+        <ul id="u" class="up"></ul>
+    </div>
+    <script>
+        function add_div_tit() {
+            let div = document.createElement('div');
+            div.className = 'div_tit';
+            div.innerHTML = d.dataset["name"];
+            d.style.padding = '0.2rem 1rem'
+            d.appendChild(div)
+            d.style.height = div.clientHeight + 'px';
+        }
+
+        window.addEventListener('load', () => {
+            u.style.top = -u.clientHeight + 'px';
+            let t = d.dataset["name"];
+            add_div_tit()
+        })
+
+        {
+            let d = document.querySelector('#d');
+            let flag = 0;
+
+            let u = document.querySelector("#u");
+
+            d.addEventListener('click', () => {
+                switch (flag) {
+                    case 0:
+                        d.className = 'open';
+                        u.style.top = 0;
+                        // u.className = 'up';
+                        add_div_tit()
+                        flag = 1;
+                        break;
+                    case 1:
+                        d.className = 'close';
+                        // u.className = 'down';
+                        u.style.top = -u.clientHeight + 'px'; {
+                            d.querySelectorAll('.div_tit')[0].remove()
+                        }
+                        flag = 0;
+                        break;
+                }
+            })
+        }
+
+        {
+            let u = document.querySelector('#u');
+
+            for (let i = 0; i < 30; i++) {
+                let li = document.createElement('li');
+                li.innerHTML = 1233 + i * 1024;
+                u.appendChild(li)
+            }
+        }
+    </script>
+</body>
+
+</html>

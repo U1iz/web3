@@ -1,0 +1,51 @@
+{
+    "aid": 307133185,
+    "badge": "",
+    "badge_info": {
+        "bg_color": "#FB7299",
+        "bg_color_night": "#BB5B76",
+        "text": ""
+    },
+    "badge_type": 0,
+    "bvid": "BV1CA411S7q4",
+    "cid": 1031064040,
+    "cover": "http://i0.hdslb.com/bfs/archive/5ccf2e7e6ccf2e75d50c28dbaf63fde16b734d42.png",
+    "dimension": {
+        "height": 1080,
+        "rotate": 0,
+        "width": 1920
+    },
+    "duration": 1500039,
+    "enable_vt": false,
+    "from": "bangumi",
+    "id": 719286,
+    "is_view_hide": false,
+    "link": "https://www.bilibili.com/bangumi/play/ep719286",
+    "long_title": "那神名为",
+    "pub_time": 1673190300,
+    "pv": 0,
+    "release_date": "",
+    "rights": {
+        "allow_demand": 0,
+        "allow_dm": 1,
+        "allow_download": 0,
+        "area_limit": 0
+    },
+    "share_copy": "《虚构推理 第二季》第1话 那神名为",
+    "share_url": "https://www.bilibili.com/bangumi/play/ep719286",
+    "short_link": "https://b23.tv/ep719286",
+    "skip": {
+        "ed": {
+            "end": 0,
+            "start": 0
+        },
+        "op": {
+            "end": 65,
+            "start": 0
+        }
+    },
+    "status": 2,
+    "subtitle": "已观看3126.3万次",
+    "title": "1",
+    "vid": ""
+}

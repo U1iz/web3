@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>播放视频</title>
+    <script src="../../../../lib/lib.min.js"></script>
+    <script src="../../../../lib/local_lib.min.js"></script>
+    <script src="basic.js"></script>
+    <link rel="stylesheet" href="main_style.css">
+    <style>
+        video,
+        #shelter,
+        #bilicav {
+            position: fixed;
+            top: 0;
+            left: 0;
+        }
+
+        video {
+            pointer-events: none;
+            left: 0;
+            z-index: -2;
+        }
+
+        #shelter {
+            z-index: -1;
+            width: 100%;
+            height: 100%;
+            background: #fff;
+        }
+
+        .canvas_wrap {
+            z-index: 2;
+        }
+
+        #bilicav {
+            position: absolute;
+            z-index: 10;
+        }
+
+        ul,
+        div {
+            z-index: 0;
+        }
+
+        #listNodeWrap1 {
+            position: -webkit-sticky;
+            position: sticky;
+            top: 370px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="video_wrap"></div>
+    <div id="audio_src"></div>
+    <div id="shelter"></div>
+    <div class="canvas_wrap" id="bilicav"></div>
+    <script>
+        sessionStorage.setItem('sp', 'true');
+        /*  */
+        add_normalNode('', ['p', 'normal', '16rem 0']);
+        topic('BiliBili Banner', '#4e9fd7');
+        add_normalNode('', ['p', 'normal', '6rem 0'],['width', '16rem']);
+        lst('点击任意处播放背景音');
+        addCav();
+        var videoSrc_step = 1;
+        var audioSrc_step = 1;
+        sessionStorage.setItem('sp', 'true');
+        addVideo('./media/bili/33_main.webm');
+        addVideo('./media/bili/33_game.webm');
+
+        addVideo('./media/bili/22_eyemove_normal.webm');
+        addVideo('./media/bili/22_book.webm');
+        addVideo('./media/bili/22_phone.webm');
+        addVideo('./media/bili/22_putphone.webm');
+
+        addVideo('./media/bili/rainfall.webm');
+        addVideo('./media/bili/rainfall.webm');
+        addVideo('./media/bili/rainfall.webm');
+
+        addAudio('./media/bili/book.mp3');
+        addAudio('./media/bili/putphone.mp3');
+
+        addAudio('./media/bili/rain.mp3');
+        addAudio('./media/bili/btn_click.mp3');
+
+
+
+        function addVideo(path) {
+            var idIndex;
+            videoSrc_step <= 9 ? idIndex = 'v_0' + videoSrc_step : idIndex = 'v_' + videoSrc_step;
+            video_wrap.innerHTML +=
+                `<video src=${path} id=${idIndex} autoplay loop muted></video>`;
+            videoSrc_step++;
+        }
+
+        function addAudio(path) {
+            var idIndex;
+            audioSrc_step <= 9 ? idIndex = 'a_0' + audioSrc_step : idIndex = 'a_' + audioSrc_step;
+            audio_src.innerHTML +=
+                `<video src=${path} id=${idIndex} control></video>`;
+            audioSrc_step++;
+        }
+    </script>
+    <script>
+        window.addEventListener('click', () => {
+            requestAnimationFrame(function a_03_play() {
+                a_03.play();
+                requestAnimationFrame(a_03_play);
+            });
+            setInterval(() => {
+                a_04.play();
+            }, Math.random() * 10);
+        });
+    </script>
+    <script>
+        /* 随机更换状态 */
+        let currentPlay = 'default';
+
+        function add_playing_event(e) {
+            e.addEventListener('playing', () => {
+                let vdt;
+                switch (currentPlay) {
+                    case 'default':
+                        vdt = v_03.duration;
+                        break;
+                    case 'book':
+                        vdt = v_04.duration;
+                        break;
+                    case 'phone':
+                        vdt = v_05.duration;
+                        break;
+                    case 'putphone':
+                        vdt = v_06.duration;
+                        break;
+                }
+                vdt = vdt * 1000;
+                switch (currentPlay) {
+                    case 'phone':
+                        setTimeout(() => {
+                            v_05.pause();
+                            setTimeout(() => {
+                                currentPlay = 'putphone';
+                                setTimeout(() => {
+                                    console.log('what up');
+                                    switch_22_video();
+                                }, v_06.duration * 1000);
+                            }, 1000);
+                        }, vdt - 10);
+                        break;
+                        /* case './media/bili/22_putphone.webm':
+                            setTimeout(() => {
+                                v_03.src = './media/bili/22_eyemove_normal.webm'
+                            }, 100)
+                            break; */
+                    default:
+                        switch_22_video();
+                        break;
+                }
+            });
+        }
+
+        function switch_22_video() {
+            var rn = Math.random();
+            switch (currentPlay) {
+                case 'default':
+                    vdt = v_03.duration * 1000;
+                    change_22_video(rn, vdt);
+                    break;
+                case 'book':
+                    vdt = v_04.duration * 1000;
+                    change_22_video(rn, vdt);
+                    break;
+                case 'phone':
+                    vdt = v_05.duration * 1000;
+                    change_22_video(rn, vdt);
+                    break;
+                case 'putphone':
+                    vdt = v_06.duration * 1000;
+                    change_22_video(rn, vdt);
+                    break;
+            }
+        }
+
+        function change_22_video(rn, vdt) {
+            setTimeout(() => {
+                if (rn < 0.92) {
+                    currentPlay = 'default';
+                } else if (rn < 0.996) {
+                    currentPlay = 'book';
+                } else {
+                    currentPlay = 'phone';
+                }
+            }, vdt);
+            console.log(rn);
+        }
+
+        window.addEventListener('load', () => {
+            localStorage.getItem('equipmentType') == 1 && (()=>{
+                alert('移动端止步');
+                window.location.href = 'https://developer.mozilla.org/en-US';
+            })();
+            LM('页面源码');
+            nor4ChildNode0.style.position = 'fixed';
+            nor4ChildNode0.style.top = '360px';
+            nor2ChildNode0.style.position = 'sticky';
+            nor2ChildNode0.style.top = '370px';
+            code(document.documentElement.innerHTML.toString());
+            listNodeWrap1.style.position = 'sticky';
+            listNodeWrap1.style.top = '400px';
+            listNodeWrap1.style.height = document.documentElement.clientHeight - 460 + 'px';
+            listNodeWrap1.style.overflowX = 'hidden';
+            listNodeWrap1.style.overflowY = 'auto';
+            listNodeWrap1.addEventListener('mouseenter', ()=>{
+                listNodeWrap1.style.overflowY = 'auto';
+                console.log(listNodeWrap1.style.overflowY);
+            });
+            listNodeWrap1.style.boxSizing = 'content-box';
+            /*  */
+            v_07.playbackRate = 0.5;
+
+            /* 设置 cav 长宽为 1920*320 */
+            cav.setAttribute('width', '1920');
+            cav.setAttribute('height', '360');
+            document.body.style.padding = 0;
+            cav.style.marginLeft = 0;
+            /* img */
+            let bg = new Image();
+            let win_bg = new Image();
+            let screen_light = new Image();
+            bg.src = './media/bili/background.png';
+            win_bg.src = './media/bili/background_d.png';
+            screen_light.src = './media/bili/screen_light.png';
+
+            let time = 0;
+
+            if (cav.getContext) {
+                var ctx = cav.getContext('2d');
+                let timer = requestAnimationFrame(function fn() {
+                    ctx.clearRect(0, 0, cav.width, cav.height);
+                    /* 静态 */
+                    ctx.drawImage(win_bg, 0, 0, 1920, 360);
+                    /* rain */
+                    /* max 256, 360 */
+                    /* max 890 1390 */
+                    let rainfall_loop = 512;
+                    let rainfall_loop_near =
+                        1 + Math.random() * 3;;
+                    for (let i = 0; i < rainfall_loop; i++) {
+                        v_07.playbackRate = 2.4;
+                        ctx.drawImage(v_07,
+                            890 + Math.random() * 500,
+                            -220 + Math.random() * 580,
+                            20 + Math.random() * 10,
+                            190 + Math.random() * 40);
+                        ctx.drawImage(v_07,
+                            -30 + Math.random() * 286,
+                            -220 + Math.random() * 580,
+                            0.4 * (20 + Math.random() * 10),
+                            190 + Math.random() * 40);
+                    }
+                    for (let i = 0; i < 0; i++) {
+                        v_07.playbackRate = 5;
+                        ctx.drawImage(v_08,
+                            Math.random() * 256,
+                            -220 + Math.random() * 580,
+                            24 + Math.random() * 6,
+                            200 + Math.random() * 20);
+                    }
+
+                    ctx.drawImage(bg, 0, 0);
+
+                    /* 动态 */
+                    /* 33 */
+                    ctx.drawImage(v_01, 1410, 50);
+                    ctx.drawImage(v_02, 1646, 96, 94, 47);
+
+                    /* 22 */
+
+                    switch (currentPlay) {
+                        case 'default':
+                            ctx.drawImage(v_03, 560, 0);
+                            add_playing_event(v_03);
+                            break;
+                        case 'book':
+                            ctx.drawImage(v_04, 560, 0);
+                            a_01.play();
+                            add_playing_event(v_04);
+                            break;
+                        case 'phone':
+                            ctx.drawImage(v_05, 560, 0);
+                            add_playing_event(v_05);
+                            break;
+                        case 'putphone':
+                            a_02.play();
+                            ctx.drawImage(v_06, 560, 0);
+                            add_playing_event(v_06);
+                            break;
+                    }
+
+                    if ((time % 1000 < 60) ||
+                        (time % 1000 > 100 && time % 1000 < 160) ||
+                        (time % 1000 > 500 && time % 1000 < 540) ||
+                        (time % 1000 > 550 && time % 1000 < 560) ||
+                        (time % 1000 > 720 && time % 1000 < 800) ||
+                        (time % 1000 > 960 && time % 1000 < 966) ||
+                        (time % 1000 > 970 && time % 1000 < 971)) {
+                        ctx.drawImage(screen_light, 0, 0);
+                        console.log('screen light');
+                    }
+                    requestAnimationFrame(fn);
+                    time++;
+                });
+            }
+        });
+    </script>
+    <script src="../../../../lib/CodeRenderer.js"></script>
+</body>
+
+</html>

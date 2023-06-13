@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+
+        }
+
+        body {
+            width: 100%;
+            height: 100%;
+        }
+
+        .div_01 {
+            height: 5000px;
+            width: 100%;
+            background: #ddd;
+        }
+
+        .div_02 {
+            height: 100px;
+            width: 100%;
+            background: blueviolet;
+        }
+
+        .div_03 {
+            height: 2000px;
+            width: 100%;
+            background: #ddd;
+        }
+
+        #get_top {
+            position: fixed;
+            bottom: 1rem;
+            right: 1rem;
+            padding: 1rem 0.6rem;
+        }
+
+        #get_top:hover {
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        #get_top svg {
+            width: 3.6rem;
+            height: auto;
+            fill: rgba(0, 0, 0, 0.3)
+        }
+    </style>
+</head>
+
+<body>
+    <div id="d1" class="div_01"></div>
+    <div id="d2" class="div_02"></div>
+    <div id="d3" class="div_03"></div>
+    <div id="get_top">
+        <svg t="1664599446924" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+            p-id="1495" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <path d="M30.332842 0.346901l963.333292 0 0 74.102718-963.333292 0 0-74.102718Z" p-id="1496"></path>
+            <path
+                d="M564.392254 162.53684 512 110.143563 459.606723 162.53684 459.606723 162.53684 119.017674 503.125889 171.409928 555.519166 474.948129 251.980965 474.948129 1023.653099 549.050848 1023.653099 549.050848 251.980965 852.589049 555.519166 904.982326 503.125889 564.392254 162.53684Z"
+                p-id="1497"></path>
+        </svg>
+    </div>
+    <script>
+        let d1 = document.querySelector('#d1')
+        let d2 = document.querySelector('#d2')
+        let d3 = document.querySelector('#get_top');
+        target_link({
+            elem: d3,
+            tgt: [0, 100],
+            delta_y: 32
+            // tgt: d2
+        });
+
+        function get_obj_type(obj) { return Object.prototype.toString.call(obj); } function get_normal_style(elem) { return elem.getBoundingClientRect(); } function target_link(obj) { let dft = { elem: document.body, tgt: document.body, interval: 15, delta_x: 16, delta_y: 16, offset: 0, start: null, update: null, end: null }; for (let k in obj) { dft[k] = obj[k]; } let is_obj_tgt = true; if (get_obj_type(dft.tgt) === '[object Array]') { is_obj_tgt = false; } dft.start && dft.start(); dft.elem.addEventListener('click', () => { /* tgt.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'center' }); */ let y = document.documentElement.scrollTop; let x = document.documentElement.scrollLeft; let __tgt; let tx; let ty; if (is_obj_tgt) { __tgt = dft.tgt.getBoundingClientRect(); tx = __tgt.x; ty = __tgt.y + dft.offset; } else { tx = dft.tgt[0]; ty = dft.tgt[1] + dft.offset; } let old = ''; let step = 0; let tmr = setInterval(() => { step++; if (is_obj_tgt) { __tgt = dft.tgt.getBoundingClientRect(); tx = __tgt.x; ty = __tgt.y + dft.offset; y = document.documentElement.scrollTop; x = document.documentElement.scrollLeft; x = Math.floor(x + (tx / dft.delta_x)); y = Math.floor(y + (ty / dft.delta_y)); } else { x = x + (tx - x) / dft.delta_x; y = y + (ty + dft.offset - y) / dft.delta_y; if (x > tx) { x = x - (x / dft.delta_x); } if (y > ty) { y = y - (y / dft.delta_y); } } x = x > 0 ? Math.ceil(x) : Math.floor(x); y = y > 0 ? Math.ceil(y) : Math.floor(y); let last = x + ', ' + y; window.scrollTo(x, y); dft.calling && dft.calling(); if ((x == tx && y == ty) || (last == old)) { scrollEnd(); } function scrollEnd() { console.log('滚动停啦' + '\n' + document.documentElement.scrollLeft + ', ' + document.documentElement.scrollTop); dft.end && dft.end(); clearInterval(tmr); } if (step % 4 == 0) { old = last; } }, dft.interval); }) }
+    </script>
+</body>
+
+</html>

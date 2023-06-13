@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>代码展示页</title>
+    <script src="/lib/jQuery.min.js"></script>
+    <script src="/notes/rsc/lib/lib.min.js"></script>
+    <script src="/notes/rsc/lib/local_lib.min.js"></script>
+    <!-- <link rel="stylesheet" href="./highlight.js/styles/a11y-dark.min.css"> -->
+    <!-- <link rel="stylesheet" href="./highlight.js/styles/monokai-sublime.min.css"> -->
+    <!-- <link rel="stylesheet" href="./highlight.js/styles/atom-one-dark.min.css"> -->
+    <!-- <link rel="stylesheet" href="/notes/rsc/lib/highlight.js/styles/"> -->
+    <script src="/notes/rsc/lib/highlight.js/highlight.min.js"></script>
+    <script src="/notes/rsc/item/add_CSSNode/add_CSSNode.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        li {
+            list-style-type: none;
+        }
+    </style>
+</head>
+
+<body>
+    <script>
+        let basic_styleNode = document.createElement('style');
+        let str = `围城故事发生于1920到1940年代。主角方鸿渐是个从中国南方乡绅家庭走出的青年人，迫于家庭压力与同乡周家女子订亲。但在其上大学期间，周氏患病早亡。准岳父周先生被方所写的唁电感动，资助他出国求学。
+方鸿渐在欧洲游学期间，不理学业。为了给家人一个交待，方于毕业前购买了虚构的“克莱登大学”的博士学位证书，并随海外学成的学生回国。在船上与留学生鲍小姐相识并热恋，但被鲍小姐欺骗感情。同时也遇见了大学同学苏文纨。
+到达上海后，在已故未婚妻父亲周先生开办的银行任职。此时，方获得了同学苏文纨的青睐，又与苏的表妹唐晓芙一见钟情，整日周旋于苏、唐二人之间，期间并结识了追求苏文纨的赵辛楣。方最终与苏、唐二人感情终结，苏嫁与诗人曹元朗，而赵也明白方并非其情敌，从此与方惺惺相惜。方鸿渐逐渐与周家不和。
+抗战开始，方家逃难至上海的租界。在赵辛楣的引荐下，与赵辛楣、孙柔嘉、顾尔谦、李梅亭几人同赴位于内地的三闾大学任教。由于方鸿渐性格等方面的弱点，陷入了复杂的人际纠纷当中。后与孙柔嘉订婚，并离开三闾大学回到上海。在赵辛楣的帮助下，方鸿渐在一家报馆任职，与孙柔嘉结婚。
+婚后，方鸿渐夫妇与方家、孙柔嘉姑母家的矛盾暴露并激化。方鸿渐辞职并与孙柔嘉吵翻，逐渐失去了生活的希望。`
+
+        $.ajax({
+            cache: false,
+            url: './code_display.htm',
+            success: function (rst) {
+                LM('新');
+                hlc(rst, true);
+                hlc(rst);
+                LM('旧');
+                code({
+                    text: rst,
+                    later: true
+                });
+                code(rst);
+                space();
+            },
+            async: false
+        });
+
+        let a = [1, 2, 3];
+        for (let i in a) {
+            console.log(a);
+        }
+    </script>
+    <script src="/notes/rsc/lib/beforeLoading.js"></script>
+    <script src="/notes/rsc/lib/toggle.js"></script>
+    <script src="/notes/rsc/lib/CodeRenderer.js"></script>
+</body>
+
+</html>

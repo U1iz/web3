@@ -1,0 +1,91 @@
+@font-face {
+    font-family: '杨任东竹石体';
+    src: url(../../font/0/杨任东竹石体-Regular.ttf);
+}
+
+@font-face {
+    font-family: '新蒂小丸子小学版';
+    src: url(../../font/0/新蒂小丸子小学版.TTF);
+}
+
+@font-face {
+    font-family: '站酷快乐体';
+    src: url(../../font/0/站酷快乐体.TTF);
+}
+
+@font-face {
+    font-family: "KimsGirlType";
+    src: url(../../font/1/KimsGirlType.ttf);
+}
+
+@font-face {
+    font-family: '爱心流星体';
+    src: url(../../font/1/爱心流星体.ttf);
+    color: rgb(15, 36, 82);
+}
+
+.absolutePar span {
+    color: inherit !important;
+    box-sizing: border-box;
+}
+
+br::selection {
+    background-color: transparent;
+}
+
+.questionChoices::selection {
+    background-color: #b6f9dd;
+    color: #1789ec;
+}
+
+.elemAddByQ_KVM_normal::selection {
+    background-color: #f9f1ad;
+    font-weight: 800;
+}
+
+.judgeQuestionAddByQ_KVM::selection {
+    background-color: rgba(242, 197, 252, 0.631);
+    color: #ec176c;
+}
+
+.questionAnswerAddByQ_KVM {
+    letter-spacing: 0.1rem;
+    background-color: transparent;
+    text-shadow: 0.06rem 0.06rem 0.06rem #ff6600;
+}
+
+.questionAnswerAddByQ_KVM::selection {
+    background-color: rgba(246, 255, 0, 0.76);
+    text-shadow: 0.06rem 0.06rem 0.06rem #fff;
+}
+
+.questionsPart::selection {
+    background-color: transparent;
+}
+
+.questionsPart::selection {
+    background-color: transparent;
+}
+
+.questionChapter::selection {
+    background-color: rgba(247, 182, 182, 0.9);
+    color: #7300ff;
+    text-shadow: 0.06rem 0.06rem 0.06rem #2233;
+}
+
+.questionNormal::selection {
+    background-color: rgba(144, 0, 255, 0.06) !important;
+    color: #000 !important;
+}
+
+pre {
+    font-family: 'microsoft yahei';
+    color: #000;
+    font-weight: bold;
+    text-shadow: 0.12rem 0.12rem 0.24rem #999;
+}
+pre::selection {
+    background-color: rgba(0, 242, 255, 0.705) ;
+    color: #fff;
+    text-shadow: 0.32rem 0.32rem 0.24rem rgb(125, 63, 196);
+}

@@ -1,0 +1,30 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class InputEvent : MonoBehaviour
+{
+    void Update()
+    {
+        // 所有的鼠标事件响应的坐标都是以屏幕的左下为原点建立的象限
+        Debug.Log(Input.mousePosition); /* 每一帧都会获取到鼠标当前的位置 */
+        if (Input.anyKey) {
+            // 如果鼠标长按就会一直触发
+            Debug.Log("Input.anyKey: " + Input.mousePosition);
+        }
+        if (Input.anyKeyDown) {
+            // 只会在鼠标按下的第一帧触发
+            Debug.Log("Input.anyKeyDown: " + Input.mousePosition);
+        }
+        if (Input.inputString.Length >= 1) {
+            // 获取用户当前帧输入的 ASCII 字符
+            Debug.Log(Input.inputString);
+        }
+        // 获取获取重力传感器的值
+        Debug.Log(Input.acceleration);
+        // 获取当前用户触屏对象的列表 Touch[]
+        Debug.Log(Input.touches);
+        // 获取当前鱼护触屏事件的数量
+        Debug.Log(Input.touchCount);
+    }
+}

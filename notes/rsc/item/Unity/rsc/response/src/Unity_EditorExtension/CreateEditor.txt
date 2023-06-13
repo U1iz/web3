@@ -1,0 +1,22 @@
+// 需要该命名空间
+using UnityEditor;
+using UnityEngine;
+
+// 继承自 Editor 的扩展，用于扩展编辑器，应放置于 Editor 目录下
+// 继承名可以省略
+public class CreateEditor : Editor
+{
+    // [MenuItem("NewMenu/temp")]
+    // 只有在 Assets 下才会在文件右键菜单出现
+    [MenuItem("Assets/NewMenu/temp")]
+    // 只有静态方法可以使用MenuItem属性
+    private static void temp_click()
+    {
+        /* 获取当前选择的物体 */
+        Object obj = Selection.activeObject;
+        /* 获取当前选择物体的路径 */
+        string obj_path = AssetDatabase.GetAssetPath(obj);
+        Debug.Log(obj.name + "的路径为:");
+        Debug.Log(obj_path);
+    }
+}

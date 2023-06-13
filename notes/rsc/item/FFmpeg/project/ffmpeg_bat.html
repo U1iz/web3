@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FF.bat</title>
+    <script src="/notes/rsc/lib/lib.min.js"></script>
+    <script src="/notes/rsc/lib/local_lib.min.js"></script>
+    <script src="/notes/rsc/lib/highlight.js/highlight.js"></script>
+    <link rel="stylesheet" href="/notes/rsc/item/add_CSSNode/page_normalize.css">
+    <link rel="stylesheet" href="/notes/rsc/lib/highlight.js/user_styles/normalize.css">
+    <script src="/notes/rsc/lib/highlight.js/es/languages/dos.min.js" integrity="sha384-y1+gMx0mDNbMUF+LdIgAWo7fSYbBpKWaUGId9onj1ZOp5X+SigIhvhthJRKa6pul"></script>
+</head>
+
+<body>
+    <script>
+        let ffCode;
+
+        function ajax_getFile(path, call) {
+            let xhr = null;
+            if (window.XMLHttpRequest) {
+                xhr = new XMLHttpRequest();
+            } else {
+                xhr = new ActiveXObject('Microsoft.XMLHTTP');
+            }
+
+            if (xhr) {
+                xhr.open("GET", path, true);
+                xhr.send();
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState == 4) {
+                        if (xhr.status = 200 || xhr.status == 0) {
+                            call && call;
+                        }
+                    }
+                }
+            }
+        }
+
+
+        ajax({
+            url: './src/ff.txt',
+            success: function (rst) {
+                SM('不同样式的代码展示');
+                link('源代码', './src/ff.txt');
+                hlc({
+                    text: rst,
+                    code_type: 'batch',
+                    style_name: 'base16/onedark.min',
+                    code_tit: '',
+                    delete_annotation: false,
+                    code_stow: true
+                });
+                cmd({
+                    text: rst,
+                    dataAttr: 'cmd',
+                    sf: false,
+                    later: true
+                })
+                code({
+                    text: rst,
+                    dataAttr: 'code',
+                    sf: false,
+                    later: true
+                })
+                cSharp({
+                    text: rst,
+                    dataAttr: 'cSharp',
+                    sf: false,
+                    later: true
+                })
+                tArea({
+                    text: rst,
+                    dataAttr: 'tArea',
+                    sf: false,
+                    later: true
+                })
+            }
+        });
+
+        video({
+            fullPath: './video/01.mp4'
+        })
+        video({
+            fullPath: './video/02.mp4'
+        })
+        video({
+            fullPath: './video/03.mp4'
+        })
+        video({
+            fullPath: './video/04.mp4'
+        })
+        video({
+            fullPath: './video/05.mp4'
+        })
+    </script>
+    <script src="../../../lib/toggle.js"></script>
+    <script src="../../../lib/CodeRenderer.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,24 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class InputEvent_part03 : MonoBehaviour
+{
+    void Update() {
+        /* 按下左键 */
+        // 左键单击或长按
+        if (Input.GetButton("Fire1")) {
+            Debug.Log("fire1 click");
+        }
+
+        // 左键单击的第一帧
+        if (Input.GetButtonDown("Fire1")){
+            Debug.Log("fire1 down");
+        }
+
+        /* 左键放开 */
+        if (Input.GetButtonUp("Fire1")){
+            Debug.Log("fire1 up");
+        }
+    }
+}

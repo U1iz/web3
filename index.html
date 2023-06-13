@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>起始页</title>
+    <link rel="shortcut icon" href="/favicon.png">
+    <link rel="stylesheet" href="./css/index.css">
+    <script>
+        var sUserAgent = navigator.userAgent.toLowerCase();
+        var bIsIpad = sUserAgent.match(/ipad/i) == "ipad";
+        var bIsIphoneOs = sUserAgent.match(/iphone os/i) == "iphone os";
+        var bIsMidp = sUserAgent.match(/midp/i) == "midp";
+        var bIsUc7 = sUserAgent.match(/rv:1.2.3.4/i) == "rv:1.2.3.4";
+        var bIsUc = sUserAgent.match(/ucweb/i) == "ucweb";
+        var bIsAndroid = sUserAgent.match(/android/i) == "android";
+        var bIsCE = sUserAgent.match(/windows ce/i) == "windows ce";
+        var bIsWM = sUserAgent.match(/windows mobile/i) == "windows mobile";
+        if (bIsIphoneOs || bIsMidp || bIsUc7 || bIsUc || bIsAndroid || bIsCE || bIsWM) {
+            document.documentElement.style.fontSize = 8 + 'px';
+            localStorage.setItem('equipmentType', '1');
+        } else if (bIsIpad) {
+            document.documentElement.style.fontSize = 14 + 'px';
+            localStorage.setItem('equipmentType', '1');
+        } else {
+            document.documentElement.style.fontSize = 24 + 'px';
+            localStorage.setItem('equipmentType', '2');
+        }
+    </script>
+</head>
+
+<body>
+    <div id="bg" class="cover">
+        <div></div>
+    </div>
+    <div id="my_msg"></div>
+    <div id="ctr">
+        <div id="my_suggest">
+            <h2>来自开发者的建议</h2> <span>本站极度依赖js解析引擎</span>
+            <h3 class="suggest">建议使用 Chrome, MS Edge 浏览器访问该站<br>Firefox 其次</h3>
+            <ul class="warn">
+                <li>不要使用 IE ！！！</li>
+                <li>不要使用 IE ！！！</li>
+                <li>不要使用 IE ！！！</li>
+            </ul> <canvas width="0" height="0">你的浏览器不支持canvas, 快换掉吧</canvas> <span>如果 3 秒后没反应请更换浏览器</span>
+        </div>
+        <div id="wrap" class="wrap_blur"> <a href="./notes/index.html">
+                <div>笔记: 2022 ~ 2023</div>
+            </a> <a href="javascript:;" id="gotoProject" class="pjt_link">
+                <div>项目合集</div>
+            </a> <a href="./reader/tinnyBookSelf/index.html" class="pjt_link">
+                <div>电子书</div>
+            </a>
+            <h2>我的其他站点</h2> <a href="http://res1433223.net3v.club" class="web_link">
+                <div title="访问根目录文件如'UI_login.html' & 'UI_cards.html' 可查看">第一个web, 我之前用来放unity项目中的web部分了</div>
+            </a> <a href="http://96yzl.free3v.work" class="web_link">
+                <div>第二个web，因为误操作又备份不勤快导致近半年的文件全无 (悲)</div>
+            </a>
+            <ul>
+                <li>96yzl.usa3v.vip 域名已弃用</li>
+                <li>res1433223.net3v.net 域名已弃用</li>
+                <li>96yzl.vip 域名时限 1年; 至 2023-09-04</li>
+            </ul>
+            <p>当你感到加载时间过长，这不一定是你电脑的问题，可能是服务器的带宽暂时被挤占了</p>
+        </div>
+        <div> <span id="img_ctrl" onclick="img_show()">课程表</span> <img id="class_img" src="img/class.png" alt="哎呦，图片走丢啦"
+                onclick="img_show()"> </div>
+    </div>
+    <div id="rotate"><span>页面旋转90°</span></div>
+    <script>
+        {
+            let r = document.querySelector('#rotate');
+            let ctr = document.getElementById('wrap');
+            let deg = 0;
+            r.onclick = () => {
+                deg += 90;
+                deg >= 450 ? (function () {
+                    ctr.style.transition = '0s';
+                    deg = 0;
+                }()) : (function () {
+                    ctr.style.transition = '0.4s';
+                }());
+                ctr.style.transform = `rotate(${deg}deg)`;
+            }
+        }
+
+        function img_show() {
+            let e = document.querySelector('#class_img');
+            if (e.style.display == 'block') {
+                e.style.display = 'none';
+            } else {
+                e.style.display = 'block'
+            }
+        }
+    </script>
+    <script>
+        let a = document.querySelectorAll('a');
+        a[a.length - 1].querySelector('div').style.marginBottom = '1.2rem';
+        for (i in a) {
+            i < a.length ? (function () {
+                a[i].setAttribute('target', '_blank');
+                a[i].querySelector('div').className = 'split_line'
+            })() : null;
+        } {
+            let pjt = document.querySelector('#gotoProject');
+            pjt.setAttribute('target', '');
+            pjt.addEventListener('click', () => {
+                let projectArr = [
+                    'NoteWrite:index.html',
+                    'Local_lib.js:index.html',
+                    'Tampermonkey:index.html',
+                    'Markdown:index.html'
+                ];
+                let newPage = window.open("./project/project.php?projects=" + projectArr, "_blank");
+            })
+        } {
+            let c = a[0];
+            let cd = c.querySelector('div');
+            cd.addEventListener('mouseenter', () => {
+                cd.style.textIndent = '6em';
+                setTimeout(() => {
+                    setTimeout(() => {
+                        cd.style.textIndent = '2em';
+                    })
+                }, 600)
+            })
+        } /* 动效 缓存条 */ {
+            let bg = document.querySelector('#bg');
+            let ctr = document.querySelector('#wrap');
+            let slower = document.createElement('div');
+            let faster = document.createElement('div');
+            slower.className = 'slower';
+            faster.className = 'faster';
+            ctr.appendChild(slower);
+            ctr.appendChild(faster);
+            slower.style.width = 0;
+            faster.style.width = 0;
+            let target = 100;
+            let tmr_01, tmr_02;
+            ctr.addEventListener('mouseenter', () => {
+                tmr_01 = setTimeout(() => {
+                    tmr_02 = setTimeout(() => {
+                        bg.className = 'blur';
+                    }, 400);
+                    ctr.className = 'wrap_hover';
+                    ani('go', slower, 30, ctr.clientWidth);
+                    ani('go', faster, 20, ctr.clientWidth);
+                }, 300)
+            });
+            ctr.addEventListener('mouseleave', () => {
+                clearTimeout(tmr_01);
+                clearTimeout(tmr_02);
+                bg.className = 'cover';
+                ctr.className = 'wrap_blur';
+                ani('back', slower, 30, 0);
+                ani('back', faster, 20, 0);
+                (() => {
+                    document.body.style.background = '#ddd';
+                    document.body.style.transition = 'background 0.6s';
+                });
+            });
+
+            function ani(type, e, interpolation, tgt) {
+                clearInterval(e.timer);
+                if (false) {} else {
+                    e.style.borderRadius = '24px';
+                    e.style.transition = 'border-radius 0.3s';
+                    e.style.zIndex = 0;
+                    if (type == 'go') {
+                        e.style.left = 0;
+                        e.style.opacity = 1;
+                        slower.style.background = '#00000030';
+                        ctr.style.overflow = 'visible';
+                    } else {
+                        ctr.style.overflow = 'hidden';
+                        tgt = -tgt;
+                    }
+                    e.timer = setInterval(() => {
+                        let step = (tgt - e.clientWidth) / 10;
+                        step = step > 0 ? Math.ceil(step) : Math.floor(step);
+                        if (e.clientWidth === tgt) {
+                            e.style.width = tgt + 'px';
+                            clearInterval(e.timer);
+                        }
+                        if (slower.clientWidth >= tgt * 0.6) {
+                            slower.style.transition = 'background 0.6s';
+                            slower.style.background = '#ffffff10';
+                            if (type == 'go') {
+                                document.body.style.background = '#666';
+                                document.body.style.transition = 'background 0.6s';
+                            }
+                        }
+                        e.style.width = e.clientWidth + step + 'px';
+                    }, interpolation)
+                }
+            }
+        } {
+            window.addEventListener('load', () => {
+                window.scrollTo(0, 0);
+                let wrap = document.querySelector('#wrap');
+                let sgt = document.querySelector('#my_suggest');
+                sgt.style.left = '-100%';
+                wrap.style.left = 0;
+                let sty = window.getComputedStyle(sgt, null); /* wrap.style.top = -sgt.clientHeight + 'px'; */
+                wrap.style.top = -(parseFloat(sty.marginTop) + parseFloat(sty.marginBottom) + parseFloat(sty
+                    .height)) + 'px';
+                document.body.style.left = '100%';
+                setTimeout(() => {
+                    document.body.style.left = '0';
+                    setTimeout(() => {
+                        document.querySelector('#my_msg').style.opacity = 0;
+                    }, 1600)
+                }, 2400)
+            })
+        }
+    </script>
+</body>
+
+</html>

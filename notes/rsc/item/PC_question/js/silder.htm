@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #box-slider,
+        #hd-slider,
+        #hdt-slider {
+            display: inline-block;
+            *display: inline;
+            zoom: 1;
+        }
+
+        #box-slider {
+            cursor: pointer;
+            width: 195px;
+            height: 3px;
+            background-color: #bdbdbd;
+            position: relative;
+            vertical-align: middle;
+        }
+
+        #hd-slider {
+            width: 17px;
+            height: 18px;
+            background-color: #56a3fc;
+            border-radius: 6px;
+            position: absolute;
+            left: 0;
+            top: -8px;
+            cursor: pointer;
+            margin: 0;
+        }
+
+        #hdt-slider {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 3px;
+            width: 0;
+            background-color: #56a3fc;
+            margin: 0;
+        }
+
+        #fontSize_val {
+            outline: none;
+            border: none;
+            background: none;
+        }
+
+        #box-slider,
+        #fontSize_val {
+            margin-left: 0.64rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="tab-con-slider">
+        <span id="slider_tit">字体大小更改</span>
+        <span id="box-slider">
+            <i id="hd-slider"></i>
+            <i id="hdt-slider"></i>
+        </span>
+        <input id="fontSize_val" type="text" value="24" readonly disabled>
+    </div>
+    <script>
+        slider('box-slider', 100);
+
+        function slider(obj, num) {
+            let box = document.getElementById(obj);
+            let hd = box.children[0];
+            let hdt = box.children[1];
+            let result = box.nextSibling.nextSibling.value;
+            hdt.style.width = result + 'px';
+            hd.style.left = result + 'px';
+            /* 鼠标按下事件  只要鼠标按下时是在hd上触发就可以 */
+            hd.onmousedown = function (event) {
+                var event = event || window.event;
+                /* event.clientX 鼠标按下时的x坐标 */
+                /* this.offsetLeft 圆点到box的距离 */
+                /* leftval box距离左边边界的距离 */
+                let leftVal = event.clientX - this.offsetLeft;
+                let _this = this;
+                /* 滑动事件 作用在document上，因为如果是作用在hd.onmousemove，滑动时可能会出现鼠标脱离hd范围（范围太小）而停止滑动，但是此时鼠标按下还没有弹起还处于滑动状态，所以就产生了bug */
+                document.onmousemove = function (event) {
+                    var event = event || window.event;
+                    /* hd.style.left = _this.offsetLeft + "px"; */
+                    /* offsetLeft 是要有left值的前提下才产生，不能offsetLeft先赋值给left */
+                    hd.style.left = event.clientX - leftVal + "px";
+
+                    let far = parseInt(hd.style.left);
+
+                    /* 临界值判断 */
+                    if (far < 0) {
+                        hd.style.left = 0;
+                    } else if (far > 195) {
+                        hd.style.left = 195 + "px";
+                    }
+
+                    hdt.style.width = hd.style.left;
+                    /* 保留两位小数 let result = Math.floor((parseInt(hdt.style.width)/195 * num) * 100) / 100; */
+                    /* 取整 */
+                    result = parseInt(parseInt(hdt.style.width) / 195 * num);
+                    /* 效果图上的476 */
+                    box.nextSibling.nextSibling.value = result;
+                    /* 清除选中的文本 */
+                    window.getSelection ? window.getSelection().removeAllRanges() : document.selection
+                        .empty();
+                }
+                /* 当鼠标弹起时清除滑动时运行的函数，因为滑动结束时鼠标可能不在hd上，所以用document监听弹起事件 */
+                document.onmouseup = function () {
+                    document.onmousemove = null;
+                }
+
+            }
+            /* 点击选择位置 */
+            box.onclick = function (event) {
+                var event = event || window.event;
+                let boxWidth = event.clientX - this.offsetLeft;
+                if (boxWidth > 195) {
+                    boxWidth = 195;
+                }
+                hdt.style.width = hd.style.left = boxWidth + 'px';
+                let result = parseInt(parseInt(hdt.style.width) / 195 * num);
+                box.nextSibling.nextSibling.value = result;
+                console.log(event.clientX - this.offsetLeft);
+            }
+        }
+    </script>
+</body>
+
+</html>

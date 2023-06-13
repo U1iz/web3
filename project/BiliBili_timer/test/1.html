@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        let staff = [{
+            "mid": 11073,
+            "title": "UP主",
+            "name": "hanser",
+            "face": "https://i0.hdslb.com/bfs/face/7dcbccf29237ccacac876237f3718111d95b9785.jpg",
+            "vip": {
+                "type": 2,
+                "status": 1,
+                "due_date": 1724256000000,
+                "vip_pay_type": 0,
+                "theme_type": 0,
+                "label": {
+                    "path": "",
+                    "text": "年度大会员",
+                    "label_theme": "annual_vip",
+                    "text_color": "#FFFFFF",
+                    "bg_style": 1,
+                    "bg_color": "#FB7299",
+                    "border_color": "",
+                    "use_img_label": true,
+                    "img_label_uri_hans": "",
+                    "img_label_uri_hant": "",
+                    "img_label_uri_hans_static": "https://i0.hdslb.com/bfs/vip/8d4f8bfc713826a5412a0a27eaaac4d6b9ede1d9.png",
+                    "img_label_uri_hant_static": "https://i0.hdslb.com/bfs/activity-plat/static/20220614/e369244d0b14644f5e1a06431e22a4d5/VEW8fCC0hg.png"
+                },
+                "avatar_subscript": 1,
+                "nickname_color": "#FB7299",
+                "role": 3,
+                "avatar_subscript_url": "",
+                "tv_vip_status": 0,
+                "tv_vip_pay_type": 0
+            },
+            "official": {
+                "role": 1,
+                "title": "bilibili 2021百大UP主、知名UP主",
+                "desc": "",
+                "type": 0
+            },
+            "follower": 3581644,
+            "label_style": 0
+        }, {
+            "mid": 7329,
+            "title": "参演",
+            "name": "にまび",
+            "face": "https://i0.hdslb.com/bfs/face/6febfb20779d0b325e3f751d75fa14a8986109ef.jpg",
+            "vip": {
+                "type": 1,
+                "status": 0,
+                "due_date": 1525881600000,
+                "vip_pay_type": 0,
+                "theme_type": 0,
+                "label": {
+                    "path": "",
+                    "text": "",
+                    "label_theme": "",
+                    "text_color": "",
+                    "bg_style": 0,
+                    "bg_color": "",
+                    "border_color": "",
+                    "use_img_label": true,
+                    "img_label_uri_hans": "",
+                    "img_label_uri_hant": "",
+                    "img_label_uri_hans_static": "https://i0.hdslb.com/bfs/vip/d7b702ef65a976b20ed854cbd04cb9e27341bb79.png",
+                    "img_label_uri_hant_static": "https://i0.hdslb.com/bfs/activity-plat/static/20220614/e369244d0b14644f5e1a06431e22a4d5/KJunwh19T5.png"
+                },
+                "avatar_subscript": 0,
+                "nickname_color": "",
+                "role": 0,
+                "avatar_subscript_url": "",
+                "tv_vip_status": 0,
+                "tv_vip_pay_type": 0
+            },
+            "official": {
+                "role": 2,
+                "title": "网络配音员，一人可模仿多位日本男性声优声线，又被称为“野生声优”",
+                "desc": "",
+                "type": 0
+            },
+            "follower": 10620,
+            "label_style": 0
+        }, {
+            "mid": 242183,
+            "title": "参演",
+            "name": "卢力峰DK",
+            "face": "https://i2.hdslb.com/bfs/face/51f8786bd06ba586e50992c2e4f64265ff15aded.jpg",
+            "vip": {
+                "type": 2,
+                "status": 1,
+                "due_date": 1751126400000,
+                "vip_pay_type": 1,
+                "theme_type": 0,
+                "label": {
+                    "path": "",
+                    "text": "年度大会员",
+                    "label_theme": "annual_vip",
+                    "text_color": "#FFFFFF",
+                    "bg_style": 1,
+                    "bg_color": "#FB7299",
+                    "border_color": "",
+                    "use_img_label": true,
+                    "img_label_uri_hans": "",
+                    "img_label_uri_hant": "",
+                    "img_label_uri_hans_static": "https://i0.hdslb.com/bfs/vip/8d4f8bfc713826a5412a0a27eaaac4d6b9ede1d9.png",
+                    "img_label_uri_hant_static": "https://i0.hdslb.com/bfs/activity-plat/static/20220614/e369244d0b14644f5e1a06431e22a4d5/VEW8fCC0hg.png"
+                },
+                "avatar_subscript": 1,
+                "nickname_color": "#FB7299",
+                "role": 3,
+                "avatar_subscript_url": "",
+                "tv_vip_status": 0,
+                "tv_vip_pay_type": 0
+            },
+            "official": {
+                "role": 2,
+                "title": "《我是特优声 剧团季》声音演员",
+                "desc": "",
+                "type": 0
+            },
+            "follower": 191871,
+            "label_style": 0
+        }, {
+            "mid": 8327,
+            "title": "参演",
+            "name": "冷泉夜月",
+            "face": "https://i2.hdslb.com/bfs/face/9e1175083387c713ba04e911a13c13d8777501ef.jpg",
+            "vip": {
+                "type": 2,
+                "status": 1,
+                "due_date": 1714492800000,
+                "vip_pay_type": 0,
+                "theme_type": 0,
+                "label": {
+                    "path": "",
+                    "text": "年度大会员",
+                    "label_theme": "annual_vip",
+                    "text_color": "#FFFFFF",
+                    "bg_style": 1,
+                    "bg_color": "#FB7299",
+                    "border_color": "",
+                    "use_img_label": true,
+                    "img_label_uri_hans": "",
+                    "img_label_uri_hant": "",
+                    "img_label_uri_hans_static": "https://i0.hdslb.com/bfs/vip/8d4f8bfc713826a5412a0a27eaaac4d6b9ede1d9.png",
+                    "img_label_uri_hant_static": "https://i0.hdslb.com/bfs/activity-plat/static/20220614/e369244d0b14644f5e1a06431e22a4d5/VEW8fCC0hg.png"
+                },
+                "avatar_subscript": 1,
+                "nickname_color": "#FB7299",
+                "role": 3,
+                "avatar_subscript_url": "",
+                "tv_vip_status": 0,
+                "tv_vip_pay_type": 0
+            },
+            "official": {
+                "role": 1,
+                "title": "bilibili 知名UP主",
+                "desc": "",
+                "type": 0
+            },
+            "follower": 202414,
+            "label_style": 0
+        }, {
+            "mid": 188636,
+            "title": "参演",
+            "name": "森中人",
+            "face": "https://i2.hdslb.com/bfs/face/b2514310d7712325e0a940c853e9142b70878bbc.jpg",
+            "vip": {
+                "type": 2,
+                "status": 1,
+                "due_date": 1693152000000,
+                "vip_pay_type": 1,
+                "theme_type": 0,
+                "label": {
+                    "path": "",
+                    "text": "年度大会员",
+                    "label_theme": "annual_vip",
+                    "text_color": "#FFFFFF",
+                    "bg_style": 1,
+                    "bg_color": "#FB7299",
+                    "border_color": "",
+                    "use_img_label": true,
+                    "img_label_uri_hans": "",
+                    "img_label_uri_hant": "",
+                    "img_label_uri_hans_static": "https://i0.hdslb.com/bfs/vip/8d4f8bfc713826a5412a0a27eaaac4d6b9ede1d9.png",
+                    "img_label_uri_hant_static": "https://i0.hdslb.com/bfs/activity-plat/static/20220614/e369244d0b14644f5e1a06431e22a4d5/VEW8fCC0hg.png"
+                },
+                "avatar_subscript": 1,
+                "nickname_color": "#FB7299",
+                "role": 3,
+                "avatar_subscript_url": "",
+                "tv_vip_status": 0,
+                "tv_vip_pay_type": 0
+            },
+            "official": {
+                "role": 0,
+                "title": "",
+                "desc": "",
+                "type": -1
+            },
+            "follower": 439086,
+            "label_style": 0
+        }, {
+            "mid": 1438811,
+            "title": "参演",
+            "name": "请叫我王胖子",
+            "face": "http://i2.hdslb.com/bfs/face/00d5749bae095160d062fed1ac96c7f54edb1806.jpg",
+            "vip": {
+                "type": 1,
+                "status": 0,
+                "due_date": 1659196800000,
+                "vip_pay_type": 0,
+                "theme_type": 0,
+                "label": {
+                    "path": "",
+                    "text": "",
+                    "label_theme": "",
+                    "text_color": "",
+                    "bg_style": 0,
+                    "bg_color": "",
+                    "border_color": "",
+                    "use_img_label": true,
+                    "img_label_uri_hans": "",
+                    "img_label_uri_hant": "",
+                    "img_label_uri_hans_static": "https://i0.hdslb.com/bfs/vip/d7b702ef65a976b20ed854cbd04cb9e27341bb79.png",
+                    "img_label_uri_hant_static": "https://i0.hdslb.com/bfs/activity-plat/static/20220614/e369244d0b14644f5e1a06431e22a4d5/KJunwh19T5.png"
+                },
+                "avatar_subscript": 0,
+                "nickname_color": "",
+                "role": 0,
+                "avatar_subscript_url": "",
+                "tv_vip_status": 0,
+                "tv_vip_pay_type": 0
+            },
+            "official": {
+                "role": 1,
+                "title": "bilibili 知名UP主",
+                "desc": "",
+                "type": 0
+            },
+            "follower": 679477,
+            "label_style": 0
+        }, {
+            "mid": 155777,
+            "title": "参演",
+            "name": "夏燐卿",
+            "face": "http://i2.hdslb.com/bfs/face/053c9238f11754bc4118e48068853f51b9a9a658.jpg",
+            "vip": {
+                "type": 2,
+                "status": 1,
+                "due_date": 1687449600000,
+                "vip_pay_type": 1,
+                "theme_type": 0,
+                "label": {
+                    "path": "",
+                    "text": "年度大会员",
+                    "label_theme": "annual_vip",
+                    "text_color": "#FFFFFF",
+                    "bg_style": 1,
+                    "bg_color": "#FB7299",
+                    "border_color": "",
+                    "use_img_label": true,
+                    "img_label_uri_hans": "",
+                    "img_label_uri_hant": "",
+                    "img_label_uri_hans_static": "https://i0.hdslb.com/bfs/vip/8d4f8bfc713826a5412a0a27eaaac4d6b9ede1d9.png",
+                    "img_label_uri_hant_static": "https://i0.hdslb.com/bfs/activity-plat/static/20220614/e369244d0b14644f5e1a06431e22a4d5/VEW8fCC0hg.png"
+                },
+                "avatar_subscript": 1,
+                "nickname_color": "#FB7299",
+                "role": 3,
+                "avatar_subscript_url": "",
+                "tv_vip_status": 0,
+                "tv_vip_pay_type": 0
+            },
+            "official": {
+                "role": 0,
+                "title": "",
+                "desc": "",
+                "type": -1
+            },
+            "follower": 4278,
+            "label_style": 0
+        }, {
+            "mid": 885660,
+            "title": "参演",
+            "name": "青柠seinei",
+            "face": "https://i0.hdslb.com/bfs/face/0e1ecdc8172072c19121bc46b381a765ef32b4f2.jpg",
+            "vip": {
+                "type": 1,
+                "status": 1,
+                "due_date": 1683388800000,
+                "vip_pay_type": 1,
+                "theme_type": 0,
+                "label": {
+                    "path": "",
+                    "text": "大会员",
+                    "label_theme": "vip",
+                    "text_color": "#FFFFFF",
+                    "bg_style": 1,
+                    "bg_color": "#FB7299",
+                    "border_color": "",
+                    "use_img_label": true,
+                    "img_label_uri_hans": "",
+                    "img_label_uri_hant": "",
+                    "img_label_uri_hans_static": "https://i0.hdslb.com/bfs/vip/3788b674c69072f1ee252b79a31ecc8c43af3039.png",
+                    "img_label_uri_hant_static": "https://i0.hdslb.com/bfs/activity-plat/static/20220614/e369244d0b14644f5e1a06431e22a4d5/jwXBWRVwa5.png"
+                },
+                "avatar_subscript": 1,
+                "nickname_color": "#FB7299",
+                "role": 1,
+                "avatar_subscript_url": "",
+                "tv_vip_status": 0,
+                "tv_vip_pay_type": 0
+            },
+            "official": {
+                "role": 0,
+                "title": "",
+                "desc": "",
+                "type": -1
+            },
+            "follower": 14730,
+            "label_style": 0
+        }]
+
+        let t = []
+        staff.forEach(e => {
+            console.log(e);
+        })
+
+
+        /* * 生成文件的base64值及其blob链接 * 文件完整路径, 文件名(可自定义) */
+        function getData(fullPath, fileName) {
+            return new Promise((resolve, reject) => {
+                getFileFromUrl(fullPath, fileName).then(r => {
+                    resolve(_getData_(r));
+                }).catch(e => {
+                    console.error(e)
+                });
+            });
+        }
+
+        function _getData_(file) {
+            let fin = null;
+            return new Promise((resolve, reject) => {
+                if (typeof file == 'object') {
+                    let init = {
+                        blobUrl: null,
+                        fileSize: file.size,
+                        fileName: file.name,
+                        fileExt: file.name.substr(file.name.lastIndexOf('.'), file.name.length),
+                        base64: null,
+                        mime: null
+                    }; /* console.log(file.name.substr(file.name.lastIndexOf('.'), file.name.length)); */
+                    const DataUrl = new FileReader();
+                    const BlobUrl = new FileReader();
+                    DataUrl.readAsDataURL(file);
+                    BlobUrl.readAsArrayBuffer(file);
+                    DataUrl.onload = async function () {
+                        let DataURL = this.result;
+                        init.base64 = DataURL;
+                        fin = await _getData(init).then(r => {
+                            resolve(r)
+                        });
+                    };
+                    BlobUrl.onload = async function () {
+                        let Buffer = this.result;
+                        let mime = file.type;
+                        if (mime == '') {
+                            const ext = file.name.substr(file.name.lastIndexOf('.') + 1, file.name
+                                .length);
+                            for (let k in window.MiME) {
+                                if (k == ext) {
+                                    init.mime = window.MiME[k];; /* console.log(init.mime); */
+                                } else {
+                                    init.mime = '未知';
+                                }
+                            }
+                        } else {
+                            init.mime = mime;
+                        }
+                        let url = window.URL.createObjectURL(new Blob([Buffer], {
+                            type: mime
+                        }));
+                        init.blobUrl = url;
+                        fin = await _getData(init).then(r => {
+                            resolve(r)
+                        });
+                    }
+                }
+                return fin;
+            });
+        }
+
+        function _getData(data) {
+            return new Promise((resolve, reject) => {
+                let load = true;
+                for (let k in data) {
+                    if (!data[k]) {
+                        load = false;
+                        break;
+                    }
+                }
+                if (load) {
+                    resolve(data);
+                }
+            })
+        }
+    </script>
+</body>
+
+</html>

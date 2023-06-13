@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>油猴脚本</title>
+    <style>
+        * {
+            padding: 0.6rem;
+            margin: 0.3rem;
+        }
+
+        html {
+            font-size: 24px;
+        }
+
+        a {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <script>
+        add_link('上海市中职校计算机应用专业教育质量监测理论考试平台 题目全选', 'select_all/select_all.js', '题目全选');
+        add_link('上海市中职校计算机应用专业教育质量监测理论考试 自动答题', 'auto_respond/auto_respond.js', '自动答题');
+
+        function add_link(text, name, title) {
+            let a = document.createElement('a');
+            a.href = './src/get.php?name=' + name + '&title=' + title;
+            a.innerHTML = text;
+            a.target = '_blank';
+            document.body.appendChild(a);
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,23 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+[RequireComponent(typeof(Action_event))]
+public class Action_event_another : MonoBehaviour
+{
+    Action_event act_event;
+
+    void Start()
+    {
+        act_event = GetComponent<Action_event>();
+        if (act_event != null)
+        {
+            act_event.action += on_action_event;
+        }
+    }
+
+    void on_action_event(string str, int num)
+    {
+        Debug.Log("on_action_event: " + str + ' ' + num);
+    }
+}

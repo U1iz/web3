@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>参考资料</title>
+    <link rel="stylesheet" href="/notes/rsc/item/add_CSSNode/page_normalize.css">
+    <link rel="stylesheet" href="/notes/rsc/lib/highlight.js/user_styles/normalize.css">
+    <script src="/notes/rsc/lib/highlight.js/highlight.min.js"></script>
+    <script src="/notes/lib/jQuery.min.js"></script>
+    <script src="/notes/rsc/lib/lib.min.js"></script>
+    <script src="/notes/rsc/lib/local_lib.min.js"></script>
+    <script src="/notes/rsc/lib/Q_KVM_lib.min.js"></script>
+    <script src="/notes/rsc/lib/add_formNode.min.js"></script>
+    <script src="./ref/js/add_formNode_parameter.js"></script>
+    <style>
+        #goto_root {
+            position: fixed;
+            right: 1rem;
+            top: 1rem;
+            z-index: 11;
+            transition: all 0.3s;
+        }
+
+        #goto_root a {
+            text-decoration: none;
+            color: #2f38d8;
+            cursor: pointer;
+            font-style: italic;
+        }
+
+        #goto_root aside:hover {
+            background: rgba(0, 0, 0, .2);
+        }
+    </style>
+</head>
+
+<body>
+    <div id="goto_root">
+        <a href="http://96yzl.vip/notes/rsc/response.php?path=PC_question&tit=PC_question">
+            <aside>← 到达当前笔记根目录</aside>
+        </a>
+    </div>
+    <script>
+        setTimeout(()=>{
+            let goto_root = $('#goto_root')[0];
+            goto_root.style.top = -goto_root.clientHeight + 'px';
+        }, 3000);
+    </script>
+    <script>
+        LM('五笔部分');
+        img({
+            fullPath: 'ref/img/五笔字根.jpg',
+            width: '110%'
+        });
+        img({
+            fullPath: 'ref/img/末笔字型识别码.jpg',
+            width: '60%'
+        });
+        LM('程序流程图');
+        form_ini_01();
+        img({
+            fullPath: 'ref/img/流程图标识解析.png',
+            width: '70%'
+        });
+    </script>
+    <script>
+        SL();
+        LM('表格基本格式');
+    </script>
+    <div id="table">
+        <table style="margin: 0 auto;">
+            <!-- 行标题 -->
+            <thead>
+                <tr>
+                    <td>列1</td>
+                    <td>列2</td>
+                    <td>列3</td>
+                </tr>
+            </thead>
+            <!-- 表数据 -->
+            <tbody>
+                <tr>
+                    <td>11</td>
+                    <td>12</td>
+                    <td>13</td>
+                </tr>
+                <tr>
+                    <td>21</td>
+                    <td>22</td>
+                    <td>23</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <script>
+        hlc($('#table').html(), 'vbscript-html');
+        SL();
+        LM('IP地址');
+        link('参考', 'https://blog.csdn.net/qq_53679247/article/details/126945910');
+        SM('A 类地址');
+        lst('<strong style="color:red;">< 128</strong>', [111, 'square', 2]);
+        lst('<b>1.0.0.0</b> 到 <b>126.0.0.0</b>', [0, 'disc', 3]);
+        lst('0.0.0.0 和 127.0.0.0保留', [0, 'disc', 3]);
+        SM('B 类地址');
+        lst('<strong style="color:red;">128 ~ 192</strong></strong>', [111, 'square', 2]);
+        lst('<b>128.1.0.0</b> 到 <b>191.254.0.0</b>', [0, 'disc', 3]);
+        lst('128.0.0.0 和 191.255.0.0保留', [0, 'disc', 3]);
+        SM('C 类地址');
+        lst('<strong style="color:red;">192 ~ 223</strong>', [111, 'square', 2]);
+        lst('<b>192.0.1.0</b> 到 <b>223.255.254.0</b>', [0, 'disc', 3]);
+        lst('192.0.0.0 和 223.255.255.0保留', [0, 'disc', 3]);
+        SM('D 类地址');
+        lst('<b>224.0.0.0</b> 到 <b>239.255.255.255</b> 用于多点广播', [111, 'disc', 3]);
+        SM('E 类地址');
+        lst('<b>240.0.0.0</b> 到 <b>255.255.255.254</b> 保留', [111, 'disc', 3]);
+        lst('255.255.255.255用于广播', [0, 'disc', 3]);
+        tip('题目中没有提到网关的，它的网关就是默认网关');
+        SL();
+        SM('默认子网掩码');
+        link('参考', 'https://zhidao.baidu.com/question/646396740032518205.html');
+        lst('A: <b style="color:red;">255.0.0.0</b>', [111, 'disc', 2]);
+        lst('B: <b style="color:red;">255.255.0.0</b>', [0, 'disc', 2]);
+        lst('C: <b style="color:red;">255.255.255.0</b>', [0, 'disc', 2]);
+        lst('"255" 代表这一位是固定不会变化的');
+        SL();
+        Q_KV_module([
+            [
+                "elem", "\n\n办公软件应用",
+                [1.6, 400, "0.32rem"]
+            ],
+            ["elem", "\n\t 多选题", [0.96, 800],
+                [
+                    ["MB", "0.32rem"]
+                ]
+            ],
+            ["MCQ", "在小明同学家里，小明和爸爸两人分别通过路由器共享上网，由路由器自动分配IP地址，\n已知小明电脑的IP地址是192.168.3.4，那么他爸爸电脑的IP地址可能是()。", [
+                    "192.168.3.260",
+                    "192.168.3.8",
+                    "192.168.1.6",
+                    "192.168.3.12"
+                ],
+                [2, 4], 2
+            ],
+            ["MCQ",
+                "在小明同学家里，小明和爸爸两人分别通过路由器共享上网，由路由器自动分配IP地址，\n\t已知小明电脑的IP地址是192.168.3.4，\n\t默认子网掩码地址是 <b>255.255.254.0</b>，\n那么他爸爸电脑的IP地址可能是()。",
+                [
+                    "192.168.3.260",
+                    "192.168.3.8",
+                    "192.168.4.6",
+                    "192.168.3.12"
+                ],
+                [2, 3, 4], 2
+            ],
+            ["elem", "\n\t 单选题", [0.96, 800],
+                [
+                    ["MB", "0.32rem"]
+                ]
+            ],
+            [
+                "CQ", "下列()是B类IP地址的二进制表示。",
+                [
+                    "0xxxxxxx",
+                    "10xxxxxx",
+                    "110xxxxx",
+                    "1110xxxx"
+                ],
+                2, 2
+            ]
+        ]);
+        SM('题1');
+        lst('因 C类地址，所以<b>默认子网掩码</b>为 255.255.255.0', [111, 'none', 2]);
+        lst('又因 在同一VLAN下，前三个地址是不变的', [0, 'none', 2]);
+        lst('又又因 260 > 255 数值非法', [0, 'none', 2]);
+        lst('故选 BD');
+        SM('题2');
+        tip('子网掩码 减去多少，网关同位的数值 就要加上多少');
+        tip('子网掩码每小一位数，可用范围多出254个地址');
+        lst('子网掩码: 255.255.255.0', [111, 'square', 3]);
+        lst('默认网关: 192.1.68.3.254', [0, 'square', 3]);
+        lst('地址范围: 192.168.3.（1 ~ 254）', [0, 'square', 3]);
+        lst('子网掩码: 255.255.254.0', [111, 'square', 3]);
+        lst('默认网关: 192.168.3.254', [0, 'square', 3]);
+        lst('地址范围: 192.168.（3 ~ 4）.（1 ~ 254）', [0, 'square', 3]);
+        lst('故选 BCD');
+        SM('题3');
+        lst('"<b style="color:red;">0</b>"开头： A类', [111, 'disc', 2]);
+        lst('"<b style="color:red;">10</b>"开头： B类', [0, 'disc', 2]);
+        lst('"<b style="color:red;">110</b>"开头： C类', [0, 'disc', 2]);
+        lst('故选 B');
+        SL();
+        LM('进制转换');
+        form_ini_02();
+        Q_KV_module([
+            [
+                "elem", "\n\n进制转换",
+                [1.6, 400, "0.32rem"]
+            ],
+            ["elem", "\n\t 填空题", [0.96, 800],
+                [
+                    ["MB", "0.32rem"]
+                ]
+            ],
+            ["fill", "一个 16 进制数 1001A 它的十进制表达格式是___。", [65562], 2],
+        ]);
+        SM('题1');
+        let code_tex = `let a = 0xA,
+    b = 1,
+    c = 0,
+    d = 0,
+    e = 1;
+let val =
+    /* 个 */
+    (a * 16 ** 0) +
+    /* 十 */
+    (b * 16 ** 1) +
+    /* 百 */
+    (c * 16 ** 2) +
+    /* 千 */
+    (d * 16 ** 3) +
+    /* 万 */
+    (e * 16 ** 4);
+
+// 得到值最终值 65562
+console.log(val);`;
+        hlc(code_tex, undefined, 'javascript');
+        lst('故答案为 65562');
+        SL();
+        space('24rem');
+    </script>
+</body>
+
+</html>

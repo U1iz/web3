@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <video id="v" src="./video/u0000.mp4"></video>
+    <script>
+        let v = document.querySelector('#v');
+        videoCtrl(v);
+
+        function videoCtrl(v) {
+            let playing = false;
+            v.addEventListener('playing', () => {
+                playing = true;
+            })
+            v.addEventListener('pause', () => {
+                playing = false;
+            })
+            v.onclick = () => {
+                if (playing) {
+                    v.pause();
+                } else {
+                    v.play();
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>

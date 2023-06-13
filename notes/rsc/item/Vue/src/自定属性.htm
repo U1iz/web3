@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>自定属性</title>
+    <script type="importmap">
+        {
+          "imports": {
+            "vue": "/node_modules/vue/dist/vue.esm-browser.js"
+          }
+        }
+      </script>
+</head>
+
+<body>
+    <div id="app">
+        <p>使用普通插入 ——innerText: {{ rawHtml }}</p>
+        <p>使用 v-html ——innerHTML: <span v-html="rawHtml"></span></p>
+        <div v-bind:id="vid"></div>
+        <div :class="vid"></div>
+        <button :disabled="buttonDisabled">disable</button>
+        <button :disabled="buttonenabled">enbale</button>
+    </div>
+
+    <script type="module">
+        import { createApp } from 'vue'
+
+        createApp({
+            data() {
+                return {
+                    rawHtml: '<p style="color:red;">HelloVue!</p>',
+                    vid: 'newId',
+                    buttonDisabled: true,
+                    buttonenabled: false
+                }
+            }
+        }).mount('#app')
+    </script>
+</body>
+
+</html>

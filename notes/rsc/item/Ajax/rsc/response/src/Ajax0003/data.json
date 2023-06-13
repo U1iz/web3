@@ -1,0 +1,27 @@
+{
+    "elemList": [{
+            "fn": "LM('XML 数据格式');"
+        },
+        {
+            "fn": "lst('体积太大，传输慢，元数据过多，解析不方便，目前使用的很少。');"
+        },
+        {
+            "fn": "SM('解析方式：略');"
+        },
+        {
+            "fn": "tArea(`    <?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n    <students>\n        <student>\n            <name>张三</name>\n            <age>18</age>\n            <sex>男</sex>\n        </student>\n        <student>\n            <name>李四</name>\n            <age>19</age>\n            <sex>女</sex>\n        </student>\n    </students>`);"
+        },
+        {
+            "fn": "LM('Json 数据格式');"
+        },
+        {
+            "fn": "lst('体积小，传输快，解析方便');"
+        },
+        {
+            "fn": "tArea(`    {\n        \"students\": [{\n            \"name\": \"张三\",\n            \"age\": \"18\",\n            \"sex\": \"男\"\n        }, {\n            \"name\": \"李四\",\n            \"age\": \"19\",\n            \"sex\": \"女\"\n        }]\n    }`);"
+        },
+        {
+            "fn": "add_normalNode('', ['p', 'normal', '32rem 0']);"
+        }
+    ]
+}

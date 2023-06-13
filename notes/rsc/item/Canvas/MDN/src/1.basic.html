@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>绘制基本图形</title>
+    <script src="../../../../lib/lib.min.js"></script>
+    <script src="../../../../lib/local_lib.min.js"></script>
+    <script src="basic.js"></script>
+    <link rel="stylesheet" href="main_style.css">
+</head>
+
+<body>
+    <script>
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.body.style.overflowX = 'auto';
+            }, 3000);
+        });
+    </script>
+    <script>
+        topic('绘制基本图形');
+        add_normalNode('', ['p', 'normal', '6rem 0']);
+
+        SM('canvas 元素');
+        code(`<canvas id="cav" width="600" height="400">
+        若浏览器支持便不会显示这段文字
+    </canvas>`);
+        SM('canvas 属性');
+        tArea(`canvas {
+        border: 1px solid #666;
+    }`);
+        SM('判断是否支持 canvas');
+        code(`if (canvas.getContext) {
+        var ctx = canvas.getContext('2d');
+    } else {
+
+    }`);
+        SM('常规写法（引入工具）');
+        code("var ctx = cav.getContext('2d');");
+
+        LM('绘制 两个矩形');
+        code(`    ctx.fillStyle = "rgb(200, 0, 0)";
+    ctx.fillRect(20, 20, 200, 160);
+
+    ctx.fillStyle = "rgba(0, 0, 200, 0.5)";
+    ctx.fillRect(120, 90, 200, 160);`);
+        addCav();
+    </script>
+    <div class="canvas_wrap"></div>
+    <script>
+        window.addEventListener('load', () => {
+            if (cav.getContext) {
+                var ctx = cav.getContext('2d');
+
+                ctx.fillStyle = "rgb(200, 0, 0)";
+                ctx.fillRect(20, 20, 200, 160);
+
+                ctx.fillStyle = "rgba(0, 0, 200, 0.5)";
+                ctx.fillRect(120, 90, 200, 160);
+            }
+        });
+    </script>
+    <script>
+        SM('绘制一个填充的矩形');
+        tArea('fillRect(x, y, width, height)');
+        SM('绘制一个矩形的边框');
+        tArea('strokeRect(x, y, width, height)');
+        SM('清除指定矩形区域，让清除部分完全透明。');
+        tArea('clearRect(x, y, width, height)');
+        code(`    ctx.fillRect(25, 25, 100, 100);
+    ctx.strokeRect(100, 50, 120, 50);
+    ctx.clearRect(80, 45, 90, 60);`);
+    </script>
+    <div class="canvas_wrap"></div>
+    <script>
+        addCav();
+        window.addEventListener('load', () => {
+            if (cav1.getContext) {
+                var ctx = cav1.getContext('2d');
+
+                ctx.fillRect(25, 25, 100, 100);
+                ctx.strokeRect(100, 50, 120, 50);
+                ctx.clearRect(80, 45, 90, 60);
+            }
+        });
+    </script>
+    <script>
+        add_normalNode('', ['p', 'normal', '16rem 0']);
+    </script>
+    <script src="../../../../lib/CodeRenderer.js"></script>
+</body>
+
+</html>

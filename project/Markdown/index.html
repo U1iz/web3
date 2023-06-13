@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>md文档集合</title>
+    <script src="/node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="/notes/rsc/lib/lib.min.js"></script>
+    <style>
+        * {
+            cursor: default;
+        }
+
+        li {
+            list-style-type: none;
+        }
+
+        .module {
+            font: 800 1.5rem auto;
+        }
+
+        .link {
+            text-indent: 2em;
+        }
+
+        .link:hover {
+            background: #eee;
+        }
+    </style>
+</head>
+
+<body>
+    <script>
+        const set = {
+            Electron: ['Electron配置基本流程', 'Electron基本结构', 'Electron进程通信'],
+            Python神经网络编程: [
+                'Python神经网络编程/01_神经网络如何工作',
+                'Python神经网络编程/02_神经网络如何工作',
+                'Python神经网络编程/在不同环境中计算出中矩阵的方法',
+                'Python神经网络编程/附录A_微积分简介',
+                'Python神经网络编程/我们实际上如何更新权重_推导过程'
+            ],
+            JavaScript: ['JavaScript/js中的一些用法'],
+            'else': ['else/函数']
+        }
+        for (let k in set) {
+            const module = k;
+            $('body').append(`<ul id=${k}><li class="module">${k}</li></ul>`)
+            set[k].forEach(e => {
+                $('ul#' + k).append(`<li onclick="go('${e}')" class="link">${e}</li>`)
+            });
+        }
+
+        function go(name) {
+            openNewWindow(`./response/markdown.php?md=${name}&table=${JSON.stringify(set)}`, name)
+            // location.href = `./response/markdown.php?md=${name}`
+        }
+    </script>
+</body>
+
+</html>

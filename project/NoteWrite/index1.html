@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        /* 
+        ul {
+            width: 100%;
+        }
+        ul li {
+            width: 20%;
+            background-color: #000;
+        } */
+
+        span {
+            display: block;
+            width: 100px;
+            height: 100px;
+
+            margin-left: 20%;
+
+            background-color: red;
+            transform: rotate(30deg);
+
+        }
+    </style>
+</head>
+
+<body>
+    <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+
+    <span id="span"></span>
+    <script>
+        let ul = document.querySelector('ul');
+
+        let li = ul.querySelectorAll('li');
+
+        for (let i in li) {
+            li[i].innerHTML = 1;
+        }
+
+        let s = document.querySelector('#span');
+        let temp = 1;
+        setInterval(() => {
+            s.style.transform = 'rotate(' + temp + 'deg)';
+            temp += 10;
+        }, 20);
+    </script>
+</body>
+
+</html>

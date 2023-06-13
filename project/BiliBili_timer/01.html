@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 计时间隔 （秒）
+        const interval = 10;
+        window.b_log = {
+            /* 日期: {
+                标签页数量: 0,
+                标签页历史: {
+                    名称: [url, 持续时间, 切换次数, 打开时间, 关闭时间, [时间戳（打开）, 时间戳（关闭）]]
+                }
+            } */
+        }
+        const date = new Date();
+        const dt =
+            `${fill_zero(date.getFullYear())}${fill_zero(date.getMonth())}${fill_zero(date.getDate())}`;
+        if (JSON.parse(localStorage.getItem('bilibili_userLog'))[dt]) {
+            window.b_log = JSON.parse(localStorage.getItem('bilibili_userLog'));
+        }
+        window.global_timer = null;
+        // 页面切换次数
+        window.triggeredTimes = 0;
+
+        // window.addEventListener('DOMContentLoaded', e => {})
+
+        function dct() {
+            window.currentDate = dt;
+            window.correctTime = new Date();
+            /* 创建基本数据格式 */
+            if (!window.b_log[dt]) {
+                window.b_log[dt] = {
+                    history: {}
+                }
+            }
+            /* 保存1 */
+            save();
+        }
+
+        window.addEventListener('load', () => {
+            dct();
+            if (window.b_log[window.currentDate].history[document.head.querySelector('title').innerText]) {
+                // 已存在
+                window.triggeredTimes = window.b_log[window.currentDate].history[document.head.querySelector(
+                        'title')
+                    .innerText][2];
+            } else {
+                window.b_log[window.currentDate].history[document.head.querySelector('title').innerText] = [
+                    location.href,
+                    '', 0, get_correctTime(window.correctTime), '', [window.correctTime.getTime(), 0]
+                ];
+            }
+
+            // console.log(window.b_log);
+            /* 10s一加 */
+            timer();
+
+            /* 保存2 */
+            save();
+        })
+
+        /* 页面关闭 */
+        window.addEventListener('unload', () => {
+            /* 保存4 */
+            save();
+        })
+
+        /* https://blog.csdn.net/weixin_43617604/article/details/103688344 */
+        // 页面的 visibility 属性可能返回三种状态 
+        // prerender，visible 和 hidden 
+        let pageVisibility = document.visibilityState;
+        // 监听 visibility change 事件 
+
+
+        document.addEventListener('visibilitychange', () => {
+            // 页面变为不可见时触发 
+            if (document.visibilityState == 'hidden') {
+                clearInterval(window.global_timer);
+
+                let temp = new Date();
+                let t1 = window.b_log[window.currentDate].history[document.head.querySelector('title')
+                    .innerText][5][0];
+                let t2 = temp.getTime();
+                window.b_log[window.currentDate].history[document.head.querySelector('title').innerText][4] =
+                    get_correctTime(temp);
+                window.b_log[window.currentDate].history[document.head.querySelector('title').innerText][5][1] =
+                    temp.getTime()
+                window.b_log[window.currentDate].history[document.head.querySelector('title').innerText][1] = ((
+                    t2 - t1) / 60 / 1000).toFixed(3) + '分钟'
+            }
+            // 页面变为可见时触发 
+            else if (document.visibilityState == 'visible') {
+                window.b_log[window.currentDate].history[document.head.querySelector('title').innerText][2] =
+                    window
+                    .triggeredTimes;
+                timer();
+
+            }
+
+            /* 保存3 */
+            save();
+        });
+    </script>
+    <script>
+        function save() {
+            let local = JSON.parse(localStorage.getItem('bilibili_userLog'));
+            if (local[window.currentDate]) {
+                for (let k in window.b_log[window.currentDate].history) {
+                    local[window.currentDate].history[k] = window.b_log[window.currentDate].history[k];
+                }
+            } else {
+                local = {
+                    ...local,
+                    ...window.b_log
+                }
+            }
+            localStorage.setItem('bilibili_userLog', JSON.stringify(local));
+        }
+
+        function get_correctTime(date) {
+            return correct_time(date.getHours(), date.getMinutes(), date.getSeconds(), date
+                .getMilliseconds());
+        }
+
+        function timer() {
+            window.global_timer = setInterval(() => {
+                if (localStorage.getItem('bilibili_seconds')) {
+                    let crt_time = localStorage.getItem('bilibili_seconds').split(',');
+                    let seconds = crt_time[1] == Number(crt_time[1]) ? Number(crt_time[1]) + interval : interval
+                    if (window.currentDate != crt_time[0]) {
+                        let local = JSON.parse(localStorage.getItem('bilibili_userLog'));
+                        local[crt_time[0]]['BrowseDuration'] = crt_time[1];
+                        localStorage.setItem('bilibili_userLog', JSON.stringify(local))
+                        localStorage.setItem('bilibili_seconds', [window.currentDate, 0])
+                    } else {
+                        localStorage.setItem('bilibili_seconds', [window.currentDate, seconds])
+                    }
+                } else {
+                    localStorage.setItem('bilibili_seconds', [window.currentDate, interval])
+                }
+
+                console.log(`你今日已在b站度过${(parseInt(crt_time[1])/60).toFixed(2)}分钟`);
+            }, interval * 1000);
+            window.triggeredTimes++;
+        }
+    </script>
+    <script>
+        // 数字前补充零
+        function fill_zero(num) {
+            if (`${num}`.length == 1) {
+                return `0${num}`;
+            }
+            return `${num}`;
+        }
+
+        function correct_time() {
+            let temp = '';
+            for (let i in arguments) {
+                temp += fill_zero(arguments[i]) + ':'
+            }
+            return temp.substr(0, temp.length - 1);
+        }
+    </script>
+</body>
+
+</html>

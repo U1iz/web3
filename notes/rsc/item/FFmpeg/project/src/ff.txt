@@ -1,0 +1,391 @@
+@echo off
+chcp 65001
+color 0f
+title 批量视频转换 v0.3.0 @yzl
+:: mode con cols=100 lines=40
+
+
+goto start
+:start
+cls
+call:dh 1
+(
+    :: 为避免不加引号导致的保存
+    set temp[0]="1. 使用预设"
+    set temp[1]="2. 自定义参数"
+    set temp[2]="3. 我自己写"
+    set temp[3]="4. 默认参数(作者常用, HEVC)"
+    set temp[4]="5. 默认参数(作者推荐, AV1)"
+    set temp[5]="6. 删除当前目录下的 output 文件夹及其文件"
+    set temp[6]="7. 网页格式 无音轨 12fps"
+    set temp[6]="8. 网页格式 无音轨"
+    set temp[7]="9. 退出"
+    set temp[8]="1,2,4,5 都是写死复制音频流，即不压制音频"
+)
+
+echo    ^|
+echo    ^|-- 当前目录: %cd%
+echo    ^|
+echo    ^|-- 压制过程中会隐藏 output 文件夹，再次运行（不需要额外操作，运行后直接关闭）即可再次显示
+call:split_line msgend
+echo    ^|
+echo    ^|-- %temp[0]:"=%
+echo    ^|-- %temp[1]:"=%
+echo    ^|-- %temp[2]:"=%
+echo    ^|-- %temp[3]:"=%
+echo    ^|-- %temp[4]:"=%
+echo    ^|-- %temp[5]:"=%
+echo    ^|-- %temp[6]:"=%
+echo    ^|-- %temp[7]:"=%
+echo    ^|-- %temp[8]:"=%
+echo    ^|
+echo    ^|-- %temp[9]:"=%
+call:split_line msgend
+echo.
+choice /c 123456789 /n /m "请选择(1 ~ 9): "
+if %errorlevel% EQU 1 goto user_select
+if %errorlevel% EQU 2 goto user_input
+if %errorlevel% EQU 3 goto user_write
+if %errorlevel% EQU 4 (
+    echo 默认压制格式 HEVC: 
+    echo "ffmpeg -i input -c:a copy -c:v hevc_nvenc -preset ll -crf 0 outpout H265GE_ll00.mp4"
+    set "extra= H265GE_ll00"
+    set "encode_paramter=-c:v hevc_nvenc -preset ll -crf 0"
+    pause
+    goto ffmpeg_encode "-c:a copy"
+)
+if %errorlevel% EQU 5 (
+    echo 默认压制格式 av1:
+    :: if 内不能set /p, 需要使用延迟变量
+    goto lib_av1 %pst%
+)
+if %errorlevel% EQU 6 (
+    del /q "%cd%\output\*.*"
+    rd /s /q "%cd%\output"
+    goto end
+)
+if %errorlevel% EQU 7 (
+    echo 默认压制格式 AV1: 
+    set "encode_paramter=-an -c:v libsvtav1 -preset 01 -r 12 -s 1920*1080"
+    echo "ffmpeg -i input -an -c:v libsvtav1 -preset 01 -r 12 -s 1920*1080 outpout.mp4"
+    set "extra="
+    pause
+    goto ffmpeg_encode "-an"
+)
+if %errorlevel% EQU 8 (
+    echo 默认压制格式 AV1: 
+    set "encode_paramter=-c:a copy -c:v libsvtav1 -preset 01"
+    echo "ffmpeg -i input -c:a copy -c:v libsvtav1 -preset 01 outpout.mp4"
+    set "extra="
+    pause
+    goto ffmpeg_encode "-c:a copy"
+)
+if %errorlevel% EQU 9 goto end
+
+:lib_av1
+set /p "pst=编码速度(1~13): "
+if %pst% LEQ 9 set pst=0%pst%
+echo ffmpeg -i input -c:a copy -c:v libsvtav1 -preset %pst% outpout libsvtav1_preset%pst%.mp4
+pause
+set "extra= libsvtav1_preset%pst%"
+set "encode_paramter=-c:v libsvtav1 -preset %pst%"
+goto:ffmpeg_encode "-c:a copy"
+
+call:split_line emptier 4 2
+echo.
+goto:eof
+
+:: 用户自带参数 模块
+::#region
+:user_write
+call:msg efm
+call:msg esm
+echo ffmpeg -i input 1.在此写入你的代码  "output\ouput(2.在此写入你可能要添加的后缀).mp4"
+echo.
+echo ^>^>^> write your code here:
+
+set /p "encode_paramter=>>> "
+call:simple_setting 1
+goto:ffmpeg_encode
+
+::#endregion
+
+:: 自定义参数 模块
+::#region
+:user_input
+call:msg efm
+set /p encode_format=编码格式(参数全称): 
+
+call:split_line
+echo VBR 动态比特率:
+echo 取值 0 ~ 51 值越小质量越高
+echo.
+set /p crf=crf值:
+
+call:msg esm
+set /p preset=编码速度(参数全称):
+
+call:split_line
+
+echo -c:v %encode_format% -preset %preset% -crf %crf% 
+set "encode_paramter=-pass 2 -vcodec %encode_format% -preset %preset% -crf %crf%"
+call:dir_ss
+set encode_paramter=%encode_paramter% %px% %fps%
+goto ffmpeg_encode "-c:a copy"
+::#endregion
+
+:: 预设选择模块
+::#region
+:user_select
+call:opinion
+set /p index=输入索引: 
+
+:: 这里数组索引可以不用括号，%本身自带转义属性
+call call set encode_paramter=%%%%parr[%%index%%]%%%%
+echo 编码参数: %encode_paramter%
+set encode_paramter=%encode_paramter:"=%
+call:dir_ss
+call:split_line emptier 6 4
+set encode_paramter=%encode_paramter% %px% %fps%
+(
+    echo ^>^>^> ffmpeg模板: 
+    echo.
+    echo    ^|-- ffmpeg -i input %encode_paramter% output\ouput%extra%.mp4
+    call:split_line msgend
+)
+goto ffmpeg_encode "-c:a copy"
+::#endregion
+
+:: 编码模块
+::#region
+:ffmpeg_encode
+md output
+:: 隐藏不需要遍历的文件夹
+attrib +s +h "%~dp0output"
+dir /p >output\dir.txt
+
+:: 这里列出的是一些常见的视频格式，可以更改或者添加
+set "Ext=*.avi,*.mp4,*.wmv,*.flv,*.mkv,*.rmvb,*.rm,*.mov"
+
+set audioEncode_para=%~1
+
+set "ep=%audioEncode_para% %encode_paramter%"
+@REM for /r %%a in (%Ext%) do (
+for %%a in (%Ext%) do (
+    call:dh 0
+	echo 正在转换 encoding: "%%a"
+    set ofn=%%~na
+    @REM call:quit "%ofn%" "%%~na%extra%.mp4"
+    ffmpeg -i "%%~na%%~xa" %ep% "output\%%~na%extra%.mp4"
+    call:dh 1
+	call:writein_fileInfo "%%~na" "%%~xa" "%%~za" "%%~na%extra%.mp4" "%ofn%"
+)
+goto end
+::#endregion
+
+:quit
+:: 作废（暂时）
+echo %~1
+echo %~2
+@REM pause
+exit /b 0
+
+
+:: 信息写入模块
+::#region
+:writein_fileInfo
+    :: %~1 会自动去除传入时字符串的引号 从而省去 “set fileExt=%fileExt:"=%” 替换直引号的操作
+    set fileName=%~1
+    set fileExt=%~2
+    echo fullPath:      %cd% >> output\ffInfo.txt
+    echo input:         %ofn%%fileExt% >> output\ffInfo.txt
+    echo output:        %~4.mp4 >> output\ffInfo.txt
+    echo 输入文件大小:      %~3 字节 >> output\ffInfo.txt
+    echo 代码模板:      ffmpeg -i input -c:a copy %encode_paramter% output.mp4 >> output\ffInfo.txt
+    echo %date% —— %time% >>output\ffInfo.txt
+    echo. >>output\ffInfo.txt
+    echo ----------------------------->>output\ffInfo.txt
+    echo. >>output\ffInfo.txt
+
+for /f "delims=" %%i in ('dir /a-d /b *.*') do (
+    tree /F >output\tree.txt
+)
+goto:eof
+::#endregion
+:dh
+if %1 equ 0 attrib +s +h "%~dp0output"
+if %1 equ 1 attrib -s -h "%~dp0output"
+goto:eof
+:end
+call:dh 1
+echo 程序结束
+pause > nul
+exit /b 0
+
+:dir_ss
+echo ^>^>^> 更多设置？
+
+echo    ^|-- 新增文件名后缀       1
+echo    ^|-- 指定分辨率           0 1
+echo    ^|-- 指定帧率             0 0 1
+echo    ^|-- 以上全部             1 1 1
+call:split_line msgend
+echo.
+set /p "ss=更多设置？(选项后方参数,需要中间的空格 / 直接回车):    "
+if "%ss%"=="" set ss="0 0 0"
+call:simple_setting %ss:"=%
+goto:eof
+
+:simple_setting
+if "%1"=="1" (
+    set /p extra=新增后缀？^(text / 直接回车^): 
+)
+if "%2"=="1" (
+    set /p px=指定分辨率？^(1920*1080 / 直接回车^): 
+)
+if "%3"=="1" (
+    set /p fps=指定帧率？^(60 / 直接回车^): 
+)
+
+:: 这两个必须要写到外面，不然会出问题
+if not "%px%"=="" (
+    set px=-s %px%
+)
+if not "%fps%"=="" (
+    set fps=-r %fps%
+)
+call:split_line
+echo.
+goto:eof
+
+
+:: 所有辅助性的函数
+
+:et
+if %~1 EQU 264 (
+    echo    ^|^>^>^> H.264^(AVC^)  AVC1:
+    echo    ^|__________________________________
+)
+if %~1 EQU 265 (
+    echo    ^|^>^>^> H.265^(HEVC^) HVC1:
+    echo    ^|__________________________________
+)
+if %~1 EQU av1 (
+    echo    ^|^>^>^> av1 av01:
+    echo    ^|__________________________________
+)
+goto:eof
+:opinion
+set parr[0]="-c:a copy -c:v hevc_nvenc -preset slow -crf 0"
+set parr[1]="-c:a copy -c:v hevc_nvenc -preset fast -crf 0"
+
+set parr[2]="-c:a copy -c:v h264_nvenc -preset slow -crf 0"
+set parr[3]="-c:a copy -c:v h264_nvenc -preset fast -crf 0"
+
+set parr[4]="-c:a copy -c:v libx265 -preset veryslow -crf 20"
+set parr[5]="-c:a copy -c:v libx265 -preset veryfast -crf 20"
+
+set parr[6]="-c:a copy -c:v libx264 -preset veryslow -crf 20"
+set parr[7]="-c:a copy -c:v libx264 -preset veryfast -crf 20"
+
+set parr[8]="-c:a copy -c:v librav1e -preset medium -crf 20"
+set parr[9]="-c:a copy -c:v librav1e -preset veryfast -crf 20"
+set parr[10]="-c:a copy -c:v librav1e -preset veryslow -crf 20"
+echo ----------------预设----------------
+echo ^>^>^> 硬件编码: N卡支持
+call:et 264
+echo    ^|-- 0. %parr[0]:"=%
+echo    ^|-- 1. %parr[1]:"=%
+call:split_line msgend
+echo.
+
+call:et 265
+echo    ^|-- 2. %parr[2]:"=%
+echo    ^|-- 3. %parr[3]:"=%
+call:split_line msgend
+echo.
+
+echo.
+echo ^>^>^> 软件编码:
+call:et 264
+echo    ^|-- 4. %parr[4]:"=%
+echo    ^|-- 5. %parr[5]:"=%
+call:split_line msgend
+echo.
+
+echo.
+call:et 265
+echo    ^|-- 6. %parr[6]:"=%
+echo    ^|-- 7. %parr[7]:"=%
+call:split_line msgend
+echo.
+call:et av1
+echo    ^|-- 8. %parr[8]:"=%
+echo    ^|-- 9. %parr[9]:"=%
+echo    ^|-- 10. %parr[10]:"=%
+call:split_line msgend
+echo.
+goto:eof
+
+:split_line
+if "%1" == "" echo --------------------华丽的分割线-------------------
+if "%1" == "msgend" echo    ^|_________________________________________
+if "%1"=="emptier" (
+    for /l %%i in (1,1,%2) do (
+        echo.
+        if not "%3" == "" (
+            :: 这里调用自己会报错
+            if %%i EQU %3 echo --------------------华丽的分割线-------------------
+        )
+    )
+)
+goto:eof
+
+:msg
+if %1 == efm (
+    call:split_line
+    echo 常用编码格式:
+    echo.
+    echo ^>^>^> 硬件编码: N卡支持
+    echo    ^|-- h264_nvenc
+    echo    ^|-- hevc_nvenc
+    call:split_line msgend
+    echo.
+    echo ^>^>^> 软件编码:
+    echo    ^|-- libx264
+    echo    ^|-- libx265
+    echo    ^|-- libaom-av1
+    echo    ^|-- libsvtav1
+    echo    ^|-- librav1e
+    call:split_line msgend
+    echo.
+)
+if %1 == esm (
+    call:split_line
+    echo ^>^>^> 硬件编码:
+    echo    ^|-- default
+    echo    ^|-- slow
+    echo    ^|-- medium
+    echo    ^|-- fast
+    echo    ^|-- hp
+    echo    ^|-- hq
+    echo    ^|-- bd
+    echo    ^|-- ll
+    echo    ^|-- llhq
+    echo    ^|-- llhp
+    echo    ^|-- lossless
+    echo    ^|-- losslesshp
+    call:split_line msgend
+    echo.
+    echo ^>^>^> 软件编码:
+    echo    ^|-- ultrafast
+    echo    ^|-- superfast
+    echo    ^|-- veryfast
+    echo    ^|-- faster
+    echo    ^|-- fast
+    echo    ^|-- medium
+    echo    ^|-- slow
+    call:split_line msgend
+    echo.
+)
+goto:eof

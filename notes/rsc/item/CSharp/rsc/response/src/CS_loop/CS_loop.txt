@@ -1,0 +1,52 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class CS_for_foreach_while_doWhile : MonoBehaviour
+{
+    void Start() {
+        
+        char[] arr = { '1', '2', '3' };
+
+        {
+            // for
+            for (short i = 0; i < arr.Length; i++) {
+                Debug.Log("for循环, 第" + i + "的值为: " + arr[i]);
+            }
+            split_line();
+        }
+
+        {
+            // foreach
+            short foreach_index = 0;
+            foreach (char i in arr) {
+                Debug.Log("foreach循环, 第" + foreach_index + "的值为: " + i);
+                foreach_index++;
+            }
+            split_line();
+        }
+
+        {
+            // while
+            short a = 0;
+            while (arr.Length - a >= 1) {
+                Debug.Log("while循环, 第" + a + "的值为: " + arr[a]);
+                a++;
+            }
+            split_line();
+        }
+
+        {
+            // do while
+            short b = 0;
+            do {
+                Debug.Log("do while循环, 第" + b + "的值为: " + arr[b]);
+                b++;
+            } while (arr.Length - b >= 1);
+        }
+    }
+
+    void split_line() {
+        Debug.Log("------------------------");
+    }
+}

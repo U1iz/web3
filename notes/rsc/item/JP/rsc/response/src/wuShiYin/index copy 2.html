@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../../../../../../../lib/jQuery.min.js"></script>
+    <style>
+        * {
+            cursor: default;
+            -webkit-user-drag: none;
+            margin: 0;
+            padding: 0;
+            font-family: 'DFPWaWaW5-GB5';
+        }
+
+        html {
+            font-size: 16px;
+        }
+
+        html,
+        body,
+        table {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        @font-face {
+            font-family: 'DFPWaWaW5-GB5';
+            src: url(./DFPWaWaW5-GB5.ttf);
+        }
+
+        table {
+            max-width: 720px;
+            max-height: 800px;
+        }
+
+        table {
+            border-collapse: collapse;
+            box-sizing: border-box;
+            border: 0.1rem solid #000;
+            transform: translateZ(10rem);
+        }
+
+        table:hover {
+            background-color: #fff;
+        }
+
+        th,
+        td {
+            text-align: center;
+            border: 0.08rem solid #233;
+        }
+
+        tbody tr:nth-child(2n-1) th:first-child,
+        thead th {
+            padding: 0.3rem 0;
+            background: #e084b2;
+            transition: color 0.2s;
+        }
+
+        thead th,
+        .th {
+            height: 0;
+            font-weight: 800;
+            font-size: 1.2rem;
+            letter-spacing: 0.64rem;
+        }
+
+        .th {
+            padding: 0 0.3rem;
+            width: 0;
+            height: 0;
+        }
+    </style>
+    <style>
+        .jiaMing,
+        .roma {
+            transition: transform 0.2s;
+        }
+
+        .jiaMing {
+            font-weight: 400;
+            font-size: 1.6rem;
+            letter-spacing: 1rem;
+        }
+
+        .roma {
+            font-weight: 400;
+            font-size: 1rem;
+            padding: 0;
+            letter-spacing: 0.08rem;
+        }
+
+        .tit::selection {
+            background-color: transparent;
+            text-shadow: 0 0 0.72rem #fff;
+        }
+
+        .sn::selection {
+            color: transparent;
+            background: transparent;
+            text-shadow: none;
+        }
+    </style>
+    <script>
+        $(function () {
+            function add_tbody(obj) {
+                for (let i in obj) {
+                    let ths = '';
+                    let tds = '';
+                    for (let k in obj[i]) {
+                        ths += '<th>' + obj[i][k] + '</th>'
+                        tds += '<td>' + k + '</td>'
+                    }
+                    $('table tbody').append(' <tr><th>' + i + ths + '</tr><tr>' + tds + '</th></tr>')
+                }
+
+            }
+            add_tbody({
+                あ行: {
+                    a: 'あア',
+                    i: 'いイ',
+                    u: 'うウ',
+                    e: 'えエ',
+                    o: 'おオ'
+                },
+                か行: {
+                    ka: 'かカ',
+                    ki: 'きキ',
+                    ku: 'くク',
+                    ke: 'けケ',
+                    ko: 'こコ'
+                },
+                さ行: {
+                    sa: 'さサ',
+                    'si(shi)': 'しシ',
+                    su: 'すス',
+                    se: 'せセ',
+                    so: 'そソ'
+                },
+                た行: {
+                    ta: 'たタ',
+                    'ti(chi)': 'ちチ',
+                    'tu(tsu)': 'つツ',
+                    te: 'てテ',
+                    to: 'とト'
+                },
+                な行: {
+                    na: 'なナ',
+                    ni: 'にニ',
+                    nu: 'ぬヌ',
+                    ne: 'ねネ',
+                    no: 'のノ'
+                },
+                は行: {
+                    ha: 'はハ',
+                    hi: 'ひヒ',
+                    'hu(fu)': 'ふフ',
+                    he: 'ヘへ',
+                    ho: 'ほホ'
+                },
+                ま行: {
+                    ma: 'まマ',
+                    mi: 'みミ',
+                    mu: 'むム',
+                    me: 'めメ',
+                    mo: 'もモ'
+                },
+                や行: {
+                    ya: 'やヤ',
+                    '': '',
+                    yu: 'ゆユ',
+                    ' ': '',
+                    yo: 'よヨ'
+                },
+                ら行: {
+                    ra: 'らラ',
+                    ri: 'りリ',
+                    ru: 'るル',
+                    re: 'れレ',
+                    ro: 'ろロ'
+                },
+                わ行: {
+                    wa: 'わワ',
+                    '': '',
+                    ' ': '',
+                    '  ': '',
+                    wo: 'をヲ'
+                }
+            })
+        })
+
+        $(window).bind({
+            'load': function () {
+                let cms = localStorage.getItem('wuShiYinBiao_moShi');
+                let current_sys = localStorage.getItem('sys');
+                /* table的样式控制 */
+                $('table').css({
+                    width: '100%',
+                    maxWidth: '720px',
+                    height: $(this).outerWidth() / 9 * 10 + 'px',
+                    margin: 'auto',
+                    top: $('table').outerWidth() == 720 ? ($('body').height() - $('table')
+                            .height()) /
+                        2 + 'px' : 0
+                })
+                /* th, td 的样式控制 */
+                $('tbody>tr:nth-child(2n-1)>th:first-child').css({
+                    writingMode: 'vertical-lr'
+                }).attr({
+                    rowspan: 2
+                }).addClass('th').siblings('th').css({
+                    background: '#fff1f9',
+                    height: 0
+                }).addClass('jiaMing')
+                /* .mouseenter(function () {
+                                    $(this).css({
+                                        color: cms == 1 && (current_sys == 1 || current_sys == 0 ||
+                                            current_sys == null) ? '#fff' : '#000',
+                                        background: cms == 1 && (current_sys == 1 || current_sys == 0 ||
+                                                current_sys == null) ?
+                                            '#000' : '#fff',
+                                        boxShadow: '0 0 0.3rem #000',
+                                        transform: 'scale(1.1)',
+                                        zIndex: 10
+                                    })
+                                }).mouseleave(function () {
+                                    $(this).css({
+                                        color: cms == 1 && (current_sys == 2 || current_sys == 0 ||
+                                                current_sys == null) ?
+                                            'transparent' : '#000',
+                                        background: cms == 1 && (current_sys == 2 || current_sys == 0 ||
+                                                current_sys == null) ?
+                                            '#000' : '#fff1f9',
+                                        boxShadow: 'none',
+                                        transform: 'scale(1)',
+                                        zIndex: 1
+                                    })
+                                }); */
+
+                $('tbody tr:nth-child(2n) td').css({
+                    background: '#e7adcd',
+                    height: 0
+                }).addClass('roma')
+                /* .mouseenter(function () {
+                                    $(this).css({
+                                        color: '#000',
+                                        boxShadow: '0 0 0.3rem #000',
+                                        transform: 'scale(1.2)',
+                                        zIndex: 10
+                                    })
+                                }).mouseleave(function () {
+                                    $(this).css({
+                                        color: current_sys == 1 || current_sys == 2 ? 'transparent' :
+                                            '#000',
+                                        boxShadow: 'none',
+                                        transform: 'scale(1)',
+                                        zIndex: 1
+                                    })
+                                }); */
+
+                $('thead th').addClass('tit');
+                $('tbody tr:nth-child(2n-1) th:first-child').addClass('tit');
+
+                function c_sys() {
+                    ms = localStorage.getItem('wuShiYinBiao_moShi');
+                    current_sys = localStorage.getItem('sys');
+                    if (localStorage.getItem('wuShiYinBiao_moShi') == 1) {
+                        localStorage.setItem('wuShiYinBiao_moShi', 0);
+                        $('#change_sys').text('背诵模式');
+                        $('.jiaMing').css({
+                            color: '#000',
+                            background: '#fff1f9',
+                            transition: 'transform 0.2s'
+                        });
+                        $('#sys').hide();
+                        document.body.onselectstart = function () {
+                            return true;
+                        }
+                        $('.tit').css('color', '#000');
+                    } else {
+                        document.body.onselectstart = function () {
+                            return false;
+                        }
+                        $('.tit').css('color', 'transparent');
+                        localStorage.setItem('wuShiYinBiao_moShi', 1);
+                        $('#change_sys').text('正常模式');
+                        $('.jiaMing').css({
+                            color: 'transparent',
+                            transition: 'background 0.2s'
+                        });
+                        $('#sys').show().text(function () {
+                            switch (localStorage.getItem('sys')) {
+                                case 1:
+                                    $('#sys').text('仅显示假名');
+                                    break;
+                                case 2:
+                                    $('#sys').text('都不显示');
+                                    break;
+                                default:
+                                    $('#sys').text('仅显示读音');
+                                    break;
+                            }
+                        }).click(function () {
+                            e_sys()
+                        });
+
+                        function e_sys() {
+                            if (localStorage.getItem('wuShiYinBiao_moShi') == 1) {
+                                if (localStorage.getItem('sys') == 1) {
+                                    localStorage.setItem('sys', 2);
+                                    $('#sys').text('仅显示假名');
+                                    rm_h();
+                                    jm_h(1);
+                                } else if (localStorage.getItem('sys') == 2) {
+                                    localStorage.setItem('sys', 0);
+                                    $('#sys').text('都不显示');
+                                    jm_h();
+                                    rm_h();
+                                } else if (localStorage.getItem('sys') == 0) {
+                                    localStorage.setItem('sys', 1);
+                                    $('#sys').text('仅显示读音');
+                                    jm_h();
+                                    rm_h(1);
+                                }
+                            }
+
+                        }
+
+                        function jm_h(c) {
+                            c == undefined ?
+                                $('.jiaMing').css({
+                                    color: 'transparent',
+                                    transition: 'background 0.2s'
+                                }) : $('.jiaMing').css({
+                                    color: '#000',
+                                    transition: 'transform 0.2s'
+                                });
+                        }
+
+                        function rm_h(c) {
+                            c == undefined ?
+                                $('.roma').css({
+                                    color: 'transparent',
+                                    transition: 'color 0.2s'
+                                }) : $('.roma').css({
+                                    color: '#000',
+                                    transition: 'transform 0.2s'
+                                });
+                        }
+                    }
+                }
+                if (localStorage.getItem('wuShiYinBiao_moShi') == 1) {
+                    $('#change_sys').text('背诵模式');
+                } else {
+                    $('#change_sys').text('正常模式');
+                }
+                $('#change_sys').click(function () {
+                    c_sys()
+                });
+                
+            },
+            'resize': function () {
+                $('table').css({
+                    height: $(this).width() / 9 * 10 + 'px',
+                    top: $('table').outerWidth() == 720 ? ($('body').height() - $('table')
+                        .height()) / 2 + 'px' : 0
+                })
+            }
+        })
+    </script>
+</head>
+
+<body>
+    <button id="change_sys"></button>
+    <button id="sys"></button>
+    <table>
+        <thead>
+            <tr>
+                <th></th>
+                <th>あ段</th>
+                <th>い段</th>
+                <th>う段</th>
+                <th>え段</th>
+                <th>お段</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</body>
+
+</html>

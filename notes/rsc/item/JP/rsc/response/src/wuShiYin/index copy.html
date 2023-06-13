@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../../../../../../../lib/jQuery.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: 'DFPWaWaW5-GB5';
+        }
+
+        html,
+        body,
+        table {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        @font-face {
+            font-family: 'DFPWaWaW5-GB5';
+            src: url(./DFPWaWaW5-GB5.ttf);
+        }
+
+        table {
+            max-width: 720px;
+            max-height: 800px;
+        }
+
+        table {
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            text-align: center;
+            border: 0.08rem solid #233;
+        }
+
+        tbody tr:nth-child(2n-1) th:first-child,
+        thead th {
+            padding: 0.3rem 0;
+            background: #e084b2;
+        }
+        thead th,
+        .th {
+            height: 0;
+            font-weight: 800;
+            font-size: 1.2rem;
+            letter-spacing: 0.64rem;
+        }
+        .th {
+            padding: 0 0.3rem;
+            width: 0;
+            height: 0;
+        }
+    </style>
+    <style>
+        .jiaMing {
+            font-weight: 400;
+            font-size: 1.6rem;
+            letter-spacing: 1rem;
+        }
+
+        .roma {
+            font-weight: 400;
+            font-size: 1rem;
+            padding: 0;
+            letter-spacing: 0.08rem;
+        }
+    </style>
+    <script>
+        $(function () {
+            /* table的样式控制 */
+            $('table').css({
+                width: '100%',
+                maxWidth: '720px',
+                height: $(this).width() / 9 * 10 + 'px',
+                margin: 'auto',
+                top: $('table').width() == 720 ? ($('body').height() - $('table').height()) / 2 + 'px' :
+                    0
+            });
+            $(window).bind({
+                'resize': function () {
+                    $('table').css({
+                        height: $(this).width() / 9 * 10 + 'px',
+                        top: $('table').width() == 720 ? ($('body').height() - $('table')
+                            .height()) / 2 + 'px' : 0
+                    })
+                }
+            })
+            /* th, td 的样式控制 */
+            $('tbody>tr:nth-child(2n-1)>th:first-child').css({
+                writingMode: 'vertical-lr'
+            }).attr({
+                rowspan: 2
+            }).addClass('th').siblings('th').css({
+                background: '#fff1f9',
+                height: 0
+            }).addClass('jiaMing').text('あア');
+
+            $('tbody tr:nth-child(2n) td').css({
+                background: '#e7adcd',
+                height: 0
+            }).addClass('roma').text(22)
+        })
+    </script>
+</head>
+
+<body>
+    <table>
+        <thead>
+            <tr>
+                <th></th>
+                <th>あ段</th>
+                <th>い段</th>
+                <th>う段</th>
+                <th>え段</th>
+                <th>お段</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th>あ行</th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
+            <tr>
+                <td></td>
+                <td>2</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+
+            <tr>
+                <th>か行</th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
+            <tr>
+                <td></td>
+                <td>2</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+
+            <tr>
+                <th>さ行</th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
+            <tr>
+                <td></td>
+                <td>2</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+
+            <tr>
+                <th>た行</th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
+            <tr>
+                <td></td>
+                <td>2</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+
+            <tr>
+                <th>な行</th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
+            <tr>
+                <td></td>
+                <td>2</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+
+            <tr>
+                <th>は行</th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
+            <tr>
+                <td></td>
+                <td>2</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+
+            <tr>
+                <th>ま行</th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
+            <tr>
+                <td></td>
+                <td>2</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+
+            <tr>
+                <th>や行</th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
+            <tr>
+                <td></td>
+                <td>2</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+
+            <tr>
+                <th>ら行</th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
+            <tr>
+                <td></td>
+                <td>2</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+
+            <tr>
+                <th>わ行</th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
+            <tr>
+                <td></td>
+                <td>2</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+
+        </tbody>
+    </table>
+</body>
+
+</html>

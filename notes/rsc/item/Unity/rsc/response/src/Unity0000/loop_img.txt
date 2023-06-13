@@ -1,0 +1,22 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class loop_img : MonoBehaviour
+{
+    RawImage img; // 滚动对象
+    public float speed = 0.2f; // 滚动速度
+    void Start()
+    {
+        img = GetComponent<RawImage>();
+    }
+
+    void Update()
+    {
+        float s = speed * Time.deltaTime;
+        Rect r = img.uvRect;
+        r.y += s;
+        img.uvRect = r;
+    }
+}

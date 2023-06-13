@@ -1,0 +1,113 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-sans;
+    cursor: default;
+}
+
+html,
+body {
+    height: 100%;
+    font-size: 24px;
+    background: #fff;
+    overflow-x: hidden;
+}
+
+body {
+    box-sizing: border-box;
+    width: 100%;
+    padding-right: 6rem;
+    padding-left: 2rem;
+}
+
+img {
+    width: 90%;
+    margin: 2.4rem auto;
+}
+
+canvas {
+    border: 1px solid #666;
+    margin-left: 10%;
+}
+
+table {
+    box-sizing: border-box;
+}
+
+::selection {
+    background-color: rgba(189, 198, 198, 0.4);
+    color: #234234;
+}
+
+::-webkit-scrollbar {
+    position: absolute;
+    background-color: transparent;
+    width: 0.24rem;
+    height: 0.25rem
+}
+
+::-webkit-scrollbar-track {
+    background-color: rgba(49, 231, 156, 0.32);
+    -webkit-border-radius: 2em;
+    -moz-border-radius: 2em;
+    border-radius: 2em
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #000;
+    background-color: rgb(223, 118, 20) !important;
+    background-image: linear-gradient(0deg, rgba(227, 202, 255, 0.16), rgba(202, 215, 255, 0.16));
+    -webkit-border-radius: 2em;
+    -moz-border-radius: 2em;
+    border-radius: 2em
+}
+
+.codeNodes_addBy_localLib::selection,
+.codeNodes_addBy_localLib span::selection {
+    background-color: #000;
+    color: #fff;
+}
+
+.codeNodes_tArea_addBy_funCode::selection {
+    background-color: #065be1;
+    color: #fff;
+}
+
+.paragraphCode {
+    background-color: #eee;
+    color: #000;
+    font-weight: 400;
+    ;
+    padding: 0 0.32rem;
+}
+
+.paragraphCode::selection {
+    background-color: rgb(228, 247, 251);
+    color: rgb(20, 1, 1);
+}
+
+.fontInfo {
+    color: #999;
+    position: absolute;
+    top: 0.6rem;
+    left: 0.6rem;
+    z-index: 9;
+    background-color: rgba(255, 255, 255, .12);
+    border-radius: 1rem;
+    padding: 0.6rem 1.6rem;
+    -webkit-backdrop-filter: blur(1rem);
+    backdrop-filter: blur(1rem);
+    transition: all 0.3s;
+}
+
+.fontInfo_leave {
+    left: -100%;
+}
+
+.closeBtn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    color: #ff793d;
+    transition: all 0.3s;
+}

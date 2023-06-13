@@ -1,0 +1,107 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+    .div {
+        width: 500px;
+        height: 500px;
+        margin: 60px auto;
+        background-color: pink;
+    }
+    .div2 {
+        width: 400px;
+        height: 400px;
+        margin: 0 auto;
+        background-color: #fff;
+    }
+    p {
+        text-align: center;
+    }
+    .img {
+        width: auto;
+        height: 100%;
+        max-width: 100%;
+    }
+</style>
+<body>
+    <div>
+        同时按住Windows+Print Screen组合键，笔记本则按住Windows+Prt Sc SysRq组合键，则能全屏截图，仅适用Windows系统。
+    </div>
+    <div id="div" class="div">
+        <p>【Ctrl+v】粘贴图片试试</p>
+        <div class="div2">
+           <img id="img" src="" alt="" class="img" /> 
+        </div>
+    </div>
+
+    <script>
+        const div = document.getElementById("div")
+        const img = document.getElementById("img")
+        function handlepaste(e) {
+            // 粘贴对象
+            if (e.clipboardData || e.originalEvent) {
+                const clipboardData = (event.clipboardData || event.originalEvent.clipboardData);
+                if (clipboardData.items) {
+                    let blob;
+                    for (let i = 0; i < clipboardData.items.length; i++) {
+                        if (clipboardData.items[i].type.indexOf('image') !== -1) {
+                            blob = clipboardData.items[i].getAsFile();
+                        }
+                    }
+
+                    // 粘贴数据
+                    console.log(blob, 'blob')
+
+                    // 生成文件对象
+                    const filer = new FileReader()
+                    
+                    // 将获取的粘贴数据转成 URL格式的字符串（base64编码）
+                    filer.readAsDataURL(blob)
+                    
+                    // 这个回调在 filer.readAsDataURL(blob) 的时候触发
+                    filer.onload = (e) => {
+                        console.log(e, 'FileReader')
+                        // 获取URL格式的字符串 Base64编码
+                        const base64 = e.target.result;
+                        console.log(base64, 'base64')
+                        // 通过img输出
+                        img.src = base64
+                    };
+
+                }
+            }
+        }
+        
+
+        div.addEventListener('paste', handlepaste)
+
+        document.addEventListener('paste',function(e){
+        if ( !(e.clipboardData && e.clipboardData.items) ) {
+            return;
+        }
+        //console.log(e.clipboardData.items)
+        for (var i = 0, len = e.clipboardData.items.length; i < len; i++) {
+            var item = e.clipboardData.items[i];
+            //console.log(item)
+            if (item.kind === "file") {
+                var f= item.getAsFile();
+                //console.log(f);
+                var reader=new FileReader()
+                reader.onload=function (e) {
+                    var img=document.createElement('img') //创建img节点
+                    img.src=e.target.result //设置img的src属性
+                    document.querySelector("#div").appendChild(img) //将img添加到div中
+                }
+                reader.readAsDataURL(f)
+            }
+        }
+    });
+    </script>
+</body>
+</html>

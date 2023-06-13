@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>获取文件的 base64 值 及其 blob链接</title>
+    <script src="/lib/lib.min.js"></script>
+    <style>
+        * {
+            cursor: default;
+            vertical-align: middle;
+            transition: all 0.2s;
+            -webkit-tap-highlight-color: transparent;
+            tap-highlight-color: transparent;
+        }
+
+        *::selection {
+            background: rgba(213, 230, 235, 0.284);
+        }
+
+        body {
+            width: 98%;
+            height: 100%;
+            margin: 0 auto;
+            overflow-x: hidden;
+        }
+
+        button {
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            user-select: none;
+        }
+
+        a,
+        button {
+            cursor: pointer;
+        }
+
+        textarea {
+            cursor: text;
+            width: 90%;
+            height: 90%;
+            word-break: break-all;
+            resize: vertical;
+            min-height: 10rem;
+        }
+
+        textarea::selection {
+            background: rgb(72, 115, 233);
+        }
+
+        #result_list li {
+            position: relative;
+            top: 0;
+            left: 0;
+            list-style-type: decimal-leading-zero;
+            padding: 0.6rem 0;
+            border-bottom: 1px solid #ddd;
+            animation-name: up;
+            animation-duration: 2s;
+            transition: all 0.3s;
+        }
+
+        /* .img_node .main_wrap {
+            display: flex;
+        } */
+
+        @keyframes up {
+            0% {
+                top: 5rem;
+                opacity: 0;
+            }
+
+            100% {
+                top: 0;
+                opacity: 1;
+            }
+        }
+
+        @keyframes remove {
+            0% {
+                left: 0;
+                opacity: 1;
+            }
+
+            100% {
+                left: 50%;
+                opacity: 0;
+            }
+        }
+
+        .get_type * {
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .get_type button {
+            position: relative;
+            left: 1rem;
+        }
+
+        .get_type span,
+        .bottom span {
+            background: #eee;
+            margin: 0 0.2rem;
+            padding: 0.1rem 0.2rem;
+        }
+
+        .get_type span::selection,
+        .bottom span::selection {
+            background: rgb(196, 183, 41);
+            color: #fff;
+        }
+
+        .blobLink::selection {
+            background: rgba(42, 183, 164, 0.363);
+            color: rgb(220, 103, 61);
+        }
+
+        .blobLink {
+            text-decoration: none;
+        }
+
+        .blobLink:hover {
+            color: rgb(177, 64, 44);
+        }
+
+        .preview {
+            width: 20%;
+            height: 100%;
+        }
+    </style>
+    <script src="/lib/jquery.min.js"></script>
+    <!-- <script src="https://cn.bing.com/HPImageArchive.aspx"></script> -->
+    <script>
+        window.MiME = new Object();
+        window.imgExt = [
+            '.xbm', '.tif', '.pjp', '.svgz', '.jpg', '.jpeg', '.ico', '.tiff', '.gif', '.svg', '.jfif', '.webp',
+            '.png', '.bmp', '.pjpeg', '.avif'
+        ]
+
+        $.ajax({
+            async: false,
+            url: '/data/MIME.json',
+            success: r => {
+                window.MiME = r;
+            }
+        });
+        /* $.ajax({
+            url: 'https://cn.bing.com/HPImageArchive.aspx?format=js&idx=1&n=1',
+            contentType: 'application/json',
+            dataType: 'jsonp',
+            success: r => {
+                console.log(r);
+            },
+            error: err => {
+                console.log(err);
+            }
+        }); */
+    </script>
+</head>
+
+<body>
+    <hr>
+    <input type="file" id="inputFiles" multiple onchange="i2d(this.files)">
+    <button onclick="removeAll()">清除全部结果</button>
+    <hr>
+    <br>
+    <a href="javascript:;" target="_blank"></a>
+    <br>
+    <ul id="result_list">
+        <!-- <div class="get_type">
+            <p>获取方式: <span></span></p>
+        </div>
+        <textarea readonly></textarea> -->
+    </ul>
+    <script>
+        function add_result(gType, data, loop, arr) {
+            const rl = document.querySelector('#result_list');
+            const li = document.createElement('li');
+            li.className = 'rc';
+            let imgLabel = '';
+            window.imgExt.forEach(e => {
+                if (data.fileExt == e) {
+                    imgLabel = `<img class="preview" src="${data.blobUrl}" title="" alt="${data.fileName}">`;
+                    li.className += ' img_node';
+                }
+            });
+            li.innerHTML +=
+                (`
+            <div class="get_type">
+                <p>
+                    获取方式: <span>${gType}</span>
+                    文件大小: <span>${data.fileSize} 字节</span>
+                    后缀名: <span>${data.fileExt}</span>
+                    MIME类型: <span>${data.mime}</span>
+                </p>
+            </div>
+            <a class="blobLink" href="${data.blobUrl}" target="_blank">${data.fileName}</a>
+            <div class="main_wrap">
+                ${imgLabel}
+                <div class="bottom">
+                    <p>blob链接: <span>${data.blobUrl}</span></p>
+                    <textarea readonly>${data.base64}</textarea>
+                    <br>
+                </div>
+            </div>
+            `);
+            // const reg = /(<span)(>\S*)(<\/span>)/;
+
+            const style = document.createElement('style');
+            rl.appendChild(style);
+            style.onload = () => {
+                style.remove(); {
+                    const del = document.createElement('button');
+                    del.innerText = '删除此条结果';
+                    del.onclick = () => {
+                        removeElem(li);
+                    }
+                    li.querySelector('.bottom').appendChild(del);
+                } {
+                    const select = document.createElement('button');
+                    select.innerText = '复制（字符过长可能不会被剪贴板记录）';
+                    select.onclick = () => {
+                        copy(li.querySelector('.bottom textarea'));
+                    }
+                    li.querySelector('.get_type').appendChild(select);
+                }
+                rl.appendChild(li);
+                let _style = document.createElement('style');
+                li.appendChild(_style);
+                _style.onload = function () {
+                    this.remove();
+
+
+                    let select_arr = [...document.querySelectorAll('.get_type span'), ...document
+                        .querySelectorAll('.bottom span')
+                    ];
+                    // console.log(select_arr);
+                    for (let i of select_arr.keys()) {
+                        select_arr[i].onclick = () => {
+                            // select_arr[i].select();
+                            const selection = window.getSelection();
+                            selection.removeAllRanges();
+                            const range = document.createRange();
+                            range.selectNodeContents(select_arr[i].firstChild);
+                            selection.addRange(range);
+                        }
+                    }
+                }
+                // console.log(arr);
+                if (loop) {
+                    getData(arr, '文件', loop);
+                }
+            }
+        }
+
+        function removeAll(elemArr) {
+            let lis = document.querySelectorAll('#result_list li');
+            for (let i of lis.keys()) {
+                // lis[i].setAttribute('index', i + 1);
+                setTimeout(() => {
+                    removeElem(lis[i])
+                }, 100 * i)
+            }
+        }
+
+        function removeElem(elem) {
+            let time = 1000;
+            elem.style.animationName = 'remove';
+            elem.style.animationDuration = time + 'ms';
+            setTimeout(() => {
+                elem.remove();
+            }, time - 10)
+        }
+    </script>
+    <script>
+        window.addEventListener('paste', e => {
+            handlePaste(e);
+        })
+
+        function handlePaste(e, elem) {
+            // 粘贴对象
+            if (e.clipboardData || e.originalEvent) {
+                const clipboardData = (event.clipboardData || event.originalEvent.clipboardData);
+                if (clipboardData.items) {
+                    let blob;
+                    for (let i = 0; i < clipboardData.items.length; i++) {
+                        if (clipboardData.items[i].type.indexOf('image') !== -1) {
+                            blob = clipboardData.items[i].getAsFile();
+                        }
+                    }
+                    if (blob) {
+                        i2d(blob, true);
+                    }
+                }
+            }
+        }
+
+        function i2d(files, is_fromPaste) {
+            if (is_fromPaste) {
+                getData(files, '剪贴板');
+            } else {
+                let file_arr = [];
+                for (let k in files) {
+                    if (typeof files[k] == 'object') {
+                        file_arr[file_arr.length] = files[k];
+                    }
+                }
+                getData(file_arr, '文件', true);
+            }
+            document.querySelector('#inputFiles').value = '';
+        }
+
+        function getData(files, gType, loop) {
+            let file = files;
+            if (loop) {
+                file = files[0];
+                files.shift();
+                if (!files.length) {
+                    loop = false;
+                }
+            }
+            if (typeof file == 'object') {
+                console.log(file);
+                let init = {
+                    blobUrl: null,
+                    fileSize: file.size,
+                    fileName: file.name,
+                    fileExt: file.name.substr(file.name.lastIndexOf('.'), file.name.length),
+                    base64: null,
+                    mime: null
+                }
+                console.log(file.name.substr(file.name.lastIndexOf('.'), file.name.length));
+                const DataUrl = new FileReader();
+                const BlobUrl = new FileReader();
+                DataUrl.readAsDataURL(file);
+                BlobUrl.readAsArrayBuffer(file);
+                DataUrl.onload = function () {
+                    let DataURL = this.result;
+                    init.base64 = DataURL;
+                    add_node(init, gType, loop, files);
+                }
+                BlobUrl.onload = function () {
+                    let Buffer = this.result;
+                    let mime = file.type;
+                    if (mime == '') {
+                        const ext = file.name.substr(file.name.lastIndexOf('.') + 1, file.name.length);
+                        for (let k in window.MiME) {
+                            if (k == ext) {
+                                init.mime = window.MiME[k];;
+                                console.log(init.mime);
+                            } else {
+                                init.mime = '未知';
+                            }
+                        }
+                    } else {
+                        init.mime = mime;
+                    }
+                    let url = window.URL.createObjectURL(new Blob([Buffer], {
+                        type: mime
+                    }))
+                    init.blobUrl = url;
+                    add_node(init, gType, loop, files);
+                }
+            }
+        }
+
+        function add_node(obj, gType, loop, arr) {
+            let finished = true;
+            for (let k in obj) {
+                if (!obj[k]) {
+                    finished = false;
+                }
+            }
+            if (finished) {
+                if (obj.mime == '未知') {
+                    let reg = /(data:)(\S*)(;base64,)/;
+                    let temp = reg.exec(obj.base64);
+                    obj.mime = temp[2] ? temp[2] : '未知';
+                    add_result(gType, obj, loop, arr);
+                } else {
+                    add_result(gType, obj, loop, arr);
+                }
+            }
+        }
+
+        function copy(elem) {
+            if (elem.innerText.indexOf('data:image')) {
+                elem.select();
+                document.execCommand("copy");
+            }
+            // window.getSelection().empty();
+        }
+    </script>
+</body>
+
+</html>

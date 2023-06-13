@@ -1,0 +1,177 @@
+@font-face {
+    font-family: Consolas;
+    src: url(/font/YaHei_Consolas_Hybrid.woff);
+}
+
+@font-face {
+    font-family: Amaranth;
+    src: url(/font/Amaranth.woff);
+}
+
+@font-face {
+    font-family: DFPWaWaW5;
+    src: url(/font/DFPWaWaW5.woff);
+}
+
+@font-face {
+    font-family: LangManYaYuan;
+    src: url(/font/LangManYaYuan.woff);
+}
+
+@font-face {
+    font-family: Monospace;
+    src: url(/font/GenJyuuGothicX-Monospace-Normal.woff);
+}
+
+@font-face {
+    font-family: 德彪钢笔行书;
+    src: url(/font/德彪钢笔行书字库.woff);
+}
+
+@font-face {
+    font-family: 方正启体简体;
+    src: url(/font/方正启体简体.woff);
+}
+
+@font-face {
+    font-family: 方正硬笔楷书简体;
+    src: url(/font/方正硬笔楷书简体.woff);
+}
+
+@font-face {
+    font-family: 方正硬笔行书简体;
+    src: url(/font/方正硬笔行书简体.woff);
+}
+
+@font-face {
+    font-family: 方正有猫在简体;
+    src: url(/font/方正有猫在简体.woff);
+}
+
+@font-face {
+    font-family: 韩绍杰邯郸体;
+    src: url(/font/韩绍杰邯郸体.woff);
+}
+
+@font-face {
+    font-family: 汉仪跳跳体简;
+    src: url(/font/汉仪跳跳体简.woff);
+}
+
+@font-face {
+    font-family: 汉仪歪歪体简;
+    src: url(/font/汉仪歪歪体简.woff);
+}
+
+@font-face {
+    font-family: 汉仪丫丫体简;
+    src: url(/font/汉仪丫丫体简.woff);
+}
+
+.clearfix:before,
+.clearfix:after {
+    content: "";
+    display: table;
+}
+
+.clearfix:after {
+    clear: both;
+    overflow: hidden;
+}
+
+.clearfix {
+    zoom: 1;
+}
+
+* {
+    position: relative;
+    border: none;
+    outline: none;
+    margin: 0;
+    padding: 0;
+    cursor: default;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    cursor: url(/img/ico/default.cur), default !important;
+}
+
+body {
+    background: white;
+    background-image: linear-gradient(90deg, #f1f3f4 10%, transparent 0), linear-gradient(#f1f3f4 10%, transparent 0);
+    background-size: 1rem 1rem;
+}
+
+a {
+    cursor: url(/img/ico/pointer.cur), pointer !important;
+}
+
+code::selection {
+    background-color: rgba(181, 212, 226, 0.24);
+    color: rgba(160, 193, 118, 0.96) !important;
+}
+
+code.codeNodes_cmd_addBy_funCode::selection {
+    background: rgba(255, 255, 255, 0.3) !important;
+    color: #fff !important;
+}
+
+code.codeNodes_tArea_addBy_funCode::selection {
+    background: #0078d7 !important;
+    color: #fff !important;
+}
+
+img,
+video {
+    object-fit: cover;
+    -webkit-object-fit: cover;
+}
+
+li {
+    list-style-type: none;
+}
+
+.selectUnable {
+    moz-user-select: -moz-none;
+    -moz-user-select: none;
+    -o-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+::selection {
+    background-color: rgba(181, 212, 226, 0.24);
+}
+
+::-webkit-scrollbar {
+    position: absolute;
+    background-color: rgba(189, 198, 198, 0.4);
+    width: 0.25rem;
+    height: 0.25rem
+}
+
+::-webkit-scrollbar-track {
+    background-color: transparent;
+    -webkit-border-radius: 2em;
+    -moz-border-radius: 2em;
+    border-radius: 2em
+}
+
+::-webkit-scrollbar-thumb {
+    background-image: linear-gradient(0deg, rgba(134, 84, 226, 0.205), rgba(150, 90, 218, 0.199));
+    -webkit-border-radius: 2em;
+    -moz-border-radius: 2em;
+    border-radius: 2em
+}
+
+.red,
+.red * {
+    color: red;
+}
+
+.blue,
+.blue * {
+    color: blue;
+}

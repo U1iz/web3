@@ -1,0 +1,31 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using System;
+
+[RequireComponent(typeof(Action_event_another))]
+public class Action_event : MonoBehaviour
+{
+    // 自带的 Action 最多带有 16 参数, 与 Net 版本有关
+    public event Action<string, int> action = null;
+    int times = 0;
+
+    void Start()
+    {
+        InvokeRepeating("action_call", .5f, .5f);
+    }
+
+    void action_call()
+    {
+        if (action != null)
+        {
+            action("action_call", 2233);
+        }
+        if (times >= 6)
+        {
+            Debug.Log("我滴任务完成啦！啊哈哈哈哈哈");
+            CancelInvoke("action_call");
+        }
+        times++;
+    }
+}

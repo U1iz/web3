@@ -1,0 +1,10 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Btn_click : MonoBehaviour
+{
+    public void on_btnClick() {
+        Debug.Log("你点到我了！！！");
+    }
+}

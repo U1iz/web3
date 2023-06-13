@@ -1,0 +1,83 @@
+#region 程序集 UnityEngine.Physics2DModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+// UnityEngine.Physics2DModule.dll
+#endregion
+
+using System.Collections.Generic;
+
+namespace UnityEngine
+{
+    //
+    // 摘要:
+    //     Collision details returned by 2D physics callback functions.
+    [RequiredByNativeCodeAttribute]
+    public class Collision2D
+    {
+        public Collision2D();
+
+        //
+        // 摘要:
+        //     The incoming Collider2D involved in the collision with the otherCollider.
+        public Collider2D collider { get; }
+        //
+        // 摘要:
+        //     The other Collider2D involved in the collision with the collider.
+        public Collider2D otherCollider { get; }
+        //
+        // 摘要:
+        //     The incoming Rigidbody2D involved in the collision with the otherRigidbody.
+        public Rigidbody2D rigidbody { get; }
+        //
+        // 摘要:
+        //     The other Rigidbody2D involved in the collision with the rigidbody.
+        public Rigidbody2D otherRigidbody { get; }
+        //
+        // 摘要:
+        //     The Transform of the incoming object involved in the collision.
+        public Transform transform { get; }
+        //
+        // 摘要:
+        //     The incoming GameObject involved in the collision.
+        public GameObject gameObject { get; }
+        //
+        // 摘要:
+        //     The relative linear velocity of the two colliding objects (Read Only).
+        public Vector2 relativeVelocity { get; }
+        //
+        // 摘要:
+        //     Indicates whether the collision response or reaction is enabled or disabled.
+        public bool enabled { get; }
+        //
+        // 摘要:
+        //     The specific points of contact with the incoming Collider2D. You should avoid
+        //     using this as it produces memory garbage. Use GetContact or GetContacts instead.
+        public ContactPoint2D[] contacts { get; }
+        //
+        // 摘要:
+        //     Gets the number of contacts for this collision.
+        public int contactCount { get; }
+
+        //
+        // 摘要:
+        //     Gets the contact point at the specified index.
+        //
+        // 参数:
+        //   index:
+        //     The index of the contact to retrieve.
+        //
+        // 返回结果:
+        //     The contact at the specified index.
+        public ContactPoint2D GetContact(int index);
+        //
+        // 摘要:
+        //     Retrieves all contact points for contacts between collider and otherCollider.
+        //
+        // 参数:
+        //   contacts:
+        //     An array of ContactPoint2D used to receive the results.
+        //
+        // 返回结果:
+        //     Returns the number of contacts placed in the contacts array.
+        public int GetContacts(ContactPoint2D[] contacts);
+        public int GetContacts(List<ContactPoint2D> contacts);
+    }
+}

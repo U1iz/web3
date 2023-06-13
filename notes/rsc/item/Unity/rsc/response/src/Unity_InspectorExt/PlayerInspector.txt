@@ -1,0 +1,132 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEditor;
+using UnityEngine;
+
+//CustomEditor(typeof()) 用于关联你要自定义的脚本
+[CustomEditor(typeof(Player))]
+//必须要让该类继承自Editor,且不需要导入UnityEditor程序集
+public class PlayerInspector : Editor
+{
+    Player player;
+    bool showWeapons;
+
+    private void OnEnable()
+    {//获取当前编辑自定义Inspector的对象
+        player = (Player)target;
+    }
+    //执行这一个函数来自定义检视面板
+    public override void OnInspectorGUI()
+    {
+        //设置整个界面是以垂直方向来布局
+        EditorGUILayout.BeginVertical();
+
+        //空两行
+        EditorGUILayout.Space();
+        EditorGUILayout.Space();
+
+        //绘制palyer的基本信息
+        EditorGUILayout.LabelField("基本信息");
+        //变量重写映射
+        player.id = EditorGUILayout.IntField("编号", player.id);
+        //自定义文本输入框
+        player.playerName = EditorGUILayout.TextField("名字", player.playerName);
+
+        //空三行
+        EditorGUILayout.Space();
+        EditorGUILayout.Space();
+        EditorGUILayout.Space();
+
+        //绘制Player的背景故事
+        EditorGUILayout.LabelField("背景故事");
+        //自定义文本输入区域
+        player.backStory = EditorGUILayout.TextArea(player.backStory, GUILayout.MinHeight(100));
+
+        EditorGUILayout.Space();
+        EditorGUILayout.Space();
+        EditorGUILayout.Space();
+
+        //自定义滑条(变量命名，变量取值范围)
+        player.health = EditorGUILayout.Slider("生命值", player.health, 0, 100);
+        //判断滑条数值
+        if (player.health < 20)
+        {
+            //指定下方ui颜色
+            GUI.color = Color.red;
+        }
+        else if (player.health < 80)
+        {
+            GUI.color = Color.green;
+        }
+        else
+        {
+            GUI.color = Color.gray;
+        }
+
+        //自定义进度条区域
+        Rect progressRect = GUILayoutUtility.GetRect(200, 50);
+        //定义进度条（区域,进度值,进度条中的文本）
+        EditorGUI.ProgressBar(progressRect, player.health / 100.0f, "生命值");
+
+        //定义下方面板ui颜色
+        GUI.color = Color.white;
+
+        EditorGUILayout.Space();
+        EditorGUILayout.Space();
+        EditorGUILayout.Space();
+
+        //定义滑条
+        player.damage = EditorGUILayout.Slider("Damage", player.damage, 0, 20);
+        //判断数值
+        if (player.damage < 10)
+        {
+            //自定义帮助框（内容，类型：错误、警告、信息）
+            EditorGUILayout.HelpBox("伤害太低了吧！", MessageType.Error);
+        }
+        else if (player.damage < 15)
+        {
+            EditorGUILayout.HelpBox("伤害有点高啊！", MessageType.Warning);
+        }
+        else
+        {
+            EditorGUILayout.HelpBox("伤害适中", MessageType.Info);
+        }
+
+        EditorGUILayout.Space();
+        EditorGUILayout.Space();
+        EditorGUILayout.Space();
+
+        //自定义一个可折叠标签(是否展开,命名)
+        showWeapons = EditorGUILayout.Foldout(showWeapons, "武器");
+        if (showWeapons)//如果展开
+        {
+            //自定义标签选项并映射给player中的变量（命名,数值）
+            player.weaponDamage1 = EditorGUILayout.FloatField("武器一伤害", player.weaponDamage1);
+            player.weaponDamage2 = EditorGUILayout.FloatField("武器二伤害", player.weaponDamage2);
+        }
+
+        //空三行
+        EditorGUILayout.Space();
+        EditorGUILayout.Space();
+        EditorGUILayout.Space();
+
+        //自定义文本
+        EditorGUILayout.LabelField("鞋子");
+
+        //UI排列方向为横向
+        EditorGUILayout.BeginHorizontal();
+        //自定义下方变量（名称,ui宽度）
+        EditorGUILayout.LabelField("Name", GUILayout.MaxWidth(50));
+        //文本输入框映射
+        player.shoeName = EditorGUILayout.TextField(player.shoeName);
+        EditorGUILayout.LabelField("Size", GUILayout.MaxWidth(50));
+        player.shoeSize = EditorGUILayout.IntField(player.shoeSize);
+        EditorGUILayout.LabelField("Type", GUILayout.MaxWidth(50));
+        player.shoeType = EditorGUILayout.TextField(player.shoeType);
+        //横向编辑结束
+        EditorGUILayout.EndHorizontal();
+        //纵向编辑结束
+        EditorGUILayout.EndVertical();
+    }
+}
+

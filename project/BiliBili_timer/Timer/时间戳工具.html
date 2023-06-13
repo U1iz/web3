@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            font-size: 24px;
+        }
+
+        button {
+            width: 5rem;
+            height: 1rem;
+            background: #ccc;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <input id="unixStr" type="text" value="0">
+        <button></button>
+        <br>
+        <span id="unixTime"></span>
+    </div>
+    <script>
+        console.log(result_time(-62167248343000))
+        console.log(new Date().getTime())
+        get_durationTime();
+
+        function get_durationTime(stamp_1, stamp_2) {
+            return result_time(new Date(stamp_1 - stamp_2))
+        }
+        /* 修改自 “阿b日志” 的方法 */
+        function result_time(date) {
+            return `${crtDate(date)} ${crtTime(date)}`
+        }
+
+        // 获取当前日期
+        function crtDate(date) {
+            date = new Date(date)
+            return `${fill_zero(date.getFullYear(), 4)}${fill_zero(date.getMonth()+1)}${fill_zero(date.getDate())}`;
+        }
+
+        // 获取具体时间
+        function crtTime(date) {
+            date = new Date(date)
+
+            function joinTime(){
+                let temp = '';
+                for (let i in arguments) {
+                    temp += fill_zero(arguments[i]) + ':'
+                }
+                return temp.substr(0, temp.length - 1);
+            }
+            return joinTime(date.getHours(), date.getMinutes(), date.getSeconds(), date.getMilliseconds());
+        }
+
+        function fill_zero(num, length) {
+            if (!length) {
+                length = 2;
+            }
+            let is_neg = num < 0 ? true : false;
+            num = Math.abs(num).toString();
+            let _l = Math.abs(num.length - length)
+            if (_l) {
+                for (let i = 0; i < _l; i += 1) {
+                    num = '0' + num;
+                }
+            }
+            return is_neg ? '-' + num : num;
+        }
+    </script>
+</body>
+
+</html>

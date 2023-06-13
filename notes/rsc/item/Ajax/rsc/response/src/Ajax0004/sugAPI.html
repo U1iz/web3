@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<script src="jquery.js"></script>
+
+	<script>
+		let err = false;
+
+		function tip(obj) {
+			/* obj.iptElem;
+			obj.wrapElem;
+			obj.url,
+			obj.get
+			obj.dataName
+				obj.rstName */
+			/* 使用jQuery来获取跨域的数据 */
+			/* dataType:"jsonp" */
+			/* key默认就是callback */
+			/* value的值以jQuery开头的字符串，这个字符串就是函数调用的名称 */
+			$('#btn').click(function () {
+				query();
+			});
+			query();
+			setInterval(function () {
+				if (!err) {
+					query();
+					err = true;
+				}
+			}, 300);
+
+			function query() {
+				$.ajax({
+					url: obj.url,
+					data: obj.value,
+					success: obj.callback,
+					dataType: "jsonp",
+					jsonp: obj.get,
+					jsonpCallback: "returnRST"
+				});
+			}
+		}
+
+		$(function () {
+			$('#keyword').keyup(function () {
+				/* 淘宝 */
+				tip({
+					url: 'https://suggest.taobao.com/sug',
+					get: 'callback',
+					value: {
+						q: $('#keyword').val()
+					},
+					callback: function (data) {
+						let liNode = '';
+						let liTag = "";
+						for (i in data.result) {
+							returnStr(data.result[i][0]);
+							liNode += "<li>" + data.result[i][0] + "</li>";
+							addWrap('d1');
+							$('#d1 .getSrc').html('淘宝');
+							$('#d1 ul').html(liNode);
+						}
+					}
+				});
+				/* 百度 */
+				tip({
+					url: 'https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su',
+					get: 'cb',
+					value: {
+						wd: $('#keyword').val()
+					},
+					callback: function (data) {
+						let liNode = '';
+						let liTag = "";
+						for (i in data.s) {
+							returnStr(data.s[i]);
+							liNode += "<li>" + data.s[i] + "</li>";
+							addWrap('d2');
+							$('#d2 .getSrc').html('百度');
+							$('#d2 ul').html(liNode);
+						}
+					}
+				});
+
+				/* 百度（2） */
+				tip({
+					url: 'http://suggestion.baidu.com/su',
+					get: 'cb',
+					value: {
+						wd: $('#keyword').val()
+					},
+					callback: function (data) {
+						let liNode = '';
+						let liTag = "";
+						// console.log(data);
+						for (i in data.s) {
+							returnStr(data.s[i])
+							liNode += "<li>" + data.s[i] + "</li>";
+							addWrap('d4');
+							$('#d4 .getSrc').html('百度（接口2）');
+							$('#d4 ul').html(liNode);
+						}
+					}
+				});
+				/* 360 */
+				tip({
+					url: 'https://sug.so.360.cn/suggest',
+					get: 'callback',
+					value: {
+						word: $('#keyword').val()
+					},
+					callback: function (data) {
+						let liNode = '';
+						let liTag = "";
+						for (i in data.result) {
+							returnStr(data.result[i].word)
+							liNode += "<li>" + data.result[i].word + "</li>";
+							addWrap('d3');
+							$('#d3 .getSrc').html('360');
+							$('#d3 ul').html(liNode);
+						}
+					}
+				});
+				/* bing https://docs.microsoft.com/zh-cn/rest/api/cognitiveservices-bingsearch/bing-custom-autosuggest-api-v7-reference*/
+				/* tip({
+					url: 'http://sg1.api.bing.com/qsonhs.aspx',
+					get: 'cb',
+					value: {
+						q: $('#keyword').val()
+					},
+					callback: function (data) {
+						let liNode = '';
+						let liTag = "";
+						console.log(data);
+						for (i in data.result) {
+							liNode += "<li>" + data.result[i][0] + "</li>";
+							addWrap('d3');
+							$('#d3 .getSrc').html('搜狗');
+							$('#d3 ul').html(liNode);
+						}
+					}
+				}); */
+				/* bing（2） */
+				/* tip({
+					url: 'https://api.bing.com/qsonhs.aspx',
+					get: 'cb',
+					value: {
+						q: $('#keyword').val()
+					},
+					callback: function (data) {
+						let liNode = '';
+						let liTag = "";
+						console.log(data);
+						for (i in data.result) {
+							liNode += "<li>" + data.result[i][0] + "</li>";
+							addWrap('d3');
+							$('#d3 .getSrc').html('搜狗');
+							$('#d3 ul').html(liNode);
+						}
+					}
+				}); */
+				/* tip({
+					url: 'http://w.sugg.sogou.com/sugg/ajaj_json.jsp',
+					get: 'callback',
+					value: {
+						key: $('#keyword').val()
+					},
+					callback: function (data) {
+						let liNode = '';
+						let liTag = "";
+						console.log(data);
+						for (i in data.result) {
+							liNode += "<li>" + data.result[i][0] + "</li>";
+							addWrap('d3');
+							$('#d3 .getSrc').html('搜狗');
+							$('#d3 ul').html(liNode);
+						}
+					}
+				}); */
+				if ($('#keyword').val().length == 0) {
+					addWrap('clear');
+				}
+			})
+		})
+	</script>
+	<style>
+		#wrap {
+			display: flex;
+			justify-content: space-around;
+			width: 100%;
+		}
+	</style>
+</head>
+
+<body>
+
+	<input type="text" id="keyword" placeholder="请输入相关的关键字">
+	<input type="button" id="btn" value="刷新">
+
+	<div id="wrap">
+		<!-- <div id="d1">
+			<h1 class="getSrc"></h1>
+			<ul></ul>
+		</div>
+		<div id="d2">
+			<h1 class="getSrc"></h1>
+			<ul></ul>
+		</div> -->
+	</div>
+	<script>
+		function addWrap(contentId) {
+			if ($('#' + contentId).length == 0) {
+				$('#wrap').append('<div id="' + contentId + '"> <h1 class="getSrc"></h1> <ul></ul> </div>')
+				if ($('#' + contentId + ' ul').html().length == 0) {
+					$('#' + contentId + ' ul').html('加载中...')
+				}
+			}
+			if (contentId == 'clear') {
+				$('#wrap').html('');
+			}
+		}
+
+		function returnStr(str, nstr) {
+			let arr = ['undefined', '[object Object]'];
+			setInterval(() => {
+				arr.forEach((e, i) => {
+					// nstr == e ? nstr = str : nstr = str
+					str == e ? err = true : err = false;
+				});
+			}, 300);
+		}
+	</script>
+</body>
+
+</html>

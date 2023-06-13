@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>使用图片</title>
+    <script src="../../../../lib/lib.min.js"></script>
+    <script src="../../../../lib/add_formNode.min.js"></script>
+    <script src="../../../../lib/local_lib.min.js"></script>
+    <script src="basic.js"></script>
+    <link rel="stylesheet" href="main_style.css">
+    <script>
+        function form_ini_00() {
+            let obj = new Object();
+            obj.ctrSize = ['80%'];
+            obj.setTitLabelType = 'all';
+            obj.titLabel = 'h2';
+            obj.setTexLabelType = 'all';
+            obj.texLabel = 'h3';
+            obj.setLabelType = 'part';
+            obj.sLl_00 = ['0', 'h3,h4'];
+            obj.setLabel = [obj.sLl_00];
+            obj.cStyle_0 = ['1', '1,1,0', 'fw', '800'];
+            obj.cStyle_1 = ['2', '1,1,0', 'fw', '800'];
+            obj.cStyle_2 = ['3', '1,1,0', 'fw', '800'];
+            obj.cStyle_4 = ['4', '1,1,0', 'fw', '800'];
+            obj.cStyle_5 = ['5', '1,1,0', 'fw', '800'];
+            obj.cStyle_6 = ['6', '1,1,0', 'fw', '800'];
+            obj.cStyle = [obj.cStyle_0, obj.cStyle_1, obj.cStyle_2, obj.cStyle_3, obj.cStyle_4, obj.cStyle_5, obj
+                .cStyle_6
+            ];
+            obj.globalStyle_0 = ['1', '1', [2, 4, 3.2, 3.2], '1', [24]];
+            obj.boxShadow = ['1px', '1px', '16px', '2px', '#6666666f'];
+            // 写入内容
+            obj.c0 = ['参数', '描述'];
+            obj.c1 = ['img', '图像源\nimg元素、Image对象或canvas元素'];
+            obj.c2 = ['x, y', '要绘制的图片左上角的位置'];
+            obj.c3 = ['w, h', '图像应该绘制的尺寸。指定这些参数可以缩放'];
+            obj.c4 = ['areaW, areaH', '图像将要绘制区域的左上角'];
+            obj.c5 = ['destX, destY', '所要绘制图像区域的左上角的画布坐标'];
+            obj.c6 = ['destW, deskH', '图像区域所要绘制的画布大小'];
+
+            obj.contents = [obj.c1, obj.c2, obj.c3, obj.c4, obj.c5, obj.c6];
+
+            // 写入tr容器属性
+            obj.trStyle_0 = ['t', 'bgc', '#d5d5d5'];
+            obj.trStyle_1 = ['t', 'c', '#111'];
+            obj.trStyle_2 = ['1', 'bgc', '#efefef'];
+            obj.trStyle_3 = ['2', 'bgc', '#efefef'];
+            obj.trStyle_4 = ['3', 'bgc', '#efefef'];
+            obj.trStyle_5 = ['4', 'bgc', '#efefef'];
+            obj.trStyle_6 = ['5', 'bgc', '#efefef'];
+            obj.trStyle_7 = ['6', 'bgc', '#efefef'];
+            obj.trStyle = [obj.trStyle_0, obj.trStyle_1, obj.trStyle_2, obj.trStyle_3, obj.trStyle_4, obj.trStyle_5, obj
+                .trStyle_6, obj.trStyle_7
+            ];
+
+            add_formNode(obj);
+        }
+    </script>
+</head>
+
+<body>
+    <!-- https://developer.mozilla.org/zh-CN/docs/Web/API/Canvas_API/Tutorial/Applying_styles_and_colors#colors -->
+    <script>
+        topic('canvas 图片 应用');
+        add_normalNode('', ['p', 'normal', '6rem 0']);
+        /*  */
+        LM('绘图源');
+        tArea('HTMLImageElement');
+        lst('这些图片是由' + c('Image()') + '函数构造出来的，或者任何的 &lt;img&gt; 元素');
+        tArea('HTMLVideoElement');
+        lst('用一个 HTML 的  &lt;video&gt; 元素作为你的图片源，可以从视频中抓取当前帧作为一个图像');
+        tArea('HTMLCanvasElement');
+        lst('可以使用另一个  &lt;canvas&gt;  元素作为你的图片源。');
+        tArea('ImageBitmap');
+        lst('这是一个高性能的位图，可以低延迟地绘制，它可以从上述的所有源以及其它几种源中生成。');
+        /*  */
+        SM('绘制图片');
+        tArea('drawImage(image, x, y, [w, h])');
+        lst('其中：');
+        lst(c('image') + ' 是 image 或者 canvas 对象', [111, 'disc', 3]);
+        lst(c('x') + ' 和 ' + c('y') + ' 是其在目标 canvas 里的起始坐标。', [0, 'disc', 3]);
+        lst(c('w') + ' 和 ' + c('h') + ' 是指定元素在 canvas 里的宽高', [0, 'disc', 3]);
+        form_ini_00();
+        /*  */
+        code(`    // 适应图片大小
+    cav.setAttribute('width', '2000');
+    cav.setAttribute('height', '1600');
+    
+    // 缩放 canvas 及定位
+    cav.style.transform = 'scale(0.5)';
+    cav.style.marginLeft =  -cav.clientWidth/6 + 'px';
+    cav.style.marginTop =  -cav.clientHeight/4 + 'px';`);
+
+        code(`var img = new Image();
+    // src 可使用 data:url 格式
+    img.src = './img.png';
+
+    img.onload = () => {
+        if (cav.getContext) {
+            var ctx = cav.getContext('2d');
+            ctx.drawImage(img, 0, 0);
+        }
+    }`);
+    </script>
+    <div class="canvas_wrap">
+        <canvas id="cav" width="2000px" height="1600px">
+            <img src="./img.png" alt="">
+        </canvas>
+    </div>
+    <script>
+        cav.setAttribute('width', '2000');
+        cav.setAttribute('height', '1600');
+        cav.style.transform = 'scale(0.5)';
+        cav.style.marginLeft = -cav.clientWidth / 6 + 'px';
+        cav.style.marginTop = -cav.clientHeight / 4 + 'px';
+        var img = new Image();
+        img.src = './img.png';
+        window.addEventListener('load', () => {
+            if (cav.getContext) {
+                var ctx = cav.getContext('2d');
+                ctx.drawImage(img, 0, 0);
+            }
+        });
+        /*  */
+        addCav(1);
+    </script>
+    <script>
+        LM('缩放图像');
+        code(`var ctx = cav1.getContext('2d');
+    ctx.drawImage(img, 0, 0, img.naturalWidth/5, img.naturalHeight/5);`);
+        /*  */
+        var img = new Image();
+        img.src = './img.png';
+        window.addEventListener('load', () => {
+            if (cav1.getContext) {
+                var ctx = cav1.getContext('2d');
+                ctx.drawImage(img, 0, 0, img.naturalWidth / 5, img.naturalHeight / 5);
+            }
+        })
+        /*  */
+        LM('控制图像的缩放行为');
+        lst('过度缩放图像可能会导致图像模糊或像素化。');
+        lst('您可以通过使用绘图环境的imageSmoothingEnabled属性来控制是否在缩放图像时使用平滑算法。默认值为true，即启用平滑缩放。您也可以像这样禁用此功能：');
+        code(`ctx.mozImageSmoothingEnabled = false;
+ctx.webkitImageSmoothingEnabled = false;
+ctx.msImageSmoothingEnabled = false;
+ctx.imageSmoothingEnabled = false;`);
+    </script>
+    <div class="canvas_wrap"></div>
+    <script>
+        add_normalNode('', ['p', 'normal', '16rem 0']);
+    </script>
+    <script src="../../../../lib/CodeRenderer.js"></script>
+</body>
+
+</html>

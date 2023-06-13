@@ -1,0 +1,56 @@
+using UnityEngine;
+using UnityEngine.UI;
+
+// 强制加入一个 Image 组件
+// 如果没有 Image 组件就自动加上，如果有就直接使用
+[RequireComponent(typeof(Image))]
+[RequireComponent(typeof(CanvasGroup))]
+public class Frame_anim : MonoBehaviour
+{
+    [Header("[Animate Attribute]")]
+    [Tooltip("帧动画所需要的帧序列")] public Sprite[] sprite_frames;
+    [Tooltip("帧动画的间隔时间")] public float duration = 6f;
+    [Tooltip("是否循环播放")] public bool is_loop = false;
+    [Tooltip("是否在加载时自动播放")] public bool autoplay = false;
+    [Tooltip("暂停播放")] public bool stop_playing = false;
+    [Header("[Object Attribute]")]
+    [Tooltip("销毁对象")] public bool destory = false;
+    [Tooltip("透明度")] [Range(0, 1)] public float opacity = 1f;
+    bool is_playing = false;
+    float played_time = 0f;
+    Image img;
+    CanvasGroup Alpha;
+
+    void Start() {
+        img = GetComponent<Image>();
+        Alpha = GetComponent<CanvasGroup>();
+        
+        if (autoplay) {
+            InvokeRepeating("autoplay_loop", 0, duration * Time.deltaTime);
+        }
+    }
+
+    int sprite_index = 0;
+    void autoplay_loop() {
+        img.sprite = sprite_frames[sprite_index];
+        if (!stop_playing) {
+            sprite_index++;
+            if(sprite_index >= sprite_frames.Length) {
+                if (is_loop) {
+                    sprite_index = 0;
+                } else {
+                    img.sprite = sprite_frames[sprite_frames.Length - 1];
+                    CancelInvoke("autoplay_loop");
+                }
+            }
+        }
+    }
+
+    void Update() {
+        /* opacity =  Mathf.Clamp(opacity, 0f, 1f); */
+        Alpha.alpha = opacity;
+        if (destory) {
+            Destroy(gameObject);
+        }
+    }
+}

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2022 笔记整理</title>
+    <link rel="shortcut icon" href="/favicon.png">
+    <script src="lib/jQuery.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #f7f8f9;
+        }
+
+        #request_wrap {
+            width: 80%;
+            margin-left: 10%;
+            margin-top: 1%;
+        }
+
+        .request {
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .request:hover {
+            background-image: -moz-linear-gradient(to right, transparent 10%, #fdfdfd, transparent 90%);
+            background-image: -webkit-linear-gradient(to right, transparent 10%, #fdfdfd, transparent 90%);
+            background-image: linear-gradient(to right, transparent 10%, #fdfdfd, transparent 90%);
+        }
+
+        article {
+            white-space: nowrap;
+            position: absolute;
+            top: 1rem;
+            left: 20%;
+            width: 60%;
+            height: 1.6rem;
+            line-height: 1.6rem;
+            background-color: rgba(0, 0, 0, .3);
+            color: #fff;
+            text-indent: 100%;
+            border-radius: 0.6rem;
+            overflow: hidden;
+        }
+
+        .art_after {
+            background: transparent;
+            color: transparent;
+            top: -100%;
+        }
+    </style>
+</head>
+
+<body>
+    <article>不能逃避，真嗣！</article>
+    <script>
+        let art = document.querySelector('article');
+        art.style.textIndent = document.body.clientWidth + 'px';
+        let art_timer = setInterval(() => {
+            let ari = parseFloat(art.style.textIndent);
+            if (ari <= -document.body.clientWidth) {
+                art.style.transition = '0.6s';
+                art.className = 'art_after'
+                clearInterval(art_timer);
+            }
+            art.style.textIndent = ari - 3 + 'px';
+        }, 15)
+    </script>
+    <h1>2022~2023 笔记整理</h1>
+    <div id="request_wrap"></div>
+    <script>
+        add_req('阿b日志', 'BiliBili_log');
+        add_req('Node.js', 'Node.js');
+        add_req('Electron(项目暂停)', 'Electron');
+        add_req('Ajax(项目暂停)', 'Ajax');
+        add_req('jQuery(项目暂停)', 'jQuery');
+        add_req('Canvas(项目暂停)', 'Canvas', {
+            file_type: 'html',
+            html_file_name: 'index.html'
+        });
+        add_req('日本语(项目暂停)', 'JP', {
+            tit: '日语'
+        });
+        add_req('FFmpeg(项目暂停)', 'FFmpeg', {
+            file_type: 'html',
+            html_file_name: 'project/ffmpeg_bat.html'
+        });
+        add_req('Unity', 'Unity');
+        add_req('C#', 'CSharp');
+        add_req('计算机综合应用基础', 'PC_question');
+        /* add_req('网页设计(题库)', 'DW'); */
+        add_req('MySQL', 'MySQL_learn');
+        // add_req('Vue.js', 'vue');
+        add_req('Vue.js', 'vue', {
+            file_type: 'html',
+            html_file_name: 'index.html'
+        });
+        // add_req('U3D(未开始)', 'U3D');
+        add_req('未归类', 'temp');
+
+        function add_req(n, pn, info) {
+            let inf;
+            info == undefined ? inf = '' : inf = ' data-info="' + JSON.stringify(info).replace(/"/g, "'") + '"';
+            $('#request_wrap').append('<div class="request" data-path="' + pn + '"' + inf + '>' + n + '</div>');
+        }
+        $(function () {
+            $('.request').click(function () {
+                var data = $(this).data('path');
+                let root = $(this).text();
+                let inf = $(this).data('info');
+                let info = {
+                    file_type: '',
+                    html_file_name: '',
+                    tit: ''
+                }
+                inf == undefined ? inf = '' : inf = JSON.parse(inf.replace(/'/g, '"'));
+                for (let i in inf) {
+                    info[i] = inf[i];
+                }
+                let tit = info.tit;
+                if (info.tit == '') {
+                    tit = data;
+                } /* for (let i in ts) { tit += '(' + ts[i].charCodeAt() + ')'; } */
+                if (info.tit != '') {}
+                $.ajax({
+                    type: 'GET',
+                    url: './rsc/response.php',
+                    data: data,
+                    success: function (response) {
+                        let ft = '';
+                        let ht = '';
+                        if (inf.file_type) {
+                            ft = '&file_type=' + inf.file_type;
+                            let fname = '';
+                            inf.html_file_name == undefined ? fname = 'index.html' : fname =
+                                inf.html_file_name;
+                            if (inf.file_type = 'html') {
+                                window.open("./rsc/item/" + data + '/' + fname, "_blank");
+                            } else if (inf.file_type == 'fullPath') {
+                                window.open(fname, "_blank");
+                            }
+                        } else {
+                            if (inf.html_file_name) {
+                                ht = '&html_file_name=' + inf.html_file_name;
+                            }
+                            let newPage = window.open("./rsc/response.php?path=" + data +
+                                ft +
+                                ht + '&tit=' + tit, "_blank");
+                        }
+                    }
+                })
+            })
+        })
+    </script>
+</body>
+
+</html>
