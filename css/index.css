@@ -1,0 +1,334 @@
+* {
+    cursor: default;
+    -webkit-user-drag: none !important;
+    margin: 0;
+    padding: 0.2rem 0;
+    font-size: 24px;
+    font: 400 24px 'Microsoft YaHei';
+}
+
+html {
+    min-width: 26rem;
+}
+
+body {
+    position: relative;
+    top: 0;
+    left: 100%;
+    width: 100%;
+    height: 100%;
+    background-color: #ddd;
+    transition: all 0.6s;
+    overflow: hidden;
+}
+
+ul li {
+    list-style-type: none;
+}
+
+#ctr {
+    position: relative;
+}
+
+#my_suggest,
+#wrap {
+    position: relative;
+    width: 60%;
+    min-width: 24rem;
+    margin: 5% auto;
+    padding: 2.4rem 6rem;
+    padding-top: 1rem;
+    border-radius: 24px;
+    background-color: transparent;
+    transition: all 0.3s;
+}
+
+#wrap {
+    left: 0;
+    transition: all 0.4s;
+}
+
+a,
+a:visited,
+a:first-child div {
+    position: relative;
+    font-style: normal;
+    text-decoration: none;
+    cursor: pointer;
+    color: #071f10;
+    text-indent: 2em;
+    transition: all 0.4s;
+    text-shadow: -0.2rem -0.2rem 0.4rem transparent;
+    z-index: 2;
+}
+
+a:nth-child(2) div {
+    margin: 0;
+    left: 0;
+}
+
+a:nth-child(2) div:hover {
+    letter-spacing: 0.24rem;
+    text-shadow: 0.08rem 0.08rem 0.01rem rgba(60, 255, 0, 0.6) !important;
+}
+
+a:hover {
+    color: #2a008c;
+    text-indent: 4em;
+    text-shadow: 0.06rem 0.06rem 0.02rem rgba(255, 0, 0, .6);
+}
+
+a:first-child div {
+    color: blueviolet;
+    font: 800 1.2rem auto;
+}
+
+a:hover:first-child div {
+    color: #95ecff;
+    text-shadow: none;
+}
+
+p {
+    text-align: center;
+    margin-top: 1.6rem;
+    color: #2233;
+    font-size: 0.6rem;
+}
+
+a>.split_line::after {
+    content: '';
+    position: absolute;
+    top: calc(100% - 2px);
+    /* left: 50%; */
+    left: 10%;
+    width: 0;
+    height: 2px;
+    background: #fff;
+    transition: all 0.3s;
+    z-index: 2;
+}
+
+a>.split_line:hover::after {
+    left: 0;
+    width: 100%;
+}
+
+ul {
+    margin-top: 1rem;
+}
+
+ul li {
+    text-align: right;
+    font-size: 0.6rem;
+    color: #999;
+    padding: 0;
+    transform: scale(1);
+}
+
+a div::selection {
+    color: rgb(253, 89, 157) !important;
+    background: rgb(89, 204, 253) !important;
+}
+
+h2 {
+    margin-top: 1rem;
+}
+
+h2,
+ul li,
+p {
+    moz-user-select: -moz-none;
+    -moz-user-select: none;
+    -o-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.slower,
+.faster {
+    pointer-events: none;
+    position: absolute;
+    box-sizing: border-box;
+    border-radius: 24px 0 0 24px;
+    top: 0;
+    left: 0;
+    width: 50%;
+    height: 100%;
+}
+
+.slower {
+    width: 20%;
+    background: #00000030;
+}
+
+.faster {
+    background: #00000010;
+}
+
+#img_ctrl,
+#class_img,
+#rotate span {
+    position: fixed;
+    z-index: 3;
+}
+
+#class_img {
+    position: absolute;
+    left: 5%;
+    top: 2rem;
+    width: 90%;
+    height: auto;
+    display: none;
+}
+
+#img_ctrl,
+#rotate span {
+    cursor: pointer;
+    font: 400 0.6rem auto;
+    padding: 0.2rem 0.4rem;
+    background-color: #fff;
+    border-radius: 0.4rem;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+#img_ctrl {
+    right: 0.6rem;
+    top: 0.4rem;
+}
+
+#rotate span {
+    padding: 0.6rem 0.8rem;
+    border-radius: 0.6rem;
+    font: 400 0.7rem auto;
+    left: 0.5rem;
+    bottom: 0.6rem;
+}
+
+#my_suggest {
+    left: -100%;
+    box-shadow: 0.64rem 0.324rem 0.32rem 0.06rem rgba(39, 2, 74, 0.25);
+}
+
+#my_suggest h2 {
+    text-align: center;
+    font: 400 1.2rem auto;
+    text-shadow: 0.12rem 0.16rem 0.01rem rgba(207, 132, 189, 0.42);
+    color: rgb(30, 5, 62);
+}
+
+#my_suggest h3 {
+    font: 400 1rem auto;
+}
+
+#my_suggest span {
+    position: relative;
+    left: 2.4rem;
+    font-size: 0.72rem;
+}
+
+#my_suggest span:last-child {
+    display: block;
+    text-align: right;
+    font-size: 0.6rem;
+    color: #2a008c;
+}
+
+.suggest {
+    padding: 0.6rem 0.8rem;
+    color: rgb(50, 11, 95);
+    box-shadow: 0.2rem 0.16rem 0.26rem 0.002rem rgba(21, 138, 138, 0.25);
+}
+
+.warn li {
+    display: inline-block;
+    color: red;
+    font: 400 0.72rem auto;
+}
+
+.web_link *,
+.web_link {
+    font: 400 0.72rem auto;
+}
+
+.pjt_link *,
+.pjt_link {
+    font: 400 0.8rem auto;
+}
+
+#wrap h2 {
+    font: 400 1rem auto;
+}
+
+#my_msg {
+    pointer-events: none;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-drag: none;
+    -webkit-user-drag: none;
+    -moz-user-drag: none;
+    position: fixed;
+    top: 0.2rem;
+    left: 0.4rem;
+    font: 800 12rem auto;
+    color: rgb(217, 63, 63);
+    z-index: 10;
+    opacity: 0.2;
+    transition: all 0.6s;
+}
+
+#bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -2;
+}
+
+
+#bg.blur::before,
+#bg.cover::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url(../img/bg.webp) center no-repeat fixed;
+    background-size: cover;
+    transition: all 0.6s;
+}
+
+#bg.cover::before {
+    filter: blur(0);
+}
+
+#bg.blur::before {
+    filter: blur(0.4rem) brightness(110%) contrast(120%) saturate(140%);
+}
+
+#my_suggest {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(0.2rem);
+    -webkit-backdrop-filter: blur(0.2rem);
+    -moz-backdrop-filter: blur(0.2rem);
+}
+
+.wrap_blur {
+    backdrop-filter: blur(0.1rem);
+    -webkit-backdrop-filter: blur(0.1rem);
+    -moz-backdrop-filter: blur(0.1rem);
+    box-shadow: 0.1rem 0.1rem 0.6rem rgba(255, 255, 255, 0.12) !important;
+}
+
+.wrap_hover {
+    backdrop-filter: blur(0.8rem);
+    -webkit-backdrop-filter: blur(0.8rem);
+    -moz-backdrop-filter: blur(0.8rem);
+    background: rgba(40, 197, 208, 0.12);
+    filter: contrast(120%) brightness(120%) grayscale(50%);
+}
